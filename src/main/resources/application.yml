@@ -1,0 +1,4 @@
+server:
+    port: 8090
+    servlet.context-path: /validator
+logging.level.root: debug
