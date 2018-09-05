@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.yaml.snakeyaml.Yaml;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import java.util.Collections;
 import java.util.Map;
 
 @RestController
@@ -22,8 +25,19 @@ public class ValidatorController {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build().apiInfo(apiInfo());
     }
+
+    
+    private ApiInfo apiInfo() {
+        return new ApiInfo(
+          "This REST API", 
+          "validates yaml, json and xml files", 
+          "API TOS", 
+          "Terms of service", 
+          new Contact("Anand Varkey Philips & Sibi John", "about.me/sibijohn72", "anandvarkey.philips@sc.com"), 
+          "License of API", "API license URL", Collections.emptyList());
+   }
 
 
     @PostMapping("/yaml")
