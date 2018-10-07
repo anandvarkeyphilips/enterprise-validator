@@ -1,6 +1,5 @@
 #!groovy
 node {
-    agent any
 
     // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
     def server = Artifactory.server "varkeys-artifactory"
