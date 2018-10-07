@@ -1,6 +1,6 @@
 #!groovy
 node {
-    tools {
+    tool {
         maven 'Maven-3.5.4'
         jdk 'openjdk:1.8.0.181'
     }
