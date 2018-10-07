@@ -11,7 +11,7 @@ node {
     stage('Clone sources') {
         checkout scm
     }
--
+
     stage('Artifactory configuration') {
         // Tool name from Jenkins configuration
         rtMaven.tool = "Maven-3.5.4"
