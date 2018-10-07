@@ -59,4 +59,11 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>varkeys-artifactory-releases</name>
+            <url>http://40.112.160.129:8081/artifactory/libs-release-local</url>
+        </repository>
+    </distributionManagement>
 </project>
