@@ -1,4 +1,4 @@
-package com.sc.validator.controller;
+package io.exnihilo.validator.controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.PostMapping;
