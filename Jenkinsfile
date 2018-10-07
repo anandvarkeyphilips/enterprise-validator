@@ -7,6 +7,18 @@ node {
     def rtMaven = Artifactory.newMavenBuild()
     def buildInfo
 
+
+    def getCommitSha() {
+      sh "git rev-parse HEAD > .git/current-commit"
+      return readFile(".git/current-commit").trim()
+    }
+
+    def updateGithubCommitStatus(build) {
+      // workaround https://issues.jenkins-ci.org/browse/JENKINS-38674
+      repoUrl = getRepoURL()
+      commitSha = getCommitSha()
+    }
+
     stage('Clone sources') {
         checkout scm
     }
@@ -32,15 +44,6 @@ node {
       return readFile(".git/remote-url").trim()
     }
 
-    def getCommitSha() {
-      sh "git rev-parse HEAD > .git/current-commit"
-      return readFile(".git/current-commit").trim()
-    }
-
-    def updateGithubCommitStatus(build) {
-      // workaround https://issues.jenkins-ci.org/browse/JENKINS-38674
-      repoUrl = getRepoURL()
-      commitSha = getCommitSha()
 
       step([
         $class: 'GitHubCommitStatusSetter',
@@ -56,5 +59,4 @@ node {
           ]
         ]
       ])
-    }
 }
