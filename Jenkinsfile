@@ -1,4 +1,4 @@
-node('linux && ansible') {
+node() {
 
     tools {
         maven 'maven -3.5.4'
