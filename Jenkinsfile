@@ -1,10 +1,7 @@
 #!groovy
 node {
     agent any
-    tools {
-        maven 'Maven-3.5.4'
-        jdk 'openjdk:1.8.0.181'
-    }
+
     // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
     def server = Artifactory.server "varkeys-artifactory"
     // Create an Artifactory Maven instance.
