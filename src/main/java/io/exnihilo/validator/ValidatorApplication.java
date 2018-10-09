@@ -1,7 +1,8 @@
 package io.exnihilo.validator;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.ApplicationPidFileWriter;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -16,6 +17,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class ValidatorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ValidatorApplication.class, args);
+
+        SpringApplicationBuilder app = new SpringApplicationBuilder(ValidatorApplication.class);
+        app.build().addListeners(new ApplicationPidFileWriter());
+        app.run();
     }
 }

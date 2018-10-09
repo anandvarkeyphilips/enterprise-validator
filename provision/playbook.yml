@@ -3,10 +3,12 @@
   hosts: localhost
   connection: local
   tasks:
+  - name: stopping application application
+    command: "packages/bin/stop-{{ APP_NAME }}.sh"
   - name: downloading jar
     get_url:
       force: yes
       url: "{{ ARTIFACT_URL }}"
-      dest: "/tmp/{{ APP_NAME }}.jar"
-  - name: starting application
-    command: "java -jar /tmp/{{ APP_NAME }}.jar"
+      dest: "/packages/apps/{{ APP_NAME }}/{{ APP_NAME }}.jar"
+  - name: starting application application
+    command: "packages/bin/start-{{ APP_NAME }}.sh"

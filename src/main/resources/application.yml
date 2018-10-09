@@ -2,3 +2,5 @@ server:
     port: 8090
     servlet.context-path: /validator
 logging.level.root: info
+spring.pid.fail-on-write-error: true
+spring.pid.file: /packages/config/yaml-validator/yaml-validator.pid
