@@ -4,7 +4,7 @@
   connection: local
   tasks:
   - name: stopping application application
-    command: "packages/bin/stop-{{ APP_NAME }}.sh"
+    command: "/packages/bin/stop-{{ APP_NAME }}.sh"
   - name: downloading jar
     get_url:
       force: yes
@@ -12,4 +12,4 @@
       dest: "/packages/apps/{{ APP_NAME }}/{{ APP_NAME }}.jar"
       mode: 0755
   - name: starting application application
-    command: "packages/bin/start-{{ APP_NAME }}.sh"
+    command: "/packages/bin/start-{{ APP_NAME }}.sh"
