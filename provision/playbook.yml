@@ -1,9 +1,10 @@
 ---
-- name: Install Roles from Galaxy
+- name: Downlaod latest jar and start application
   hosts: localhost
   connection: local
   tasks:
-  - get_url:
+  - name: downloading jar
+    get_url:
       force: yes
       url: "{{ ARTIFACT_URL }}"
       dest: "/tmp/{{ APP_NAME }}.jar"

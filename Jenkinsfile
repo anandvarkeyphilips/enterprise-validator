@@ -41,7 +41,7 @@ node {
           installation: 'ansible 2.4.2.0',
           inventory: 'provision/inventory.ini',
           playbook: 'provision/playbook.yml',
-          sudo: true,
+          sudo: false,
           sudoUser: 'anandvarkeyphilips'
           extras: "-e ARTIFACT_URL=${artifactUrl} -e APP_NAME=${pom.artifactId}"
         }
