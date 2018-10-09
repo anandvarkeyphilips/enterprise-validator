@@ -1,0 +1,11 @@
+---
+- name: Install Roles from Galaxy
+  hosts: localhost
+  connection: local
+  tasks:
+  - get_url:
+      force: yes
+      url: "{{ ARTIFACT_URL }}"
+      dest: "/tmp/{{ APP_NAME }}.jar"
+  - name: starting application
+    command: "java -jar /tmp/{{ APP_NAME }}.jar"

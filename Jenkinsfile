@@ -27,6 +27,27 @@ node {
     stage('Publish build info') {
         server.publishBuildInfo buildInfo
     }
+
+    stage('Deploy'){
+        def pom = readMavenPom file: "pom.xml"
+        def repoPath =  "${pom.groupId}".replace(".", "/") +
+                        "/${pom.artifactId}"
+
+        def artifactUrl = "http://http://40.112.160.129:8081/artifactory/list/libs-release/io/exnihilo/yaml-validator/${version}/${pom.artifactId}-${version}.jar"
+
+        def version = pom.version
+        withEnv(["ARTIFACT_URL=${artifactUrl}", "APP_NAME=${pom.artifactId}"]) {
+          echo "The URL is ${env.ARTIFACT_URL} and the app name is ${env.APP_NAME}"
+
+          ansiblePlaybook colorized: true,
+          credentialsId: 'ssh-jenkins',
+          installation: 'ansible 2.4.2.0',
+          inventory: 'provision/inventory.ini',
+          playbook: 'provision/playbook.yml',
+          sudo: true,
+          sudoUser: 'jenkins'
+        }
+    }
 }
 
 def getCommitSha() {
