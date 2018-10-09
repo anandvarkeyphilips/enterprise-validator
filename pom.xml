@@ -6,7 +6,7 @@
 
     <groupId>io.exnihilo</groupId>
     <artifactId>yaml-validator</artifactId>
-    <version>1.0.1.RELEASE</version>
+    <version>1.0.2.RELEASE</version>
     <packaging>jar</packaging>
 
     <parent>
