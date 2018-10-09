@@ -7,8 +7,7 @@
     shell: "sh /packages/bin/stop-{{ APP_NAME }}.sh"
     args:
       executable: /bin/bash
-      register: start
-
+    register: start
   - debug:
       var: start
       verbosity: 2
