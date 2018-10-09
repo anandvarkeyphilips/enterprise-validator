@@ -10,5 +10,6 @@
       force: yes
       url: "{{ ARTIFACT_URL }}"
       dest: "/packages/apps/{{ APP_NAME }}/{{ APP_NAME }}.jar"
+      mode: 0755
   - name: starting application application
     command: "packages/bin/start-{{ APP_NAME }}.sh"
