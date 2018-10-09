@@ -42,7 +42,7 @@ node {
           inventory: 'provision/inventory.ini',
           playbook: 'provision/playbook.yml',
           sudo: false,
-          sudoUser: 'anandvarkeyphilips'
+          sudoUser: 'anandvarkeyphilips',
           extras: "-e ARTIFACT_URL=${artifactUrl} -e APP_NAME=${pom.artifactId}"
         }
     }
