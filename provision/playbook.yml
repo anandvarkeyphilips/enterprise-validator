@@ -9,7 +9,7 @@
       executable: /bin/bash
     register: start
   - debug:
-      var: start
+      var: start.stdout_lines
       verbosity: 2
   - name: downloading jar
     get_url:
@@ -23,5 +23,5 @@
       executable: /bin/bash
     register: stop
   - debug:
-      var: stop
+      var: stop.stdout_lines
       verbosity: 2
