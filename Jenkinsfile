@@ -30,12 +30,10 @@ node {
 
     stage('Deploy'){
         def pom = readMavenPom file: "pom.xml"
-        def repoPath =  "${pom.groupId}".replace(".", "/") +
-                        "/${pom.artifactId}"
-
+        def repoPath =  "${pom.groupId}".replace(".", "/") + "/${pom.artifactId}"
+        def version = pom.version
         def artifactUrl = "http://http://40.112.160.129:8081/artifactory/list/libs-release/io/exnihilo/yaml-validator/${version}/${pom.artifactId}-${version}.jar"
 
-        def version = pom.version
         withEnv(["ARTIFACT_URL=${artifactUrl}", "APP_NAME=${pom.artifactId}"]) {
           echo "The URL is ${env.ARTIFACT_URL} and the app name is ${env.APP_NAME}"
 
