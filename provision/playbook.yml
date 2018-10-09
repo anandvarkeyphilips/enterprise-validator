@@ -10,13 +10,12 @@
     register: start
   - debug:
       var: start.stdout_lines
-      verbosity: 2
   - name: downloading jar
     get_url:
       force: yes
       url: "{{ ARTIFACT_URL }}"
       dest: "/packages/apps/{{ APP_NAME }}/{{ APP_NAME }}.jar"
-      mode: 0755
+      mode: 0777
   - name: starting application application
     shell: "sh /packages/bin/start-{{ APP_NAME }}.sh"
     args:
@@ -24,4 +23,3 @@
     register: stop
   - debug:
       var: stop.stdout_lines
-      verbosity: 2
