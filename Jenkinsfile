@@ -29,7 +29,7 @@ node {
 
     stage('Deploy'){
         def pom = readMavenPom file: "pom.xml",buildType
-        if(pom.version.contains(".RELEASE"){
+        if(pom.version.contains(".RELEASE")){
             buildType = "libs-release"
         }else{
             buildType = "libs-snapshot"
