@@ -39,7 +39,6 @@ node {
 
         withEnv(["ANSIBLE_HOST_KEY_CHECKING=False"]) {
           ansiblePlaybook colorized: true,
-
           installation: 'ansible 2.4.2.0',
           inventory: 'provision/inventory.ini',
           playbook: 'provision/playbook.yml',
