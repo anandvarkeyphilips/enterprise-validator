@@ -28,13 +28,13 @@ node {
     }
 
     stage('Deploy'){
-        def pom = readMavenPom file: "pom.xml",buildType
+        def pom = readMavenPom file: "pom.xml"
+        def buildType,groupIdFormatted="${pom.groupId}".replace(".", "/"), artifactVersion=${pom.version}
         if(pom.version.contains(".RELEASE")){
             buildType = "libs-release"
         }else{
             buildType = "libs-snapshot"
         }
-        def groupIdFormatted =  "${pom.groupId}".replace(".", "/"), artifactVersion=${pom.version}
         def packaging=${pom.packaging}, artifactPath="${buildType}/${groupIdFormatted}/${artifactId}/${artifactVersion}"
 
         withEnv(["ANSIBLE_HOST_KEY_CHECKING=False"]) {
