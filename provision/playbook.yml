@@ -1,5 +1,6 @@
 ---
-- hosts: sit
+- name: Downlaod latest artifact and restart application
+  hosts: sit
 
   tasks:
     - name: Backuping existing files to {{package_dir}}/{{artifactId}}-backup
