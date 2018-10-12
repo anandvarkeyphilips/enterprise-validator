@@ -43,8 +43,6 @@ node {
           installation: 'ansible 2.4.2.0',
           inventory: 'provision/inventory.ini',
           playbook: 'provision/playbook.yml',
-          sudo: false,
-          sudoUser: 'anandvarkeyphilips',
           extras: "-e ansible_host_key_checking=False -e artifactPath=${artifactPath} -e artifactId=${artifactId} -e artifactVersion=${artifactVersion} -e packaging=${packaging}"
         }
     }
