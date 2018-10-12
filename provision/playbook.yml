@@ -1,6 +1,5 @@
 ---
-- name: Downlaod latest jar and start application
-  hosts: sit
+- hosts: sit
 
   tasks:
     - name: Backuping existing files to {{package_dir}}/{{artifactId}}-backup
