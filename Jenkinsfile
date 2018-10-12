@@ -39,7 +39,7 @@ node {
 
         withEnv(["ANSIBLE_HOST_KEY_CHECKING=False"]) {
           ansiblePlaybook colorized: true,
-          credentialsId: 'varkeys-rhel-jenkins.westus.cloudapp.azure.com',
+
           installation: 'ansible 2.4.2.0',
           inventory: 'provision/inventory.ini',
           playbook: 'provision/playbook.yml',
