@@ -7,7 +7,6 @@ node {
     def rtMaven = Artifactory.newMavenBuild()
     def buildInfo
 
-
     stage('Clone sources') {
         checkout scm
     }
@@ -29,21 +28,24 @@ node {
     }
 
     stage('Deploy'){
-        def pom = readMavenPom file: "pom.xml"
-        def repoPath =  "${pom.groupId}".replace(".", "/") + "/${pom.artifactId}"
-        def version = pom.version
-        def artifactUrl = "http://40.112.160.129:8081/artifactory/list/libs-release/io/exnihilo/yaml-validator/${version}/${pom.artifactId}-${version}.jar"
+        def pom = readMavenPom file: "pom.xml",buildType
+        if(pom.version.contains(".RELEASE"){
+            buildType = "libs-release"
+        }else{
+            buildType = "libs-snapshot"
+        }
+        def groupIdFormatted =  "${pom.groupId}".replace(".", "/"), artifactVersion=${pom.version}
+        def packaging=${pom.packaging}, artifactPath="${buildType}/${groupIdFormatted}/${artifactId}/${artifactVersion}"
 
-        withEnv(["ARTIFACT_URL=${artifactUrl}", "APP_NAME=${pom.artifactId}"]) {
-          echo "The URL is ${env.ARTIFACT_URL} and the app name is ${env.APP_NAME}"
+        withEnv(["ANSIBLE_HOST_KEY_CHECKING=False"]) {
           ansiblePlaybook colorized: true,
-          credentialsId: 'ssh-jenkins',
+          credentialsId: 'varkeys-rhel-jenkins.westus.cloudapp.azure.com',
           installation: 'ansible 2.4.2.0',
           inventory: 'provision/inventory.ini',
           playbook: 'provision/playbook.yml',
           sudo: false,
           sudoUser: 'anandvarkeyphilips',
-          extras: "-e ARTIFACT_URL=${artifactUrl} -e APP_NAME=${pom.artifactId}"
+          extras: "-e artifactPath=${artifactPath} -e artifactId=${artifactId} -e artifactVersion=${artifactVersion} -e packaging=${packaging}"
         }
     }
 }
