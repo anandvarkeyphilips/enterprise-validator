@@ -45,7 +45,7 @@ node {
           playbook: 'provision/playbook.yml',
           sudo: false,
           sudoUser: 'anandvarkeyphilips',
-          extras: "-e artifactPath=${artifactPath} -e artifactId=${artifactId} -e artifactVersion=${artifactVersion} -e packaging=${packaging}"
+          extras: "-e host_key_checking=False -e artifactPath=${artifactPath} -e artifactId=${artifactId} -e artifactVersion=${artifactVersion} -e packaging=${packaging}"
         }
     }
 }
