@@ -30,7 +30,7 @@
       async_status:
         jid: "{{stop_script_sleeper}}.ansible_job_id"
       register: stop_instance_job_result
-      until: stop_instance_job_result.finished
+      until: stop_script_sleeper.finished
       delay: 5 #Check every 5 seconds
       retries: 60 #Retry up to 60 times
     - debug: var=stop_instance_job_result.stdout_lines
@@ -39,7 +39,7 @@
       async_status:
         jid: "{{get_url_sleeper}}.ansible_job_id"
       register: artifact_download_job_result
-      until: artifact_download_job_result.finished
+      until: get_url_sleeper.finished
       delay: 5 #Check every 5 seconds
       retries: 60 #Retry up to 60 times
 
