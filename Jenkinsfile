@@ -42,7 +42,7 @@ node {
           installation: 'ansible 2.7.0',
           inventory: 'provision/inventory.ini',
           playbook: 'provision/playbook.yml',
-          extras: "--become-user=anandvarkeyphilips -vvv -e ansible_host_key_checking=False -e artifactPath=${artifactPath} -e artifactId=${artifactId} -e artifactVersion=${artifactVersion} -e packaging=${packaging}"
+          extras: "-b --become-user=anandvarkeyphilips -vvv -e ansible_host_key_checking=False -e artifactPath=${artifactPath} -e artifactId=${artifactId} -e artifactVersion=${artifactVersion} -e packaging=${packaging}"
         }
     }
 }
