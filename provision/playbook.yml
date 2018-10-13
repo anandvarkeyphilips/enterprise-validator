@@ -31,7 +31,7 @@
 
     - name: Checking if stopping the current instance is completed
       async_status:
-        jid: "{{stop_script_sleeper}}.ansible_job_id"
+        jid: "{{stop_script_sleeper.ansible_job_id}}"
       register: stop_instance_job_result
       until: stop_instance_job_result.finished
       delay: 5 #Check every 5 seconds
@@ -40,7 +40,7 @@
 
     - name: Checking if Downloading the artifact is completed
       async_status:
-        jid: "{{get_url_sleeper}}.ansible_job_id"
+        jid: "{{get_url_sleeper.ansible_job_id}}"
       register: artifact_download_job_result
       until: artifact_download_job_result.finished
       delay: 5 #Check every 5 seconds
