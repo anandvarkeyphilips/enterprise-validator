@@ -1,8 +1,6 @@
 ---
 - name: Download latest artifact and restart the application
   hosts: sit
-  connection: local
-  remote_user: anandvarkeyphilips
 
   tasks:
     - name: Backuping existing files to {{package_dir}}/{{artifactId}}-backup
