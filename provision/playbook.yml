@@ -47,8 +47,8 @@
       retries: 60 #Retry up to 60 times
 
     - name: Starting the application instance if no other instance with same profile is running
-      shell: "{{root_dir}}/bin/stop-{{artifactId}}.sh"
-      register: stop_script_sleeper
+      shell: "{{root_dir}}/bin/start-{{artifactId}}.sh"
+      register: start_script_sleeper
       args:
         executable: /bin/bash
-    - debug: var=stop_script_sleeper.stdout_lines
+    - debug: var=start_script_sleeper.stdout_lines
