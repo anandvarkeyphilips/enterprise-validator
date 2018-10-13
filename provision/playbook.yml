@@ -3,6 +3,10 @@
   hosts: sit
 
   tasks:
+    - command: whoami
+      register: whoami
+    - debug: var=whoami.stdout
+
     - name: Backuping existing files to {{package_dir}}/{{artifactId}}-backup
       command: rsync --remove-source-files --ignore-times --delete --recursive --times {{package_dir}}/{{artifactId}}/ {{package_dir}}/{{artifactId}}-backup/
 
