@@ -38,7 +38,7 @@ node {
         def packaging=pom.packaging, artifactPath="${buildType}/${groupIdFormatted}/${artifactId}/${artifactVersion}"
 
         withEnv(["ANSIBLE_HOST_KEY_CHECKING=False"]) {
-          ansiblePlaybook credentialsId: 'varkeys-rhel-jenkins.westus.cloudapp.azure.com',
+          ansiblePlaybook credentialsId: 'varkeys-rhel-jenkins-password',
           installation: 'ansible 2.7.0',
           inventory: 'provision/inventory.ini',
           playbook: 'provision/playbook.yml',
