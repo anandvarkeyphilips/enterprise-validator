@@ -1,5 +1,5 @@
 ---
-- name: Downlaod latest artifact and restart application
+- name: Download latest artifact and restart the application
   hosts: sit
   connection: local
   remote_user: anandvarkeyphilips
