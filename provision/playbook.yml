@@ -17,17 +17,17 @@
         dest: "{{package_dir}}/{{artifactId}}/{{artifactId}}-{{artifactVersion}}.{{packaging}}"
         validate_certs: no
         mode: 0744
-      register: get_url_sleeper
       async: 350 #350 secs- Maximum runtime in Seconds
       poll: 0 #Fire and Forget (never poll}
+      register: get_url_sleeper
 
     - name: Stopping the current instance if any
       shell: "{{root_dir}}/bin/stop-{{artifactId}}.sh"
       args:
         executable: /bin/bash
-      register: stop_script_sleeper
       async: 350 #350 secs- Maximum runtime in Seconds
-      poll: 1 #Fire and Forget (never poll}
+      poll: 0 #Fire and Forget (never poll}
+      register: stop_script_sleeper
 
     - name: Checking if stopping the current instance is completed
       async_status:
