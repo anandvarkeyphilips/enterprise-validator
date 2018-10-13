@@ -39,7 +39,7 @@ node {
 
         withEnv(["ANSIBLE_HOST_KEY_CHECKING=False"]) {
           ansiblePlaybook credentialsId: 'varkeys-rhel-jenkins.westus.cloudapp.azure.com',
-          installation: 'ansible 2.4.2.0',
+          installation: 'ansible 2.7.0',
           inventory: 'provision/inventory.ini',
           playbook: 'provision/playbook.yml',
           extras: "-vvv -e ansible_host_key_checking=False -e artifactPath=${artifactPath} -e artifactId=${artifactId} -e artifactVersion=${artifactVersion} -e packaging=${packaging}"
