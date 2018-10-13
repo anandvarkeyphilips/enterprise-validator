@@ -27,7 +27,7 @@
         executable: /bin/bash
       register: stop_script_sleeper
       async: 350 #350 secs- Maximum runtime in Seconds
-      poll: 0 #Fire and Forget (never poll}
+      poll: 1 #Fire and Forget (never poll}
 
     - name: Checking if stopping the current instance is completed
       async_status:
