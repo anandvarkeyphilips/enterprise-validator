@@ -32,10 +32,10 @@ public class ValidatorController {
     private ApiInfo apiInfo() {
         return new ApiInfo(
           "This REST API", 
-          "validates yaml, json and xml files", 
+          "Validates yaml, json and xml files. Hi Raymund!!",
           "API TOS", 
           "Terms of service", 
-          new Contact("Anand Varkey Philips & Sibi John", "about.me/sibijohn72", "anandvarkey.philips@sc.com"), 
+          new Contact("Anand Varkey Philips", "about.me/anandvarkeyphilips", "anandvarkey.philips@gmail.com"),
           "License of API", "API license URL", Collections.emptyList());
    }
 
