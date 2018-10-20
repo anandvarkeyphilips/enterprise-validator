@@ -44,10 +44,6 @@ public class ValidatorController {
     public String validateYAML(@RequestBody String yamlData) {
 
         Yaml yaml = new Yaml();
-        /*InputStream inputStream = this.getClass()
-                .getClassLoader()
-                .getResourceAsStream("customer.yaml");
-        Map<String, Object> obj = yaml.load(inputStream);*/
         try {
             Map<String, Object> obj = yaml.load(yamlData);
             System.out.println(obj);
