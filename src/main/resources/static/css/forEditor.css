@@ -1,0 +1,14 @@
+body {
+    overflow: hidden;
+}
+#editor{
+    position: relative;
+    margin: 0;
+    top:  0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+.failedGutter{
+    background-color: #d60e0e;
+}
