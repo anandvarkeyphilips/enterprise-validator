@@ -21,8 +21,9 @@
 <section class="hero is-light">
     <div class="hero-body">
         <div class="container">
-            <p class="title">YAML Validator</p>
+            <p class="title">Enterprise YAML Validator</p>
             <p class="subtitle">
+            Now you can validate YAML easily!! It's optimized for Spring Boot Snake YAML validtions.
             </p>
         </div>
     </div>

@@ -1,4 +1,11 @@
-var initialData = `test`;
+var initialData = `server:
+    port: 8090
+    servlet.context-path: /validator
+logging:
+  level.root: info
+  file: /packages/logs/yaml-validator/yaml-validator.log
+spring.pid.fail-on-write-error: true
+spring.pid.file: /packages/config/yaml-validator/yaml-validator.pid`;
 
 $(document).ready(function() {
     var errorLineNumber = 0;
