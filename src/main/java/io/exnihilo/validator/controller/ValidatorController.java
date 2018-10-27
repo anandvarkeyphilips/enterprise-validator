@@ -32,7 +32,7 @@ public class ValidatorController {
     private ApiInfo apiInfo() {
         return new ApiInfo(
           "This REST API", 
-          "Validates yaml, json and xml files. Hi Raymund!!",
+          "Validates yaml, json and xml files. Hi!!",
           "API TOS", 
           "Terms of service", 
           new Contact("Anand Varkey Philips", "about.me/anandvarkeyphilips", "anandvarkey.philips@gmail.com"),
