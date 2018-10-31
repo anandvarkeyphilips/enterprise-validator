@@ -6,7 +6,7 @@
 
     <groupId>io.exnihilo</groupId>
     <artifactId>yaml-validator</artifactId>
-    <version>2.0.1.RELEASE</version>
+    <version>2.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -72,11 +72,4 @@
             </plugin>
         </plugins>
     </build>
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>varkeys-artifactory-releases</name>
-            <url>http://40.112.160.129:8081/artifactory/libs-release-local</url>
-        </repository>
-    </distributionManagement>
 </project>
