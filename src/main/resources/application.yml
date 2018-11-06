@@ -1,9 +1,9 @@
 server:
     port: 9090
-    servlet.context-path: /validator
+    servlet.context-path: /validator-microservice
 logging:
   level.root: info
   level.io.exnihilo: debug
-  file: /packages/logs/yaml-editor/yaml-editor.log
+  file: /packages/logs/validator-microservice/validator-microservice.log
 spring.pid.fail-on-write-error: true
-spring.pid.file: /packages/config/yaml-editor/yaml-editor.pid
+spring.pid.file: /packages/config/validator-microservice/validator-microservice.pid
