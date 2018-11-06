@@ -10,5 +10,5 @@ body {
     right: 0px;
 }
 .failedGutter{
-    background-color: #d60e0e;
+    background-color: #d60e0e !important;
 }

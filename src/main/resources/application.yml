@@ -1,8 +1,9 @@
 server:
-    port: 8090
+    port: 9090
     servlet.context-path: /validator
 logging:
   level.root: info
-  file: /packages/logs/yaml-validator/yaml-validator.log
+  level.io.exnihilo: debug
+  file: /packages/logs/yaml-editor/yaml-editor.log
 spring.pid.fail-on-write-error: true
-spring.pid.file: /packages/config/yaml-validator/yaml-validator.pid
+spring.pid.file: /packages/config/yaml-editor/yaml-editor.pid

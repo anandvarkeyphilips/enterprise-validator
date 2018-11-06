@@ -17,7 +17,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class ValidatorApplication {
 
     public static void main(String[] args) {
-
         SpringApplicationBuilder app = new SpringApplicationBuilder(ValidatorApplication.class);
         app.build().addListeners(new ApplicationPidFileWriter());
         app.run();

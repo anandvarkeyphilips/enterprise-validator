@@ -9,13 +9,13 @@ Latest version as of 27-10-2018 is 2.0.1.RELEASE
 
 [comment]: # (REPLACE ME: Add a Getting Started guide)
 
-Enterprise YAML validator is better than [http://www.yamllint.com] http://www.yamllint.com
+Enterprise YAML validator is better than http://www.yamllint.com.
 Enterprise YAML Validator follows YAML spec, support multiple doc feature which is not supported my YAML Lint.
 Also, now you dont have to use https://www.base64decode.org/,
 This app also supports Decode from and to Base64 format.
 
 Here's the working version of the Application hosted in Microsoft Azure Cloud:
-[http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8090/validator/forEditor] (http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8090/validator/forEditor)
+http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:9090/validator/editor
 
 ![Alt text](enterprise-yaml-validator-image.PNG?raw=true "Enterprise YAML Validator")
 
@@ -24,14 +24,14 @@ Here's the working version of the Application hosted in Microsoft Azure Cloud:
  * spring-boot-starter-freemarker
  * springfox-swagger2, springfox-swagger-ui
  * snakeyaml, lombok, jackson-databind, spring-boot-test
-[comment]: # (REPLACE ME: Add Initial requirements like JDK version, IDE, etc)
+
 
 ### How to?
 [comment]: # (REPLACE ME: Add your confluence page in below format)
-Click on "BASE 64Encode" to encode to Base64 format.
-Click on "BASE 64Encode" to decode from Base64 format.
-Click on "Validate YAML" to validate YAML data.
-Click on "Share YAML" to share the YAML data through Outlook Mail.
+* Click on "BASE 64Encode" to encode to Base64 format.
+* Click on "BASE 64Encode" to decode from Base64 format.
+* Click on "Validate YAML" to validate YAML data.
+* Click on "Share YAML" to share the YAML data through Outlook Mail.
 
 
 ### Jira
