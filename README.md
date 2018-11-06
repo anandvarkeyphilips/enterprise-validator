@@ -3,7 +3,7 @@
 
 [comment]: # (REPLACE ME: Add Brief description of your service)
 
-Latest version as of 27-10-2018 is 2.0.4.RELEASE
+Latest version as of 07-11-2018 is 2.0.4.RELEASE
 
 ### Getting Started
 
@@ -47,7 +47,15 @@ Please contact: [Anand Varkey Philips] (anandvarkeyphilips@gmail.com) (Anand Var
 ### Change Log
 [comment]: # (REPLACE ME: Add the changelog in below format)
 
-* Version 2.*-RELEASE
+* Version 2.0.4-RELEASE
+
+> Released *[07/11/2018]* : 2.0.4.RELEASE
+>
+> Changes includes the following:
+>
+> 1. Added JSON validation and Formatting capabilities.
+
+* Version 2.0.0-RELEASE
 
 > Released *[27/10/2018]* : 2.0.0.RELEASE
 >
