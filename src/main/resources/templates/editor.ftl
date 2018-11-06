@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bulma.css">
-    <link rel="stylesheet" href="css/forEditor.css">
+    <link rel="stylesheet" href="css/editor.css">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/forEditor.js"></script>
+    <script type="text/javascript" src="js/editor.js"></script>
     <script type="text/javascript" src="js/ace-noconflict/ace.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/ace-noconflict/mode-yaml.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/ace-noconflict/theme-idle_fingers.js" charset="utf-8"></script>
@@ -33,7 +33,9 @@
         <form class="form-inline" data-toggle="validator" role="form">
             <button type="button" id="encodeData" class="btn btn-primary">BASE64 Encode</button>
             <button type="button" id="decodeData" class="btn btn-warning">BASE64 Decode</button>
-            <button type="button" id="validateData" class="btn btn-success">Validate YAML</button>
+            <button type="button" id="validateYamlData" class="btn btn-success">Validate YAML</button>
+            <button type="button" id="validateJsonData" class="btn btn-success">Validate JSON</button>
+            <button type="button" id="formatJsonData" class="btn btn-success">Format JSON</button>
             <button type="button" id="shareByEmail" class="btn btn-info">Share YAML</button>
             <div class="form-group" style="min-width: 100%">
                     <pre id="editor" style="height:75vh;">
