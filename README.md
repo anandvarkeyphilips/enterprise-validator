@@ -1,29 +1,30 @@
 
-# Welcome to Enterprise YAML Validator
+# Welcome to Enterprise Validator Suite
 
 [comment]: # (REPLACE ME: Add Brief description of your service)
 
-Latest version as of 27-10-2018 is 2.0.1.RELEASE
+Latest version as of 07-11-2018 is 2.0.4.RELEASE
 
 ### Getting Started
 
 [comment]: # (REPLACE ME: Add a Getting Started guide)
 
-Enterprise YAML validator is better than http://www.yamllint.com.
-Enterprise YAML Validator follows YAML spec, support multiple doc feature which is not supported my YAML Lint.
+YAML validator is better than http://www.yamllint.com.
+YAML Validator follows YAML spec, support multiple doc feature which is not supported my YAML Lint.
+JSON validator and formatter follows the JSON spec at http://json.org/.
 Also, now you dont have to use https://www.base64decode.org/,
 This app also supports Decode from and to Base64 format.
 
 Here's the working version of the Application hosted in Microsoft Azure Cloud:
-http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:9090/validator/editor
+  http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:9090/validator/editor
 
-![Alt text](enterprise-yaml-validator-image.PNG?raw=true "Enterprise YAML Validator")
+![Alt text](enterprise-validator-suite-image.PNG?raw=true "Enterprise Validator Suite")
 
 ### Recipe Ingredients
  * spring-boot-starter-web
  * spring-boot-starter-freemarker
  * springfox-swagger2, springfox-swagger-ui
- * snakeyaml, lombok, jackson-databind, spring-boot-test
+ * org.json,snakeyaml, lombok, jackson-databind, spring-boot-test
 
 
 ### How to?
@@ -31,7 +32,9 @@ http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:9090/validator/editor
 * Click on "BASE 64Encode" to encode to Base64 format.
 * Click on "BASE 64Encode" to decode from Base64 format.
 * Click on "Validate YAML" to validate YAML data.
-* Click on "Share YAML" to share the YAML data through Outlook Mail.
+* Click on "Validate JSON" to validate JSON data.
+* Click on "Format YAML" to format JSON data.
+* Click on "Share Data" to share the data through configured Mailing App.
 
 
 ### Jira
@@ -44,7 +47,15 @@ Please contact: [Anand Varkey Philips] (anandvarkeyphilips@gmail.com) (Anand Var
 ### Change Log
 [comment]: # (REPLACE ME: Add the changelog in below format)
 
-* Version 2.*-RELEASE
+* Version 2.0.4-RELEASE
+
+> Released *[07/11/2018]* : 2.0.4.RELEASE
+>
+> Changes includes the following:
+>
+> 1. Added JSON validation and Formatting capabilities.
+
+* Version 2.0.0-RELEASE
 
 > Released *[27/10/2018]* : 2.0.0.RELEASE
 >
@@ -52,6 +63,7 @@ Please contact: [Anand Varkey Philips] (anandvarkeyphilips@gmail.com) (Anand Var
 >
 > 1. Added front end-web page for Enterprise YAML Validator.
 > 2. Made it a complete standalone microservie app.
+> 3. Added JSON validation and Formatting capabilities.
 
 * Version 1.*-RELEASE
 

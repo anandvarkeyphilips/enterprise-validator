@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enterprise YAML Validator</title>
+    <title>Enterprise Validator Suite</title>
     <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -21,9 +21,10 @@
 <section class="hero is-light">
     <div class="hero-body">
         <div class="container">
-            <p class="title">Enterprise YAML Validator</p>
+            <p class="title">Enterprise Validator Suite</p>
             <p class="subtitle">
-            Now you can validate YAML easily!! It's optimized for Spring Boot Snake YAML validtions.
+                Now you can validate JSON and YAML easily!! YAML validator is better than <a href="http://www.yamllint.com">YAML Lint</a>.
+                JSON validator and formatter follows the JSON spec at <a href="http://json.org/">JSON.org</a>.
             </p>
         </div>
     </div>
@@ -36,7 +37,7 @@
             <button type="button" id="validateYamlData" class="btn btn-success">Validate YAML</button>
             <button type="button" id="validateJsonData" class="btn btn-success">Validate JSON</button>
             <button type="button" id="formatJsonData" class="btn btn-success">Format JSON</button>
-            <button type="button" id="shareByEmail" class="btn btn-info">Share YAML</button>
+            <button type="button" id="shareByEmail" class="btn btn-info">Share Data</button>
             <div class="form-group" style="min-width: 100%">
                     <pre id="editor" style="height:75vh;">
                     </pre>
