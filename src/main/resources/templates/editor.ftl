@@ -37,6 +37,7 @@
             <button type="button" id="validateYamlData" class="btn btn-success">Validate YAML</button>
             <button type="button" id="validateJsonData" class="btn btn-success">Validate JSON</button>
             <button type="button" id="formatJsonData" class="btn btn-success">Format JSON</button>
+            <button type="button" id="formatXmlData" class="btn btn-success">Format XML</button>
             <button type="button" id="shareByEmail" class="btn btn-info">Share Data</button>
             <div class="form-group" style="min-width: 100%">
                     <pre id="editor" style="height:75vh;">

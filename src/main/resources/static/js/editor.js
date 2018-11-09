@@ -33,8 +33,11 @@ $(document).ready(function() {
     $("#validateJsonData").click(function() {
         ajaxCall("json","Valid JSON!!!");
     });
-     $("#formatJsonData").click(function() {
+    $("#formatJsonData").click(function() {
         ajaxCall("formatJson","Valid JSON!!!");
+    });
+    $("#formatXmlData").click(function() {
+        ajaxCall("formatXml","Formatted XML!!!");
     });
     $("#shareByEmail").click(function() {
         if (editor.getValue().length > 2000) {

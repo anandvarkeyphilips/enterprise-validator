@@ -78,4 +78,19 @@ public class EditorController {
         log.debug("Calling formatJsonController...");
         return new ResponseEntity<Object>(validatorService.formatJsonService(validationEntity.getValidationMessage()), HttpStatus.OK);
     }
+
+    /**
+     * A pre-configured sample REST endpoint to demonstrate the use of Request Parameter.
+     *
+     * @param validationEntity
+     * @return validation result
+     */
+    @PostMapping("/formatXml")
+    @ApiOperation(
+            value = "API for formatting the XML Data",
+            notes = "This API formats XML data input.The API is in beta phase..")
+    public ResponseEntity<?> formatXmlController(@RequestBody ValidationEntity validationEntity) {
+        log.debug("Calling formatXmlController...");
+        return new ResponseEntity<Object>(validatorService.formatXmlService(validationEntity.getValidationMessage()), HttpStatus.OK);
+    }
 }
