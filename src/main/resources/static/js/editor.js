@@ -15,9 +15,8 @@ $(document).ready(function() {
     editor.setTheme("ace/theme/idle_fingers");
     yamlMode = ace.require("ace/mode/yaml").Mode;
     editor.session.setMode(new yamlMode());
-    editor.setValue(initialData, 0);
+        editor.setValue(initialData, 0);
     editor.clearSelection();
-    editor.focus();
 
     $("#encodeData").click(function() {
         editor.setValue(btoa(editor.getValue()));

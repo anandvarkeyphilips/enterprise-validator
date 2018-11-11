@@ -20,12 +20,18 @@
 <body>
 <section class="hero is-light">
     <div class="hero-body">
-        <div class="container">
-            <p class="title">Enterprise Validator Suite</p>
-            <p class="subtitle">
-                Now you can validate JSON and YAML easily!! YAML validator is better than <a href="http://www.yamllint.com">YAML Lint</a>.
-                JSON validator and formatter follows the JSON spec at <a href="http://json.org/">JSON.org</a>.
-            </p>
+        <div class="container columns">
+            <figure class="image is-128x128">
+              <img src="favicon-256.png">
+            </figure>
+            <div style="padding-left: 10px;">
+                <p class="title">Enterprise Validator Suite</p>
+                <p class="subtitle">
+                    Now you can validate JSON and YAML easily!!<br />
+                    A YAML validator better than the <a href="http://www.yamllint.com">YAML Lint</a>.<br />
+                    A JSON validator and formatter that follows the JSON spec at <a href="http://json.org/">JSON.org</a>.
+                </p>
+            </div>
         </div>
     </div>
 </section>
