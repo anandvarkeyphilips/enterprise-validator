@@ -2,6 +2,7 @@ package io.exnihilo.validator.entity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -15,10 +16,11 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Builder
+@EqualsAndHashCode
 @Component
 @Scope(value = "prototype", proxyMode = ScopedProxyMode.INTERFACES)
 public class ValidationEntity {
-    private boolean isValid;
+    private boolean valid;
     private int lineNumber;
     private int columnNumber;
     private String validationMessage;

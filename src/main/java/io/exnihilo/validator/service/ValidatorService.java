@@ -51,6 +51,7 @@ public class ValidatorService {
             log.debug("YAML Value obtained successfully: {}", obj.toString());
             validationEntity.setValidationMessage("Valid YAML!!!");
         } catch (Exception e) {
+            validationEntity.setValid(false);
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
@@ -82,6 +83,7 @@ public class ValidatorService {
             log.debug("JSON Value obtained successfully: {}", indentedJson);
             validationEntity.setValidationMessage("Valid JSON!!!");
         } catch (JSONException e) {
+            validationEntity.setValid(false);
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
@@ -114,6 +116,7 @@ public class ValidatorService {
             validationEntity.setInputMessage(indentedJson);
             validationEntity.setValidationMessage("Valid JSON!!!");
         } catch (JSONException e) {
+            validationEntity.setValid(false);
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
@@ -155,6 +158,7 @@ public class ValidatorService {
             validationEntity.setInputMessage(writer.writeToString(document));
             validationEntity.setValidationMessage("Formatted XML!!!");
         } catch (Exception e) {
+            validationEntity.setValid(false);
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {

@@ -46,7 +46,7 @@ public class EditorController {
             notes = "This API validates YAML data input.The API is in beta phase..")
     public ResponseEntity<?> validateYamlController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling validateYamlController...");
-        return new ResponseEntity<Object>(validatorService.validateYamlService(validationEntity.getValidationMessage()), HttpStatus.OK);
+        return new ResponseEntity<Object>(validatorService.validateYamlService(validationEntity.getInputMessage()), HttpStatus.OK);
     }
 
     /**
@@ -61,7 +61,7 @@ public class EditorController {
             notes = "This API validates JSON data input.The API is in beta phase..")
     public ResponseEntity<?> validateJsonController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling validateJsonController...");
-        return new ResponseEntity<Object>(validatorService.validateJsonService(validationEntity.getValidationMessage()), HttpStatus.OK);
+        return new ResponseEntity<Object>(validatorService.validateJsonService(validationEntity.getInputMessage()), HttpStatus.OK);
     }
 
     /**
@@ -76,7 +76,7 @@ public class EditorController {
             notes = "This API formats JSON data input.The API is in beta phase..")
     public ResponseEntity<?> formatJsonController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling formatJsonController...");
-        return new ResponseEntity<Object>(validatorService.formatJsonService(validationEntity.getValidationMessage()), HttpStatus.OK);
+        return new ResponseEntity<Object>(validatorService.formatJsonService(validationEntity.getInputMessage()), HttpStatus.OK);
     }
 
     /**
@@ -91,6 +91,6 @@ public class EditorController {
             notes = "This API formats XML data input.The API is in beta phase..")
     public ResponseEntity<?> formatXmlController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling formatXmlController...");
-        return new ResponseEntity<Object>(validatorService.formatXmlService(validationEntity.getValidationMessage()), HttpStatus.OK);
+        return new ResponseEntity<Object>(validatorService.formatXmlService(validationEntity.getInputMessage()), HttpStatus.OK);
     }
 }

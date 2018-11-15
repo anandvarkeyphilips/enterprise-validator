@@ -56,14 +56,14 @@ function ajaxCall(url,validationMessage) {
         url: url,
         type: "POST",
         data: JSON.stringify({
-            validationMessage: editor.getValue()
+            inputMessage: editor.getValue()
         }),
         contentType: "application/json",
         success: function(data) {
             editor.setValue(data.inputMessage);
             console.log("Success Operation validateData");
             console.log(data);
-            if (data.validationMessage == validationMessage) {
+            if (data.valid) {
                 var newEditSession = editor.getSession();
                 newEditSession.removeGutterDecoration((errorLineNumber - 1), "failedGutter");
                 editor.setSession(newEditSession);
