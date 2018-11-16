@@ -1,13 +1,13 @@
 
-# Welcome to Enterprise Validator Suite
+# Welcome to the Enterprise Validator
 
-[comment]: # (REPLACE ME: Add Brief description of your service)
-
-Latest version as of 07-11-2018 is 2.0.4.RELEASE
+[![Build Status](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/buildStatus/icon?job=pipeline-job)](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/job/pipeline-job/)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/enterprise-validator/Lobby)
+[![GitHub issues](https://img.shields.io/github/issues/anandvarkeyphilips/Validator-API.svg)](https://github.com/anandvarkeyphilips/Validator-API/issues)
+[![GitHub forks](https://img.shields.io/github/forks/anandvarkeyphilips/Validator-API.svg)](https://github.com/anandvarkeyphilips/Validator-API/network)
+![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/Validator-API.svg)
 
 ### Getting Started
-
-[comment]: # (REPLACE ME: Add a Getting Started guide)
 
 YAML validator is better than http://www.yamllint.com.
 YAML Validator follows YAML spec, support multiple doc feature which is not supported my YAML Lint.
@@ -16,13 +16,12 @@ Also, now you dont have to use https://www.base64decode.org/,
 This app also supports Decode from and to Base64 format.
 
 Here's the working version of the Application hosted in Microsoft Azure Cloud:
-  http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:9090/validator/editor
+  http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/validator/editor
 
-![Alt text](enterprise-validator-suite-image.PNG?raw=true "Enterprise Validator Suite")
+![Alt text](enterprise-validator-image.PNG?raw=true "Enterprise Validator Suite")
 
 ### Recipe Ingredients
- * spring-boot-starter-web
- * spring-boot-starter-freemarker
+ * spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator
  * springfox-swagger2, springfox-swagger-ui
  * org.json,snakeyaml, lombok, jackson-databind, spring-boot-test
 
@@ -46,6 +45,18 @@ Please contact: [Anand Varkey Philips] (anandvarkeyphilips@gmail.com) (Anand Var
 
 ### Change Log
 [comment]: # (REPLACE ME: Add the changelog in below format)
+
+* Version 2.0.6-RELEASE
+
+> Released *[16/11/2018]* : 2.0.6.RELEASE
+>
+> Changes includes the following:
+>
+> 1. XML Pretty Print Functionality
+> 2. Fixing Test Case Issues
+> 3. Cleaning up unwanted files
+> 4. Adding Actuator Endpoint
+> 5. Adding README badges
 
 * Version 2.0.4-RELEASE
 

@@ -1,13 +1,21 @@
-var initialData = `server:
-    port: 9090
-    servlet.context-path: /validator
-logging:
-  level.root: info
-  file: /packages/logs/yaml-validator/yaml-validator.log
-spring.pid.fail-on-write-error: true
-spring.pid.file: /packages/config/yaml-validator/yaml-validator.pid`;
 var errorLineNumber = 0;
 var editor, yamlMode;
+var initialData = `server:
+  port: 8090
+  servlet.context-path: /enterprise-validator
+logging:
+  level.root: info
+  level.io.exnihilo: debug
+  file: /packages/logs/enterprise-validator/enterprise-validator.log
+spring.pid.fail-on-write-error: true
+spring.pid.file: /packages/config/enterprise-validator/enterprise-validator.pid
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+    web.exposure.exclude: loggers
+  endpoint:
+    shutdown.enabled: true`;
 
 $(document).ready(function() {
     $('#validationResult').hide();
@@ -15,9 +23,8 @@ $(document).ready(function() {
     editor.setTheme("ace/theme/idle_fingers");
     yamlMode = ace.require("ace/mode/yaml").Mode;
     editor.session.setMode(new yamlMode());
-    editor.setValue(initialData, 0);
+        editor.setValue(initialData, 0);
     editor.clearSelection();
-    editor.focus();
 
     $("#encodeData").click(function() {
         editor.setValue(btoa(editor.getValue()));
@@ -33,8 +40,11 @@ $(document).ready(function() {
     $("#validateJsonData").click(function() {
         ajaxCall("json","Valid JSON!!!");
     });
-     $("#formatJsonData").click(function() {
+    $("#formatJsonData").click(function() {
         ajaxCall("formatJson","Valid JSON!!!");
+    });
+    $("#formatXmlData").click(function() {
+        ajaxCall("formatXml","Formatted XML!!!");
     });
     $("#shareByEmail").click(function() {
         if (editor.getValue().length > 2000) {
@@ -54,14 +64,14 @@ function ajaxCall(url,validationMessage) {
         url: url,
         type: "POST",
         data: JSON.stringify({
-            validationMessage: editor.getValue()
+            inputMessage: editor.getValue()
         }),
         contentType: "application/json",
         success: function(data) {
             editor.setValue(data.inputMessage);
             console.log("Success Operation validateData");
             console.log(data);
-            if (data.validationMessage == validationMessage) {
+            if (data.valid) {
                 var newEditSession = editor.getSession();
                 newEditSession.removeGutterDecoration((errorLineNumber - 1), "failedGutter");
                 editor.setSession(newEditSession);
