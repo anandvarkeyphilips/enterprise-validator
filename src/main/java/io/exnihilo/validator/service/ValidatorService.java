@@ -49,9 +49,9 @@ public class ValidatorService {
             Yaml yaml = new Yaml();
             Map<String, Object> obj = yaml.load(yamlData.replace("---", ""));
             log.debug("YAML Value obtained successfully: {}", obj.toString());
+            validationEntity.setValid(true);
             validationEntity.setValidationMessage("Valid YAML!!!");
         } catch (Exception e) {
-            validationEntity.setValid(false);
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
@@ -81,9 +81,9 @@ public class ValidatorService {
         try {
             String indentedJson = (new JSONOrderedObject(json)).toString(4);
             log.debug("JSON Value obtained successfully: {}", indentedJson);
+            validationEntity.setValid(true);
             validationEntity.setValidationMessage("Valid JSON!!!");
         } catch (JSONException e) {
-            validationEntity.setValid(false);
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
@@ -113,10 +113,10 @@ public class ValidatorService {
         try {
             String indentedJson = (new JSONOrderedObject(json)).toString(4);
             log.debug("JSON Value formatted successfully: {}", indentedJson);
+            validationEntity.setValid(true);
             validationEntity.setInputMessage(indentedJson);
             validationEntity.setValidationMessage("Valid JSON!!!");
         } catch (JSONException e) {
-            validationEntity.setValid(false);
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
@@ -155,10 +155,10 @@ public class ValidatorService {
             writer.getDomConfig().setParameter("xml-declaration", keepDeclaration); // Set this to true if the declaration is needed to be outputted.
 
             log.debug("XML Value formatted successfully: {}", writer.writeToString(document));
+            validationEntity.setValid(true);
             validationEntity.setInputMessage(writer.writeToString(document));
             validationEntity.setValidationMessage("Formatted XML!!!");
         } catch (Exception e) {
-            validationEntity.setValid(false);
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
