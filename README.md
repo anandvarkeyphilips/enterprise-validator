@@ -3,9 +3,9 @@
 
 [![Build Status](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/buildStatus/icon?job=pipeline-job)](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/job/pipeline-job/)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/enterprise-validator/Lobby)
-[![GitHub issues](https://img.shields.io/github/issues/anandvarkeyphilips/Validator-API.svg)](https://github.com/anandvarkeyphilips/Validator-API/issues)
-[![GitHub forks](https://img.shields.io/github/forks/anandvarkeyphilips/Validator-API.svg)](https://github.com/anandvarkeyphilips/Validator-API/network)
-![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/Validator-API.svg)
+[![GitHub issues](https://img.shields.io/github/issues/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/issues)
+[![GitHub forks](https://img.shields.io/github/forks/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/network)
+![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/enterprise-validator.svg)
 
 ### Getting Started
 
@@ -15,8 +15,8 @@ JSON validator and formatter follows the JSON spec at http://json.org/.
 Also, now you dont have to use https://www.base64decode.org/,
 This app also supports Decode from and to Base64 format.
 
-Here's the working version of the Application hosted in Microsoft Azure Cloud:
-  http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/validator/editor
+Here's the working version of the Application hosted in Microsoft Azure Cloud:<br />
+**http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/enterprise-validator/editor**
 
 ![Alt text](enterprise-validator-image.PNG?raw=true "Enterprise Validator Suite")
 
