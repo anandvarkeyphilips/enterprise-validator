@@ -1,5 +1,5 @@
 
-# Welcome to Enterprise Validator Suite
+# Welcome to the Enterprise Validator
 
 [![Build Status](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/buildStatus/icon?job=pipeline-job)](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/job/pipeline-job/)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/enterprise-validator/Lobby)
@@ -8,7 +8,6 @@
 ![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/Validator-API.svg)
 
 ### Getting Started
-
 
 YAML validator is better than http://www.yamllint.com.
 YAML Validator follows YAML spec, support multiple doc feature which is not supported my YAML Lint.
@@ -19,11 +18,10 @@ This app also supports Decode from and to Base64 format.
 Here's the working version of the Application hosted in Microsoft Azure Cloud:
   http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/validator/editor
 
-![Alt text](enterprise-validator-suite-image.PNG?raw=true "Enterprise Validator Suite")
+![Alt text](enterprise-validator-image.PNG?raw=true "Enterprise Validator Suite")
 
 ### Recipe Ingredients
- * spring-boot-starter-web
- * spring-boot-starter-freemarker
+ * spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator
  * springfox-swagger2, springfox-swagger-ui
  * org.json,snakeyaml, lombok, jackson-databind, spring-boot-test
 
@@ -47,6 +45,19 @@ Please contact: [Anand Varkey Philips] (anandvarkeyphilips@gmail.com) (Anand Var
 
 ### Change Log
 [comment]: # (REPLACE ME: Add the changelog in below format)
+
+* Version 2.0.6-RELEASE
+
+> Released *[16/11/2018]* : 2.0.6.RELEASE
+>
+> Changes includes the following:
+>
+> 1. Added JSON validation and Formatting capabilities.
+> 2. XML Pretty Print Functionality
+> 3. Fixing Test Case Issues
+> 4. Cleaning up unwanted files
+> 5. Adding Actuator Endpoint
+> 6. Adding README badges
 
 * Version 2.0.4-RELEASE
 

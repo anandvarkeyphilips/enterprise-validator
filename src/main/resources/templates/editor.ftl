@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enterprise Validator Suite</title>
+    <title>Enterprise Validator</title>
     <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -25,7 +25,7 @@
               <img src="favicon-256.png">
             </figure>
             <div style="padding-left: 10px;">
-                <p class="title">Enterprise Validator Suite</p>
+                <p class="title">Enterprise Validator</p>
                 <p class="subtitle">
                     Now you can validate JSON and YAML easily!!<br />
                     A YAML validator better than the <a href="http://www.yamllint.com">YAML Lint</a>.<br />

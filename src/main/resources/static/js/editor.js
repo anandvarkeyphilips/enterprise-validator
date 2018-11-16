@@ -1,13 +1,21 @@
-var initialData = `server:
-    port: 9090
-    servlet.context-path: /validator
-logging:
-  level.root: info
-  file: /packages/logs/yaml-validator/yaml-validator.log
-spring.pid.fail-on-write-error: true
-spring.pid.file: /packages/config/yaml-validator/yaml-validator.pid`;
 var errorLineNumber = 0;
 var editor, yamlMode;
+var initialData = `server:
+  port: 8090
+  servlet.context-path: /enterprise-validator
+logging:
+  level.root: info
+  level.io.exnihilo: debug
+  file: /packages/logs/enterprise-validator/enterprise-validator.log
+spring.pid.fail-on-write-error: true
+spring.pid.file: /packages/config/enterprise-validator/enterprise-validator.pid
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+    web.exposure.exclude: loggers
+  endpoint:
+    shutdown.enabled: true`;
 
 $(document).ready(function() {
     $('#validationResult').hide();
