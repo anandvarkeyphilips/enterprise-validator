@@ -49,22 +49,19 @@
                     <pre id="editor" style="height:75vh;">
                     </pre>
             </div>
-            <div id="validationResult" style="color:white;width:100%;padding:10px;">
-            </div>
+            <div id="validationResultBlock" tabindex="-1" />
         </form>
     </div>
 </section>
 </body>
 <footer class="footer">
-    <div class="container">
-        <div class="content has-text-centered">
-            <p>
-                Made with <span style="color: #e25555;">&#9829;</span> in India by <a href="https://about.me/anandvarkeyphilips">Anand Varkey
-                Philips</a>. The source code is
-                <a href="http://opensource.org/licenses/mit-license.php">MIT</a> licensed. The website content
-                is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-            </p>
-        </div>
+    <div class="content has-text-centered">
+        <p>
+            Made with <span style="color: #e25555;">&#9829;</span> in India by <a href="https://about.me/anandvarkeyphilips">Anand Varkey
+            Philips</a>. The source code is
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a> licensed. The website content
+            is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+        </p>
     </div>
 </footer>
 </html>

@@ -12,3 +12,21 @@ body {
 .failedGutter{
     background-color: #d60e0e !important;
 }
+
+.validation-message-failure{
+    color: white;
+    padding: 10px;
+    background-color: red
+}
+
+.validation-message-error{
+    color: black;
+    padding: 10px;
+    background-color: '#d2ab0e'
+}
+
+.validation-message-success{
+    color: white;
+    padding: 10px;
+    background-color: green
+}

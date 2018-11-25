@@ -18,7 +18,7 @@ This app also supports Decode from and to Base64 format.
 Here's the working version of the Application hosted in Microsoft Azure Cloud:<br />
 **http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/enterprise-validator/editor**
 
-![Alt text](enterprise-validator-image.PNG?raw=true "Enterprise Validator Suite")
+![Alt text](README-images/enterprise-validator-image.PNG?raw=true "Enterprise Validator Suite")
 
 ### Recipe Ingredients
  * spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator
@@ -45,6 +45,17 @@ Please contact: [Anand Varkey Philips] (anandvarkeyphilips@gmail.com) (Anand Var
 
 ### Change Log
 [comment]: # (REPLACE ME: Add the changelog in below format)
+ 
+ * Version 2.1.0
+ 
+> Released *[26/11/2018]* : 2.1.0
+>
+> Changes includes the following:
+>
+> 1. Docker Configuration completed 
+> 2. Adding maven wrapper
+> 3. Spring Boot 2.0.5.RELEASE
+> 4. UI enhancements and fixes
 
 * Version 2.0.6-RELEASE
 
