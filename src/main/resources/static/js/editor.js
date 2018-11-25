@@ -18,7 +18,6 @@ management:
     shutdown.enabled: true`;
 
 $(document).ready(function() {
-    $('#validationResult').hide();
     editor = ace.edit("editor");
     editor.setTheme("ace/theme/idle_fingers");
     yamlMode = ace.require("ace/mode/yaml").Mode;
@@ -60,6 +59,10 @@ $(document).ready(function() {
 });
 
 function ajaxCall(url,validationMessage) {
+    var newEditSession = editor.getSession();
+    newEditSession.removeGutterDecoration((errorLineNumber - 1), "failedGutter");
+    editor.setSession(newEditSession);
+    errorLineNumber = 0;
     $.ajax({
         url: url,
         type: "POST",
@@ -69,40 +72,31 @@ function ajaxCall(url,validationMessage) {
         contentType: "application/json",
         success: function(data) {
             editor.setValue(data.inputMessage);
-            console.log("Success Operation validateData");
-            console.log(data);
             if (data.valid) {
-                var newEditSession = editor.getSession();
-                newEditSession.removeGutterDecoration((errorLineNumber - 1), "failedGutter");
-                editor.setSession(newEditSession);
+                $('#validationResultBlock').text(data.validationMessage);
+                $('#validationResultBlock').removeClass("validation-message-failure validation-message-error");
+                $('#validationResultBlock').addClass("validation-message-success");
                 editor.clearSelection();
-                editor.focus();
-                $('#validationResult').show();
-                $('#validationResult').text(data.validationMessage);
-                $('#validationResult').css({
-                    backgroundColor: 'green'
-                });
-                errorLineNumber = 0;
+                $('#validationResultBlock').focus();
             } else {
-                $('#validationResult').show();
-                $('#validationResult').text(data.validationMessage);
-                $('#validationResult').css({
-                    backgroundColor: 'red'
-                });
+                $('#validationResultBlock').text(data.validationMessage);
+                $('#validationResultBlock').removeClass( "validation-message-success validation-message-error");
+                $('#validationResultBlock').addClass( "validation-message-failure" );
                 if (data.lineNumber > 0) {
                     errorLineNumber = data.lineNumber;
                     var newEditSession = editor.getSession();
                     newEditSession.addGutterDecoration((errorLineNumber - 1), "failedGutter");
                     editor.setSession(newEditSession);
-                    editor.clearSelection();
-                    editor.focus();
                     editor.gotoLine(data.lineNumber, data.columnNumber, true);
                 }
+                editor.clearSelection();
+                $('#validationResultBlock').focus();
             }
         },
         error: function(data) {
-            console.log("Failed Operation validateData");
-            console.log(data);
+            $('#validationResultBlock').text("Technical failure possibly due to poor internet connectivity.");
+            $('#validationResultBlock').removeClass("validation-message-success validation-message-failure");
+            $('#validationResultBlock').addClass("validation-message-error");
         }
     });
 }

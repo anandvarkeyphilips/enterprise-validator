@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #Active Profile(YAML)
 ACTIVE_PROFILE="preprod"
 #Base Folder Path like "/folder/packages"
