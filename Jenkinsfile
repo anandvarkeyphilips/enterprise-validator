@@ -30,7 +30,7 @@ node {
     stage('Deploy'){
         def pom = readMavenPom file: "pom.xml"
         def buildType,artifactId=pom.artifactId,groupIdFormatted=(pom.groupId).replace(".", "/"), artifactVersion=pom.version
-        if(pom.version.contains(".RELEASE")){
+        if(!pom.version.contains("SNAPSHOT")){
             buildType = "libs-release"
         }else{
             buildType = "libs-snapshot"

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #Active Profile(YAML)
 ACTIVE_PROFILE="preprod"
 # JVM Parameters and Spring boot initialization parameters
