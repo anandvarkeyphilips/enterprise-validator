@@ -18,7 +18,7 @@ This app also supports Decode from and to Base64 format.
 Here's the working version of the Application hosted in Microsoft Azure Cloud:<br />
 **http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/enterprise-validator/editor**
 
-![Alt text](README-images/enterprise-validator-image.PNG?raw=true "Enterprise Validator Suite")
+![Alt text](README-IMAGES/enterprise-validator.png?raw=true "Enterprise Validator Suite")
 
 ### Recipe Ingredients
  * spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator
@@ -27,7 +27,6 @@ Here's the working version of the Application hosted in Microsoft Azure Cloud:<b
 
 
 ### How to?
-[comment]: # (REPLACE ME: Add your confluence page in below format)
 * Click on "BASE 64Encode" to encode to Base64 format.
 * Click on "BASE 64Encode" to decode from Base64 format.
 * Click on "Validate YAML" to validate YAML data.
@@ -37,61 +36,15 @@ Here's the working version of the Application hosted in Microsoft Azure Cloud:<b
 
 
 ### Jira
-[comment]: # (REPLACE ME: Add your Jira EPIC page in below format)
 * [Epic](https://jira.global.atlassian.com/browse/<JIRA-ID>) - Work in Progress
 
 ### For help and support,
-Please contact: [Anand Varkey Philips] (anandvarkeyphilips@gmail.com) (Anand Varkey Philips)
+Please contact: [Join the Gitter Chat](https://gitter.im/enterprise-validator/Lobby/)
 
 ### Change Log
-[comment]: # (REPLACE ME: Add the changelog in below format)
  
- * Version 2.1.0
+ * You can view the changes in each releases [here](https://github.com/anandvarkeyphilips/enterprise-validator/releases).
  
-> Released *[26/11/2018]* : 2.1.0
->
-> Changes includes the following:
->
-> 1. Docker Configuration completed 
-> 2. Adding maven wrapper
-> 3. Spring Boot 2.0.5.RELEASE
-> 4. UI enhancements and fixes
-
-* Version 2.0.6-RELEASE
-
-> Released *[16/11/2018]* : 2.0.6.RELEASE
->
-> Changes includes the following:
->
-> 1. XML Pretty Print Functionality
-> 2. Fixing Test Case Issues
-> 3. Cleaning up unwanted files
-> 4. Adding Actuator Endpoint
-> 5. Adding README badges
-
-* Version 2.0.4-RELEASE
-
-> Released *[07/11/2018]* : 2.0.4.RELEASE
->
-> Changes includes the following:
->
-> 1. Added JSON validation and Formatting capabilities.
-
-* Version 2.0.0-RELEASE
-
-> Released *[27/10/2018]* : 2.0.0.RELEASE
->
-> Changes includes the following:
->
-> 1. Added front end-web page for Enterprise YAML Validator.
-> 2. Made it a complete standalone microservie app.
-> 3. Added JSON validation and Formatting capabilities.
-
-* Version 1.*-RELEASE
-
-> Released *[08/10/2018]* : 1.0.0.RELEASE
->
-> Changes includes the following:
->
-> 1. Initial Commit with only YAML validation service.
-> 2. Enabled Jenkins setup and one touch deployment.
+### Want to Contribute?
+  * We love participation. We are ready to listen and discuss about changing underlying technologies or anything..
+    You can check the document [here](CONTRIBUTING.md).
