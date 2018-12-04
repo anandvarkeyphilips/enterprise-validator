@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,13 +21,13 @@
     <div class="hero-body">
         <div class="container columns">
             <figure class="image is-128x128">
-              <img src="favicon-256.png">
+                <img src="favicon-256.png">
             </figure>
             <div style="padding-left: 10px;">
                 <p class="title">Enterprise Validator</p>
                 <p class="subtitle">
-                    Now you can validate JSON and YAML easily!!<br />
-                    A YAML validator better than the <a href="http://www.yamllint.com">YAML Lint</a>.<br />
+                    Now you can validate JSON and YAML easily!!<br/>
+                    A YAML validator better than the <a href="http://www.yamllint.com">YAML Lint</a>.<br/>
                     A JSON validator and formatter that follows the JSON spec at <a href="http://json.org/">JSON.org</a>.
                 </p>
             </div>
@@ -49,7 +48,7 @@
                     <pre id="editor" style="height:75vh;">
                     </pre>
             </div>
-            <div id="validationResultBlock" tabindex="-1" />
+            <div id="validationResultBlock" tabindex="-1"/>
         </form>
     </div>
 </section>
@@ -57,10 +56,11 @@
 <footer class="footer">
     <div class="content has-text-centered">
         <p>
-            Made with <span style="color: #e25555;">&#9829;</span> in India by <a href="https://about.me/anandvarkeyphilips">Anand Varkey
-            Philips</a>. The source code is
-            <a href="http://opensource.org/licenses/mit-license.php">MIT</a> licensed. The website content
-            is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            Made with <span style="color: #e25555;">&#9829;</span> in India by
+            <a href="https://about.me/anandvarkeyphilips">Anand Varkey Philips</a>. The source code is
+            <a href="https://raw.githubusercontent.com/anandvarkeyphilips/enterprise-validator/master/LICENSE">MIT</a>
+            licensed and is available in <a href="https://github.com/anandvarkeyphilips/enterprise-validator">
+            <img src="images/GitHub-Mark-32px.png" align="middle" style="width: 1.2em; height: 1.2em;"/></a>.
         </p>
     </div>
 </footer>
