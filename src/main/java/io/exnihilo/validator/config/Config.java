@@ -29,7 +29,7 @@ public class Config {
                 "Validates yaml, json and xml files. Hi!!",
                 "API TOS",
                 "Terms of service",
-                new Contact("Anand Varkey Philips", "about.me/anandvarkeyphilips", "anandvarkey.philips@gmail.com"),
+                new Contact("Anand Varkey Philips", "about.me/anandvarkeyphilips", "anandvarkeyphilips@gmail.com"),
                 "License of API", "API license URL", Collections.emptyList());
     }
 }
