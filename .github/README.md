@@ -1,22 +1,27 @@
 
 # Welcome to the Enterprise Validator
 
-[![Build Status](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/buildStatus/icon?job=pipeline-job)](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/job/pipeline-job/)
+![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/enterprise-validator.svg)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/enterprise-validator/Lobby)
 [![GitHub issues](https://img.shields.io/github/issues/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/issues)
 [![GitHub forks](https://img.shields.io/github/forks/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/network)
-![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/enterprise-validator.svg)
+[![Build Status](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/buildStatus/icon?job=pipeline-job)](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/job/pipeline-job/)
 
 ### Getting Started
 
-YAML validator is better than http://www.yamllint.com.
-YAML Validator follows YAML spec, support multiple doc feature which is not supported my YAML Lint.
-JSON validator and formatter follows the JSON spec at http://json.org/.
-Also, now you dont have to use https://www.base64decode.org/,
-This app also supports Decode from and to Base64 format.
+This Spring Boot Fully executable stand alone application is made for enterprises which cannot access/use public
+websites for data validation and manipulation. This app provides,
 
-Here's the working version of the Application hosted in Microsoft Azure Cloud:<br />
-**http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/enterprise-validator/editor**
+YAML validator which is better than http://www.yamllint.com as this app follows YAML spec, support multiple doc feature
+which is not supported my YAML Lint. JSON validator and formatter follows the JSON spec at http://json.org/. Also, now 
+you dont have to use https://www.base64decode.org/ as this app also provides options for Decode from and to Base64 format.
+
+Here's the Docker container version of the Application hosted in Microsoft Azure Cloud:  
+**http://enterprise-validator.centralus.azurecontainer.io:8090/enterprise-validator/editor**  
+Here's the fatty jar Application running in Microsoft Azure RHEL VM(May Have Issues):  
+**http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/enterprise-validator/editor**  
+Here's the Openshift version of the Application hosted in Redhat Openshift(May Have Issues):  
+**http://enterprise-validator-enterprise-validator.7e14.starter-us-west-2.openshiftapps.com/editor**  
 
 ![Alt text](README-IMAGES/enterprise-validator.png?raw=true "Enterprise Validator Suite")
 
