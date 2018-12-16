@@ -8,7 +8,6 @@ spring:
   pid.file: /packages/config/${application.artifactId}/${application.artifactId}.pid
 server:
   port: 8090
-  servlet.context-path: /${application.artifactId}
 logging:
   level.root: info
   level.io.exnihilo: debug
@@ -28,7 +27,6 @@ spring:
   pid.file: ${application.artifactId}.pid
 server:
   port: 8080
-  servlet.context-path: /
 logging:
   level.root: info
   level.io.exnihilo: info
