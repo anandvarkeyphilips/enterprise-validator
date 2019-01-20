@@ -20,7 +20,7 @@ node {
     }
 
     stage('Maven build') {
-        buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean package'
+        buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean package -o'
     }
 
     stage('Publish build info') {
