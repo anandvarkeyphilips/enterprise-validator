@@ -1,9 +1,9 @@
 package io.exnihilo.validator.service;
 
-import io.exnihilo.validator.entity.JSONOrderedObject;
 import io.exnihilo.validator.entity.ValidationEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
@@ -79,7 +79,7 @@ public class ValidatorService {
         ValidationEntity validationEntity = getPrototypeBean();
         validationEntity.setInputMessage(json);
         try {
-            String indentedJson = (new JSONOrderedObject(json)).toString(4);
+            String indentedJson = (new JSONObject(json)).toString(4);
             log.debug("JSON Value obtained successfully: {}", indentedJson);
             validationEntity.setValid(true);
             validationEntity.setValidationMessage("Valid JSON!!!");
@@ -111,7 +111,7 @@ public class ValidatorService {
         ValidationEntity validationEntity = getPrototypeBean();
         validationEntity.setInputMessage(json);
         try {
-            String indentedJson = (new JSONOrderedObject(json)).toString(4);
+            String indentedJson = (new JSONObject(json)).toString(4);
             log.debug("JSON Value formatted successfully: {}", indentedJson);
             validationEntity.setValid(true);
             validationEntity.setInputMessage(indentedJson);
