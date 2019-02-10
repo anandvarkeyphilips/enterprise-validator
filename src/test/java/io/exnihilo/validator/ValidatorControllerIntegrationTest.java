@@ -24,11 +24,12 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.nio.file.Files;
 
-
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 public class ValidatorControllerIntegrationTest {
@@ -49,15 +50,12 @@ public class ValidatorControllerIntegrationTest {
         File file = ResourceUtils.getFile("classpath:application.yml");
         String inputYamlData = new String(Files.readAllBytes(file.toPath()));
 
-        ValidationEntity inputValidationEntity = ValidationEntity.builder()
-                .inputMessage(inputYamlData).build();
-        ValidationEntity outputValidationEntity = ValidationEntity.builder()
-                .inputMessage(inputYamlData).valid(true).validationMessage("Valid YAML").build();
-        Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity.getInputMessage());
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputYamlData).valid(true).validationMessage("Valid YAML").build();
+        Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
 
         ObjectMapper mapper = new ObjectMapper();
         String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
-
         mockMvc.perform(
                 post("/yaml")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -68,22 +66,20 @@ public class ValidatorControllerIntegrationTest {
                 .andExpect(jsonPath("$.valid", Matchers.is(true)))
                 .andExpect(jsonPath("$.*", Matchers.hasSize(5)));
 
-        ArgumentCaptor<String> validatorServiceArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<ValidationEntity> validatorServiceArgumentCaptor = ArgumentCaptor.forClass(ValidationEntity.class);
         verify(validatorServiceMock, times(1)).validateYamlService(validatorServiceArgumentCaptor.capture());
         Mockito.verifyNoMoreInteractions(validatorServiceMock);
 
-        String captorValue = validatorServiceArgumentCaptor.getValue();
-        Assert.assertThat(captorValue,is(inputYamlData));
+        ValidationEntity captorValue = validatorServiceArgumentCaptor.getValue();
+        Assert.assertThat(captorValue, is(inputValidationEntity));
     }
 
     @Test
     public void validateYamlController_whenInvalidYaml_returnFalse() throws Exception {
         String inputYamlData = "Wrong : Data :";
-        ValidationEntity inputValidationEntity = ValidationEntity.builder()
-                .inputMessage(inputYamlData).build();
-        ValidationEntity outputValidationEntity = ValidationEntity.builder()
-                .inputMessage(inputYamlData).valid(false).build();
-        Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity.getInputMessage());
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputYamlData).valid(false).build();
+        Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
 
         ObjectMapper mapper = new ObjectMapper();
         String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
