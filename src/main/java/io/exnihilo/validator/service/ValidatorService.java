@@ -1,10 +1,9 @@
 package io.exnihilo.validator.service;
 
-import io.exnihilo.validator.entity.JSONOrderedObject;
 import io.exnihilo.validator.entity.ValidationEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
-import org.springframework.beans.factory.annotation.Lookup;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
@@ -15,9 +14,11 @@ import org.yaml.snakeyaml.Yaml;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import static io.exnihilo.validator.util.Utils.getNumberFromRegexMatcher;
 
 /**
  * Validator Service Class handles the functional aspects of all configured validators.
@@ -30,24 +31,17 @@ import java.util.regex.Pattern;
 @Service
 public class ValidatorService {
 
-    @Lookup
-    public ValidationEntity getPrototypeBean() {
-        return null;
-    }
-
     /**
-     * Splitting of yaml data in case of "---", then validating each part separately,
-     * and then returning success data or line and column numbers in case of failure.
+     * Splits yaml data in case of multiple documents "---" and validates each part,
+     * and then returns error message, line and column numbers in case of failure.
      *
-     * @param yamlData
-     * @return validation result
+     * @param validationEntity
+     * @return validationEntity
      */
-    public ValidationEntity validateYamlService(String yamlData) {
-        ValidationEntity validationEntity = getPrototypeBean();
-        validationEntity.setInputMessage(yamlData);
+    public ValidationEntity validateYamlService(ValidationEntity validationEntity) {
         try {
             Yaml yaml = new Yaml();
-            Map<String, Object> obj = yaml.load(yamlData.replace("---", ""));
+            Map<String, Object> obj = yaml.load(validationEntity.getInputMessage().replace("---", ""));
             log.debug("YAML Value obtained successfully: {}", obj.toString());
             validationEntity.setValid(true);
             validationEntity.setValidationMessage("Valid YAML!!!");
@@ -55,31 +49,23 @@ public class ValidatorService {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
-                String pattern1 = "line ";
-                String pattern2 = ",";
-                Pattern p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-                Matcher m = p.matcher(e.getMessage());
-                while (m.find()) {
-                    validationEntity.setLineNumber(Integer.parseInt(m.group(1)));
-                }
-                pattern1 = "column ";
-                pattern2 = ":";
-                p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-                m = p.matcher(e.getMessage());
-                while (m.find()) {
-                    validationEntity.setColumnNumber(Integer.parseInt(m.group(1)));
-                }
+                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", ",", e));
+                validationEntity.setColumnNumber(getNumberFromRegexMatcher("column ", ":", e));
             }
         } finally {
             return validationEntity;
         }
     }
 
-    public ValidationEntity validateJsonService(String json) {
-        ValidationEntity validationEntity = getPrototypeBean();
-        validationEntity.setInputMessage(json);
+    /**
+     * Validates the format of json data string and returns error details in case of failure.
+     *
+     * @param validationEntity
+     * @return validationEntity
+     */
+    public ValidationEntity validateJsonService(ValidationEntity validationEntity) {
         try {
-            String indentedJson = (new JSONOrderedObject(json)).toString(4);
+            String indentedJson = (new JSONObject(validationEntity.getInputMessage())).toString(4);
             log.debug("JSON Value obtained successfully: {}", indentedJson);
             validationEntity.setValid(true);
             validationEntity.setValidationMessage("Valid JSON!!!");
@@ -87,31 +73,24 @@ public class ValidatorService {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
-                String pattern1 = "line ";
-                String pattern2 = "]";
-                Pattern p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-                Matcher m = p.matcher(e.getMessage());
-                while (m.find()) {
-                    validationEntity.setLineNumber(Integer.parseInt(m.group(1)));
-                }
-                pattern1 = "[character ";
-                pattern2 = " line";
-                p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-                m = p.matcher(e.getMessage());
-                while (m.find()) {
-                    validationEntity.setColumnNumber(Integer.parseInt(m.group(1)));
-                }
+                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
+                validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
             }
         } finally {
             return validationEntity;
         }
     }
 
-    public ValidationEntity formatJsonService(String json) {
-        ValidationEntity validationEntity = getPrototypeBean();
-        validationEntity.setInputMessage(json);
+    /**
+     * Validates the format of json data string and returns formatted json
+     * along with error details in case of failure.
+     *
+     * @param validationEntity
+     * @return validationEntity
+     */
+    public ValidationEntity formatJsonService(ValidationEntity validationEntity) {
         try {
-            String indentedJson = (new JSONOrderedObject(json)).toString(4);
+            String indentedJson = (new JSONObject(validationEntity.getInputMessage())).toString(4);
             log.debug("JSON Value formatted successfully: {}", indentedJson);
             validationEntity.setValid(true);
             validationEntity.setInputMessage(indentedJson);
@@ -120,33 +99,25 @@ public class ValidatorService {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
-                String pattern1 = "line ";
-                String pattern2 = "]";
-                Pattern p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-                Matcher m = p.matcher(e.getMessage());
-                while (m.find()) {
-                    validationEntity.setLineNumber(Integer.parseInt(m.group(1)));
-                }
-                pattern1 = "[character ";
-                pattern2 = " line";
-                p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-                m = p.matcher(e.getMessage());
-                while (m.find()) {
-                    validationEntity.setColumnNumber(Integer.parseInt(m.group(1)));
-                }
+                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
+                validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
             }
         } finally {
             return validationEntity;
         }
     }
 
-    public ValidationEntity formatXmlService(String xml) {
-        ValidationEntity validationEntity = getPrototypeBean();
-        validationEntity.setInputMessage(xml);
+    /**
+     * Validates the format of xml data string and returns  error details in case of failure.
+     *
+     * @param validationEntity
+     * @return validationEntity
+     */
+    public ValidationEntity formatXmlService(ValidationEntity validationEntity) {
         try {
-            final InputSource src = new InputSource(new StringReader(xml));
+            final InputSource src = new InputSource(new StringReader(validationEntity.getInputMessage()));
             final Node document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(src).getDocumentElement();
-            final Boolean keepDeclaration = Boolean.valueOf(xml.startsWith("<?xml"));
+            final Boolean keepDeclaration = Boolean.valueOf(validationEntity.getInputMessage().startsWith("<?xml"));
             final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
             final DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
             final LSSerializer writer = impl.createLSSerializer();
@@ -162,21 +133,51 @@ public class ValidatorService {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
-                String pattern1 = "line ";
-                String pattern2 = "]";
-                Pattern p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-                Matcher m = p.matcher(e.getMessage());
-                while (m.find()) {
-                    validationEntity.setLineNumber(Integer.parseInt(m.group(1)));
-                }
-                pattern1 = "[character ";
-                pattern2 = " line";
-                p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-                m = p.matcher(e.getMessage());
-                while (m.find()) {
-                    validationEntity.setColumnNumber(Integer.parseInt(m.group(1)));
-                }
+                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
+                validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
             }
+        } finally {
+            return validationEntity;
+        }
+    }
+
+    /**
+     * Encodes data in Base64 format and returns error details in case of failure.
+     *
+     * @param validationEntity
+     * @return validationEntity
+     */
+    public ValidationEntity encodeBase64(ValidationEntity validationEntity) {
+        try {
+            String encodedBytes = Base64.getEncoder().encodeToString(validationEntity.getInputMessage().getBytes(StandardCharsets.UTF_8));
+            log.debug("encodeBase64 completed successfully: {}", encodedBytes);
+            validationEntity.setValid(true);
+            validationEntity.setInputMessage(encodedBytes);
+            validationEntity.setValidationMessage("Encode Successful!!!");
+        } catch (Exception e) {
+            validationEntity.setValidationMessage(e.getMessage());
+            log.error("Exception occurred in Encoding: ", e);
+        } finally {
+            return validationEntity;
+        }
+    }
+
+    /**
+     * Decodes data from Base64 format and returns error details in case of failure.
+     *
+     * @param validationEntity
+     * @return validationEntity
+     */
+    public ValidationEntity decodeBase64(ValidationEntity validationEntity) {
+        try {
+            String decodedString = new String(Base64.getDecoder().decode(validationEntity.getInputMessage()));
+            log.debug("decodeBase64 completed successfully: {}", decodedString);
+            validationEntity.setValid(true);
+            validationEntity.setInputMessage(decodedString);
+            validationEntity.setValidationMessage("Decode Successful!!!");
+        } catch (Exception e) {
+            validationEntity.setValidationMessage(e.getMessage());
+            log.error("Exception occurred in Decoding: ", e);
         } finally {
             return validationEntity;
         }

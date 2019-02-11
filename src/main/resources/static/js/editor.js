@@ -26,24 +26,22 @@ $(document).ready(function() {
     editor.clearSelection();
 
     $("#encodeData").click(function() {
-        editor.setValue(btoa(editor.getValue()));
-        editor.clearSelection();
+        ajaxCall("base64Encode");
     });
     $("#decodeData").click(function() {
-        editor.setValue(atob(editor.getValue()));
-        editor.clearSelection();
+        ajaxCall("base64Decode");
     });
     $("#validateYamlData").click(function() {
-        ajaxCall("yaml","Valid YAML!!!");
+        ajaxCall("yaml");
     });
     $("#validateJsonData").click(function() {
-        ajaxCall("json","Valid JSON!!!");
+        ajaxCall("json");
     });
     $("#formatJsonData").click(function() {
-        ajaxCall("formatJson","Valid JSON!!!");
+        ajaxCall("formatJson");
     });
     $("#formatXmlData").click(function() {
-        ajaxCall("formatXml","Formatted XML!!!");
+        ajaxCall("formatXml");
     });
     $("#shareByEmail").click(function() {
         if (editor.getValue().length > 2000) {
@@ -58,7 +56,7 @@ $(document).ready(function() {
     });
 });
 
-function ajaxCall(url,validationMessage) {
+function ajaxCall(url) {
     var newEditSession = editor.getSession();
     newEditSession.removeGutterDecoration((errorLineNumber - 1), "failedGutter");
     editor.setSession(newEditSession);

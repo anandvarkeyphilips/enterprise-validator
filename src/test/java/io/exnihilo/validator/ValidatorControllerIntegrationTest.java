@@ -6,9 +6,11 @@ import io.exnihilo.validator.controller.EditorController;
 import io.exnihilo.validator.entity.ValidationEntity;
 import io.exnihilo.validator.service.ValidatorService;
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -17,17 +19,24 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.nio.file.Files;
+
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-public class ValidatorControllerUnitTest {
+public class ValidatorControllerIntegrationTest {
 
     private MockMvc mockMvc;
     @Mock
-    private ValidatorService validatorService;
+    private ValidatorService validatorServiceMock;
     @InjectMocks
     private EditorController editorController;
 
@@ -38,23 +47,15 @@ public class ValidatorControllerUnitTest {
 
     @Test
     public void validateYamlController_whenValidYaml_returnTrue() throws Exception {
-        String inputYamlData = "server:\n" +
-                "    port: 9090\n" +
-                "    servlet.context-path: /validator\n" +
-                "logging:\n" +
-                "  level.root: info\n" +
-                "  file: /packages/logs/yaml-validator/yaml-validator.log\n" +
-                "spring.pid.fail-on-write-error: true\n" +
-                "spring.pid.file: /packages/config/yaml-validator/yaml-validator.pid";
-        ValidationEntity inputValidationEntity = ValidationEntity.builder()
-                .inputMessage(inputYamlData).build();
-        ValidationEntity outputValidationEntity = ValidationEntity.builder()
-                .inputMessage(inputYamlData).valid(true).validationMessage("Valid YAML").build();
-        Mockito.doReturn(outputValidationEntity).when(validatorService).validateYamlService(inputValidationEntity.getInputMessage());
+        File file = ResourceUtils.getFile("classpath:application.yml");
+        String inputYamlData = new String(Files.readAllBytes(file.toPath()));
+
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputYamlData).valid(true).validationMessage("Valid YAML").build();
+        Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
 
         ObjectMapper mapper = new ObjectMapper();
         String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
-
         mockMvc.perform(
                 post("/yaml")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -64,23 +65,21 @@ public class ValidatorControllerUnitTest {
                 .andExpect(jsonPath("$.validationMessage").value(Matchers.is("Valid YAML")))
                 .andExpect(jsonPath("$.valid", Matchers.is(true)))
                 .andExpect(jsonPath("$.*", Matchers.hasSize(5)));
+
+        ArgumentCaptor<ValidationEntity> validatorServiceArgumentCaptor = ArgumentCaptor.forClass(ValidationEntity.class);
+        verify(validatorServiceMock, times(1)).validateYamlService(validatorServiceArgumentCaptor.capture());
+        Mockito.verifyNoMoreInteractions(validatorServiceMock);
+
+        ValidationEntity captorValue = validatorServiceArgumentCaptor.getValue();
+        Assert.assertThat(captorValue, is(inputValidationEntity));
     }
 
     @Test
     public void validateYamlController_whenInvalidYaml_returnFalse() throws Exception {
-        String inputYamlData = "server:\n" +
-                "    port: 9090\n" +
-                "    servlet.context-path: /validator\n" +
-                "logging:\n" +
-                "level.root: info\n" +
-                "  file: /packages/logs/yaml-validator/yaml-validator.log\n" +
-                "spring.pid.fail-on-write-error: true\n" +
-                "spring.pid.file: /packages/config/yaml-validator/yaml-validator.pid";
-        ValidationEntity inputValidationEntity = ValidationEntity.builder()
-                .inputMessage(inputYamlData).build();
-        ValidationEntity outputValidationEntity = ValidationEntity.builder()
-                .inputMessage(inputYamlData).valid(false).build();
-        Mockito.doReturn(outputValidationEntity).when(validatorService).validateYamlService(inputValidationEntity.getInputMessage());
+        String inputYamlData = "Wrong : Data :";
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputYamlData).valid(false).build();
+        Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
 
         ObjectMapper mapper = new ObjectMapper();
         String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
