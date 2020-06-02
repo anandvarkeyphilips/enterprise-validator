@@ -8,12 +8,22 @@ import java.util.regex.Pattern;
  * perform common operations.
  */
 public final class Utils {
-    private Utils(){}
+    private Utils() {
+    }
 
-    public static int getNumberFromRegexMatcher(String pattern1, String pattern2, Exception e) {
+    /**
+     * if startingPhrase is "line ", endingPhrase is "]" and string is "Error at line 21]",
+     * the method will return 21.
+     *
+     * @param startingPhrase
+     * @param endingPhrase
+     * @param searchText
+     * @return matched number from enclosing string pattern
+     */
+    public static int getNumberFromRegexPattern(String startingPhrase, String endingPhrase, String searchText) {
         int number = 0;
-        Pattern p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-        Matcher m = p.matcher(e.getMessage());
+        Pattern p = Pattern.compile(Pattern.quote(startingPhrase) + "(.*?)" + Pattern.quote(endingPhrase));
+        Matcher m = p.matcher(searchText);
         if (m.find()) {
             number = Integer.parseInt(m.group(1));
         }

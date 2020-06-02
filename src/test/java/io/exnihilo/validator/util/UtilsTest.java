@@ -12,6 +12,6 @@ public final class UtilsTest {
 
         @Test
         public void getNumberFromRegexMatcher_whenUserTriesInvalidPage_ThenFail() {
-            assertEquals(22, Utils.getNumberFromRegexMatcher("line ", ",", new Exception("exception at line 22, column 21")));
+            assertEquals(22, Utils.getNumberFromRegexPattern("line ", ",", new Exception("exception at line 22, column 21")));
         }
 }

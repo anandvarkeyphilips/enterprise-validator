@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
 
-import static io.exnihilo.validator.util.Utils.getNumberFromRegexMatcher;
+import static io.exnihilo.validator.util.Utils.getNumberFromRegexPattern;
 
 /**
  * Validator Service Class handles the functional aspects of all configured validators.
@@ -49,8 +49,8 @@ public class ValidatorService implements IValidatorService {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", ",", e));
-                validationEntity.setColumnNumber(getNumberFromRegexMatcher("column ", ":", e));
+                validationEntity.setLineNumber(getNumberFromRegexPattern("line ", ",", e.getMessage()));
+                validationEntity.setColumnNumber(getNumberFromRegexPattern("column ", ":", e.getMessage()));
             }
         }
         return validationEntity;
@@ -72,8 +72,8 @@ public class ValidatorService implements IValidatorService {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
-                validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
+                validationEntity.setLineNumber(getNumberFromRegexPattern("line ", "]", e.getMessage()));
+                validationEntity.setColumnNumber(getNumberFromRegexPattern("[character ", " line", e.getMessage()));
             }
         }
         return validationEntity;
@@ -97,8 +97,8 @@ public class ValidatorService implements IValidatorService {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
             if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
-                validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
+                validationEntity.setLineNumber(getNumberFromRegexPattern("line ", "]", e.getMessage()));
+                validationEntity.setColumnNumber(getNumberFromRegexPattern("[character ", " line", e.getMessage()));
             }
         }
         return validationEntity;
