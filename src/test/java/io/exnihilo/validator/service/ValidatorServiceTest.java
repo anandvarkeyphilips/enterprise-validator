@@ -13,7 +13,6 @@ import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.InputSource;
-import org.yaml.snakeyaml.Yaml;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -21,7 +20,6 @@ import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Base64;
-import java.util.Map;
 
 import static io.exnihilo.validator.util.Utils.getNumberFromRegexMatcher;
 /**
@@ -70,55 +68,29 @@ public class ValidatorServiceTest {
         Assert.assertEquals(outputValidationEntity, validatorService.validateYamlService(inputValidationEntity));
     }
 
+    @Test
+    public void validateJsonService_whenValidJson_returnTrue() throws Exception {
+        File file = ResourceUtils.getFile("classpath:valid-json.json");
+        String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
-    /**
-     * Splits yaml data in case of multiple documents "---" and validates each part,
-     * and then returns error message, line and column numbers in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    public ValidationEntity validateYamlService(ValidationEntity validationEntity) {
-        try {
-            Yaml yaml = new Yaml();
-            Map<String, Object> obj = yaml.load(validationEntity.getInputMessage().replace("---", ""));
-            log.debug("YAML Value obtained successfully: {}", obj.toString());
-            validationEntity.setValid(true);
-            validationEntity.setValidationMessage("Valid YAML!!!");
-        } catch (Exception e) {
-            validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in validation: ", e);
-            if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", ",", e));
-                validationEntity.setColumnNumber(getNumberFromRegexMatcher("column ", ":", e));
-            }
-        } finally {
-            return validationEntity;
-        }
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputJsonData).valid(true).validationMessage("Valid JSON!!!").build();
+
+        Assert.assertEquals(outputValidationEntity, validatorService.validateJsonService(inputValidationEntity));
     }
 
-    /**
-     * Validates the format of json data string and returns error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    public ValidationEntity validateJsonService(ValidationEntity validationEntity) {
-        try {
-            String indentedJson = (new JSONObject(validationEntity.getInputMessage())).toString(4);
-            log.debug("JSON Value obtained successfully: {}", indentedJson);
-            validationEntity.setValid(true);
-            validationEntity.setValidationMessage("Valid JSON!!!");
-        } catch (JSONException e) {
-            validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in validation: ", e);
-            if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
-                validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
-            }
-        } finally {
-            return validationEntity;
-        }
+    @Test
+    public void validateJsonService_whenInvalidJson_returnFalse() throws Exception {
+        File file = ResourceUtils.getFile("classpath:invalid-json.json");
+        String inputJsonData = new String(Files.readAllBytes(file.toPath()));
+
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputJsonData).valid(false).validationMessage("Expected a ',' or '}' at 135 [character 21 line 7]")
+                .lineNumber(7)
+                .columnNumber(21)
+                .build();
+
+        Assert.assertEquals(outputValidationEntity, validatorService.validateJsonService(inputValidationEntity));
     }
 
     /**
