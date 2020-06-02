@@ -2,8 +2,6 @@ package io.exnihilo.validator.service;
 
 import io.exnihilo.validator.entity.ValidationEntity;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -93,30 +91,53 @@ public class ValidatorServiceTest {
         Assert.assertEquals(outputValidationEntity, validatorService.validateJsonService(inputValidationEntity));
     }
 
-    /**
-     * Validates the format of json data string and returns formatted json
-     * along with error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    public ValidationEntity formatJsonService(ValidationEntity validationEntity) {
-        try {
-            String indentedJson = (new JSONObject(validationEntity.getInputMessage())).toString(4);
-            log.debug("JSON Value formatted successfully: {}", indentedJson);
-            validationEntity.setValid(true);
-            validationEntity.setInputMessage(indentedJson);
-            validationEntity.setValidationMessage("Valid JSON!!!");
-        } catch (JSONException e) {
-            validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in validation: ", e);
-            if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
-                validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
-            }
-        } finally {
-            return validationEntity;
-        }
+    @Test
+    public void formatJsonService_whenValidJson_returnTrue() throws Exception {
+        File file = ResourceUtils.getFile("classpath:minified-json.json");
+        String inputJsonData = new String(Files.readAllBytes(file.toPath()));
+
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder("{\n" +
+                "    \"glossary\": {\n" +
+                "        \"title\": \"example glossary\",\n" +
+                "        \"GlossDiv\": {\n" +
+                "            \"title\": \"S\",\n" +
+                "            \"GlossList\": {\n" +
+                "                \"GlossEntry\": {\n" +
+                "                    \"ID\": \"SGML\",\n" +
+                "                    \"SortAs\": \"SGML\",\n" +
+                "                    \"GlossTerm\": \"Standard Generalized Markup Language\",\n" +
+                "                    \"Acronym\": \"SGML\",\n" +
+                "                    \"Abbrev\": \"ISO 8879:1986\",\n" +
+                "                    \"GlossDef\": {\n" +
+                "                        \"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\n" +
+                "                        \"GlossSeeAlso\": [\n" +
+                "                            \"GML\",\n" +
+                "                            \"XML\"\n" +
+                "                        ]\n" +
+                "                    },\n" +
+                "                    \"GlossSee\": \"markup\"\n" +
+                "                }\n" +
+                "            }\n" +
+                "        }\n" +
+                "    }\n" +
+                "}").valid(true).validationMessage("Valid JSON!!!").build();
+
+        Assert.assertEquals(outputValidationEntity, validatorService.formatJsonService(inputValidationEntity));
+    }
+
+    @Test
+    public void formatJsonService_whenInvalidJson_returnFalse() throws Exception {
+        File file = ResourceUtils.getFile("classpath:invalid-json.json");
+        String inputJsonData = new String(Files.readAllBytes(file.toPath()));
+
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputJsonData).valid(false).validationMessage("Expected a ',' or '}' at 135 [character 21 line 7]")
+                .lineNumber(7)
+                .columnNumber(21)
+                .build();
+
+        Assert.assertEquals(outputValidationEntity, validatorService.formatJsonService(inputValidationEntity));
     }
 
     /**
