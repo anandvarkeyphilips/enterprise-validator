@@ -62,15 +62,11 @@ public class EditorControllerIntegrationTest {
     }
 
     @Test
-    public void whenUserTriesInvalidPostContent_ThenFail() {
-        ResponseEntity<String> response = restTemplate.postForEntity(url.toString() + "/base64Decode", null,String.class);
-        assertEquals(HttpStatus.UNSUPPORTED_MEDIA_TYPE, response.getStatusCode());
-        assertTrue(response.getBody()
-                .contains("This doesn't happen usually"));
-    }
-    @Test
     public void whenError_ThenRouteToErrorPage() {
         assertEquals("/error", customErrorController.getErrorPath());
+        ResponseEntity<String> response = restTemplate.getForEntity(url.toString() + "/error", String.class);
+        assertTrue(response.getBody()
+                .contains("This doesn't happen usually"));
     }
 
     @Test
