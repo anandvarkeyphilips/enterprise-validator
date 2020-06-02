@@ -32,7 +32,7 @@ public class EditorControllerIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
-    private ErrorController errorController;
+    private CustomErrorController customErrorController;
     @LocalServerPort
     private int port;
 
@@ -70,7 +70,7 @@ public class EditorControllerIntegrationTest {
     }
     @Test
     public void whenError_ThenRouteToErrorPage() {
-        assertEquals("/error", errorController.getErrorPath());
+        assertEquals("/error", customErrorController.getErrorPath());
     }
 
     @Test
