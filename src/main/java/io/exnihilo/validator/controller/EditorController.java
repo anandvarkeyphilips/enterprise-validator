@@ -1,7 +1,7 @@
 package io.exnihilo.validator.controller;
 
 import io.exnihilo.validator.entity.ValidationEntity;
-import io.exnihilo.validator.service.ValidatorService;
+import io.exnihilo.validator.service.IValidatorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class EditorController {
 
     @Autowired
-    private ValidatorService validatorService;
+    private IValidatorService validatorService;
 
     @RequestMapping("/editor")
     public ModelAndView editor() {
