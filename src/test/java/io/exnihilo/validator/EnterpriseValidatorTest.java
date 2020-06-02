@@ -20,4 +20,9 @@ public class EnterpriseValidatorTest {
     public void contextLoads() {
         Assert.assertTrue(true);
     }
+
+    @Test
+    public void applicationStarts() {
+        EnterpriseValidator.main(new String[] {});
+    }
 }
