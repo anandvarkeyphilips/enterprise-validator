@@ -110,7 +110,7 @@ public class ValidatorServiceTest {
                 "            }\n" +
                 "        }\n" +
                 "    }\n" +
-                "}").valid(true).validationMessage("Valid JSON!!!").build();
+                "}").valid(true).validationMessage("Formatted JSON!!!").build();
 
         Assert.assertEquals(outputValidationEntity, validatorService.formatJsonService(inputValidationEntity));
     }
