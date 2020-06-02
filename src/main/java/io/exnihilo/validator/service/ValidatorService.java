@@ -20,6 +20,7 @@ import java.util.Base64;
 import java.util.Map;
 
 import static io.exnihilo.validator.util.Utils.getNumberFromRegexPattern;
+import static io.exnihilo.validator.constants.EnterpriseValidatorConstants.*;
 
 /**
  * Validator Service Class handles the functional aspects of all configured validators.
@@ -48,10 +49,10 @@ public class ValidatorService implements IValidatorService {
             validationEntity.setValidationMessage("Valid YAML!!!");
         } catch (Exception e) {
             validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in validation: ", e);
-            if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexPattern("line ", ",", e.getMessage()));
-                validationEntity.setColumnNumber(getNumberFromRegexPattern("column ", ":", e.getMessage()));
+            log.error(EXCEPTION_IN_VALIDATION_MESSAGE, e);
+            if (e.getMessage().contains(LINE_WITH_SPACE_FOR_PATTERN_MATCHING)) {
+                validationEntity.setLineNumber(getNumberFromRegexPattern(LINE_WITH_SPACE_FOR_PATTERN_MATCHING, ",", e.getMessage()));
+                validationEntity.setColumnNumber(getNumberFromRegexPattern(COLUMN_WITH_SPACE_FOR_PATTERN_MATCHING, ":", e.getMessage()));
             }
         }
         return validationEntity;
@@ -71,9 +72,9 @@ public class ValidatorService implements IValidatorService {
             validationEntity.setValidationMessage("Valid JSON!!!");
         } catch (JSONException e) {
             validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in validation: ", e);
-            if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexPattern("line ", "]", e.getMessage()));
+            log.error(EXCEPTION_IN_VALIDATION_MESSAGE, e);
+            if (e.getMessage().contains(LINE_WITH_SPACE_FOR_PATTERN_MATCHING)) {
+                validationEntity.setLineNumber(getNumberFromRegexPattern(LINE_WITH_SPACE_FOR_PATTERN_MATCHING, "]", e.getMessage()));
                 validationEntity.setColumnNumber(getNumberFromRegexPattern("[character ", " line", e.getMessage()));
             }
         }
@@ -96,9 +97,9 @@ public class ValidatorService implements IValidatorService {
             validationEntity.setValidationMessage("Formatted JSON!!!");
         } catch (JSONException e) {
             validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in validation: ", e);
-            if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexPattern("line ", "]", e.getMessage()));
+            log.error(EXCEPTION_IN_VALIDATION_MESSAGE, e);
+            if (e.getMessage().contains(LINE_WITH_SPACE_FOR_PATTERN_MATCHING)) {
+                validationEntity.setLineNumber(getNumberFromRegexPattern(LINE_WITH_SPACE_FOR_PATTERN_MATCHING, "]", e.getMessage()));
                 validationEntity.setColumnNumber(getNumberFromRegexPattern("[character ", " line", e.getMessage()));
             }
         }
@@ -132,7 +133,7 @@ public class ValidatorService implements IValidatorService {
             validationEntity.setValidationMessage("Formatted XML!!!");
         } catch (Exception e) {
             validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in validation: ", e);
+            log.error(EXCEPTION_IN_VALIDATION_MESSAGE, e);
         }
         return validationEntity;
     }
