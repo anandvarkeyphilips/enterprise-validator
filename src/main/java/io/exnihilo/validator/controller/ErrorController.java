@@ -16,20 +16,18 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
     @RequestMapping("/error")
     public ModelAndView handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
-            if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                log.error("error-404: An attempt to search for {}", request.getRequestURL());
-            } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                log.error("error-500: An attempt to search for {}", request.getRequestURL());
-            }
+        Integer statusCode = Integer.valueOf(status.toString());
+        if (statusCode == HttpStatus.NOT_FOUND.value()) {
+            log.error("error-404: An attempt to search for {}", request.getRequestURL());
+            return new ModelAndView("/errors/404");
+        } else {
+            log.error("Internal error occurred for {}", request.getRequestURL());
+            return new ModelAndView("/errors/500");
         }
-        return new ModelAndView("/errors/404");
     }
 
     @Override
     public String getErrorPath() {
-
         return "/error";
     }
 }
