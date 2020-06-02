@@ -9,9 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,7 +28,7 @@ public class EditorController {
     @Autowired
     private IValidatorService validatorService;
 
-    @RequestMapping("/editor")
+    @GetMapping("/editor")
     public ModelAndView editor() {
         log.info("Inside editor");
         return new ModelAndView("editor");
@@ -45,9 +45,9 @@ public class EditorController {
     @ApiOperation(
             value = "API for Validating the YAML Data",
             notes = "This API validates YAML data input.")
-    public ResponseEntity<?> validateYamlController(@RequestBody ValidationEntity validationEntity) {
+    public ResponseEntity<ValidationEntity> validateYamlController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling validateYamlController...");
-        return new ResponseEntity<Object>(validatorService.validateYamlService(validationEntity), HttpStatus.OK);
+        return new ResponseEntity<>(validatorService.validateYamlService(validationEntity), HttpStatus.OK);
     }
 
     /**
@@ -60,9 +60,9 @@ public class EditorController {
     @ApiOperation(
             value = "API for Validating the JSON Data",
             notes = "This API validates JSON data input.")
-    public ResponseEntity<?> validateJsonController(@RequestBody ValidationEntity validationEntity) {
+    public ResponseEntity<ValidationEntity> validateJsonController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling validateJsonController...");
-        return new ResponseEntity<Object>(validatorService.validateJsonService(validationEntity), HttpStatus.OK);
+        return new ResponseEntity<>(validatorService.validateJsonService(validationEntity), HttpStatus.OK);
     }
 
     /**
@@ -76,9 +76,9 @@ public class EditorController {
     @ApiOperation(
             value = "API for formatting the JSON Data",
             notes = "This API formats JSON data input.")
-    public ResponseEntity<?> formatJsonController(@RequestBody ValidationEntity validationEntity) {
+    public ResponseEntity<ValidationEntity> formatJsonController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling formatJsonController...");
-        return new ResponseEntity<Object>(validatorService.formatJsonService(validationEntity), HttpStatus.OK);
+        return new ResponseEntity<>(validatorService.formatJsonService(validationEntity), HttpStatus.OK);
     }
 
     /**
@@ -91,9 +91,9 @@ public class EditorController {
     @ApiOperation(
             value = "API for formatting the XML Data",
             notes = "This API formats XML data input.")
-    public ResponseEntity<?> formatXmlController(@RequestBody ValidationEntity validationEntity) {
+    public ResponseEntity<ValidationEntity> formatXmlController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling formatXmlController...");
-        return new ResponseEntity<Object>(validatorService.formatXmlService(validationEntity), HttpStatus.OK);
+        return new ResponseEntity<>(validatorService.formatXmlService(validationEntity), HttpStatus.OK);
     }
 
     /**
@@ -106,9 +106,9 @@ public class EditorController {
     @ApiOperation(
             value = "API for Base64 encoding Data",
             notes = "This API encodes data input.")
-    public ResponseEntity<?> base64EncodeController(@RequestBody ValidationEntity validationEntity) {
+    public ResponseEntity<ValidationEntity> base64EncodeController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling base64EncodeController...");
-        return new ResponseEntity<Object>(validatorService.encodeBase64(validationEntity), HttpStatus.OK);
+        return new ResponseEntity<>(validatorService.encodeBase64(validationEntity), HttpStatus.OK);
     }
 
     /**
@@ -121,8 +121,8 @@ public class EditorController {
     @ApiOperation(
             value = "API for Base64 decoding Data",
             notes = "This API decodes data input.")
-    public ResponseEntity<?> base64DecodeController(@RequestBody ValidationEntity validationEntity) {
+    public ResponseEntity<ValidationEntity> base64DecodeController(@RequestBody ValidationEntity validationEntity) {
         log.debug("Calling base64DecodeController...");
-        return new ResponseEntity<Object>(validatorService.decodeBase64(validationEntity), HttpStatus.OK);
+        return new ResponseEntity<>(validatorService.decodeBase64(validationEntity), HttpStatus.OK);
     }
 }
