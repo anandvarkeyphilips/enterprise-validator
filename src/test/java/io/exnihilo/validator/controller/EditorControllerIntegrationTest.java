@@ -1,8 +1,7 @@
-package io.exnihilo.validator;
+package io.exnihilo.validator.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.exnihilo.validator.controller.EditorController;
 import io.exnihilo.validator.entity.ValidationEntity;
 import io.exnihilo.validator.service.ValidatorService;
 import org.hamcrest.Matchers;
@@ -32,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-public class ValidatorControllerIntegrationTest {
+public class EditorControllerIntegrationTest {
 
     private MockMvc mockMvc;
     @Mock
@@ -47,7 +46,7 @@ public class ValidatorControllerIntegrationTest {
 
     @Test
     public void validateYamlController_whenValidYaml_returnTrue() throws Exception {
-        File file = ResourceUtils.getFile("classpath:application.yml");
+        File file = ResourceUtils.getFile("classpath:valid-yaml.yml");
         String inputYamlData = new String(Files.readAllBytes(file.toPath()));
 
         ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();

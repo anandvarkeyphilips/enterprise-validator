@@ -1,10 +1,11 @@
-package io.exnihilo.validator;
+package io.exnihilo.validator.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.exnihilo.validator.entity.ValidationEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -26,22 +27,24 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ValidatorControllerLiveTest {
+public class EditorControllerLiveTest {
 
+    @Autowired
     private TestRestTemplate restTemplate;
-    private URL url;
+    @Autowired
+    private ErrorController errorController;
     @LocalServerPort
     private int port;
 
+    private URL url;
+
     @Before
     public void setUp() throws MalformedURLException {
-        restTemplate = new TestRestTemplate();
         url = new URL("http://localhost:" + port);
     }
 
     @Test
     public void whenUserTrieHomePage_ThenSuccess() {
-        restTemplate = new TestRestTemplate();
         ResponseEntity<String> response = restTemplate.getForEntity(url.toString() + "/editor", String.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -51,7 +54,6 @@ public class ValidatorControllerLiveTest {
 
     @Test
     public void whenUserTriesInvalidPage_ThenFail() {
-        restTemplate = new TestRestTemplate();
         ResponseEntity<String> response = restTemplate.getForEntity(url.toString() + "/invalidPage", String.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -59,10 +61,21 @@ public class ValidatorControllerLiveTest {
                 .contains("We couldn't find what you were looking for."));
     }
 
+    @Test
+    public void whenUserTriesInvalidPostContent_ThenFail() {
+        ResponseEntity<String> response = restTemplate.postForEntity(url.toString() + "/base64Decode", null,String.class);
+        assertEquals(HttpStatus.UNSUPPORTED_MEDIA_TYPE, response.getStatusCode());
+        assertTrue(response.getBody()
+                .contains("This doesn't happen usually"));
+    }
+    @Test
+    public void whenError_ThenRouteToErrorPage() {
+        assertEquals("/error", errorController.getErrorPath());
+    }
 
     @Test
     public void whenUserPostValidXML_ThenSuccess() throws IllegalStateException, IOException {
-        File file = ResourceUtils.getFile("classpath:application.yml");
+        File file = ResourceUtils.getFile("classpath:valid-yaml.yml");
         String inputYamlData = new String(Files.readAllBytes(file.toPath()));
         ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
 
