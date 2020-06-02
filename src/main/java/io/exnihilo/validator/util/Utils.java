@@ -13,7 +13,7 @@ public final class Utils {
         int number = 0;
         Pattern p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
         Matcher m = p.matcher(e.getMessage());
-        if (m.matches()) {
+        if (m.find()) {
             number = Integer.parseInt(m.group(1));
         }
         return number;
