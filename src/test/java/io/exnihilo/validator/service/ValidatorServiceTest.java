@@ -6,20 +6,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.util.ResourceUtils;
-import org.w3c.dom.Node;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSSerializer;
-import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Base64;
-
-import static io.exnihilo.validator.util.Utils.getNumberFromRegexMatcher;
 /**
  * Validator Service Class handles the functional aspects of all configured validators.
  *
@@ -140,38 +131,34 @@ public class ValidatorServiceTest {
         Assert.assertEquals(outputValidationEntity, validatorService.formatJsonService(inputValidationEntity));
     }
 
-    /**
-     * Validates the format of xml data string and returns  error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    public ValidationEntity formatXmlService(ValidationEntity validationEntity) {
-        try {
-            final InputSource src = new InputSource(new StringReader(validationEntity.getInputMessage()));
-            final Node document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(src).getDocumentElement();
-            final Boolean keepDeclaration = Boolean.valueOf(validationEntity.getInputMessage().startsWith("<?xml"));
-            final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-            final DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
-            final LSSerializer writer = impl.createLSSerializer();
+    @Test
+    public void formatXmlService_whenValidXml_returnTrue() throws Exception {
+        File file = ResourceUtils.getFile("classpath:valid-xml.xml");
+        String inputXmlData = new String(Files.readAllBytes(file.toPath()));
 
-            writer.getDomConfig().setParameter("format-pretty-print", Boolean.TRUE); // Set this to true if the output needs to be beautified.
-            writer.getDomConfig().setParameter("xml-declaration", keepDeclaration); // Set this to true if the declaration is needed to be outputted.
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputXmlData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder("<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n" +
+                "<book>\n" +
+                "    <title>java book</title>\n" +
+                "    <author>nick bore</author>\n" +
+                "    <pages>1020</pages>\n" +
+                "    <example>xml - valid xml file</example>\n" +
+                "</book>\n").valid(true).validationMessage("Formatted XML!!!").build();
 
-            log.debug("XML Value formatted successfully: {}", writer.writeToString(document));
-            validationEntity.setValid(true);
-            validationEntity.setInputMessage(writer.writeToString(document));
-            validationEntity.setValidationMessage("Formatted XML!!!");
-        } catch (Exception e) {
-            validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in validation: ", e);
-            if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
-                validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
-            }
-        } finally {
-            return validationEntity;
-        }
+        Assert.assertEquals(outputValidationEntity, validatorService.formatXmlService(inputValidationEntity));
+    }
+
+    @Test
+    public void formatXmlService_whenInvalidXml_returnFalse() throws Exception {
+        File file = ResourceUtils.getFile("classpath:invalid-xml.xml");
+        String inputXmlData = new String(Files.readAllBytes(file.toPath()));
+
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputXmlData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputXmlData).valid(false).validationMessage(
+                "Element type \"pages1020\" must be followed by either attribute specifications, \">\" or \"/>\".")
+                .build();
+
+        Assert.assertEquals(outputValidationEntity, validatorService.formatXmlService(inputValidationEntity));
     }
 
     /**

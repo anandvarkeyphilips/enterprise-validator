@@ -132,10 +132,6 @@ public class ValidatorService implements IValidatorService {
         } catch (Exception e) {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
-            if (e.getMessage().contains("line ")) {
-                validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
-                validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
-            }
         } finally {
             return validationEntity;
         }
