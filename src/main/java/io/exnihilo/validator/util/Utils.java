@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
  * perform common operations.
  */
 public final class Utils {
+    private Utils(){}
 
     public static int getNumberFromRegexMatcher(String pattern1, String pattern2, Exception e) {
         int number = 0;
