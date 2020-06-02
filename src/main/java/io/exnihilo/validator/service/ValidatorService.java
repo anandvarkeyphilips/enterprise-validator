@@ -52,9 +52,8 @@ public class ValidatorService implements IValidatorService {
                 validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", ",", e));
                 validationEntity.setColumnNumber(getNumberFromRegexMatcher("column ", ":", e));
             }
-        } finally {
-            return validationEntity;
         }
+        return validationEntity;
     }
 
     /**
@@ -76,9 +75,8 @@ public class ValidatorService implements IValidatorService {
                 validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
                 validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
             }
-        } finally {
-            return validationEntity;
         }
+        return validationEntity;
     }
 
     /**
@@ -102,9 +100,8 @@ public class ValidatorService implements IValidatorService {
                 validationEntity.setLineNumber(getNumberFromRegexMatcher("line ", "]", e));
                 validationEntity.setColumnNumber(getNumberFromRegexMatcher("[character ", " line", e));
             }
-        } finally {
-            return validationEntity;
         }
+        return validationEntity;
     }
 
     /**
@@ -132,9 +129,8 @@ public class ValidatorService implements IValidatorService {
         } catch (Exception e) {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
-        } finally {
-            return validationEntity;
         }
+        return validationEntity;
     }
 
     /**
@@ -144,18 +140,12 @@ public class ValidatorService implements IValidatorService {
      * @return validationEntity
      */
     public ValidationEntity encodeBase64(ValidationEntity validationEntity) {
-        try {
-            String encodedBytes = Base64.getEncoder().encodeToString(validationEntity.getInputMessage().getBytes(StandardCharsets.UTF_8));
-            log.debug("encodeBase64 completed successfully: {}", encodedBytes);
-            validationEntity.setValid(true);
-            validationEntity.setInputMessage(encodedBytes);
-            validationEntity.setValidationMessage("Encode Successful!!!");
-        } catch (Exception e) {
-            validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in Encoding: ", e);
-        } finally {
-            return validationEntity;
-        }
+        String encodedBytes = Base64.getEncoder().encodeToString(validationEntity.getInputMessage().getBytes(StandardCharsets.UTF_8));
+        log.debug("encodeBase64 completed successfully: {}", encodedBytes);
+        validationEntity.setValid(true);
+        validationEntity.setInputMessage(encodedBytes);
+        validationEntity.setValidationMessage("Encode Successful!!!");
+        return validationEntity;
     }
 
     /**
@@ -165,17 +155,11 @@ public class ValidatorService implements IValidatorService {
      * @return validationEntity
      */
     public ValidationEntity decodeBase64(ValidationEntity validationEntity) {
-        try {
-            String decodedString = new String(Base64.getDecoder().decode(validationEntity.getInputMessage()));
-            log.debug("decodeBase64 completed successfully: {}", decodedString);
-            validationEntity.setValid(true);
-            validationEntity.setInputMessage(decodedString);
-            validationEntity.setValidationMessage("Decode Successful!!!");
-        } catch (Exception e) {
-            validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in Decoding: ", e);
-        } finally {
-            return validationEntity;
-        }
+        String decodedString = new String(Base64.getDecoder().decode(validationEntity.getInputMessage()));
+        log.debug("decodeBase64 completed successfully: {}", decodedString);
+        validationEntity.setValid(true);
+        validationEntity.setInputMessage(decodedString);
+        validationEntity.setValidationMessage("Decode Successful!!!");
+        return validationEntity;
     }
 }
