@@ -8,9 +8,7 @@ import org.junit.Test;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Base64;
 /**
  * Validator Service Class handles the functional aspects of all configured validators.
  *
@@ -161,45 +159,23 @@ public class ValidatorServiceTest {
         Assert.assertEquals(outputValidationEntity, validatorService.formatXmlService(inputValidationEntity));
     }
 
-    /**
-     * Encodes data in Base64 format and returns error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    public ValidationEntity encodeBase64(ValidationEntity validationEntity) {
-        try {
-            String encodedBytes = Base64.getEncoder().encodeToString(validationEntity.getInputMessage().getBytes(StandardCharsets.UTF_8));
-            log.debug("encodeBase64 completed successfully: {}", encodedBytes);
-            validationEntity.setValid(true);
-            validationEntity.setInputMessage(encodedBytes);
-            validationEntity.setValidationMessage("Encode Successful!!!");
-        } catch (Exception e) {
-            validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in Encoding: ", e);
-        } finally {
-            return validationEntity;
-        }
+    @Test
+    public void encodeBase64_whenValidContent_returnTrue() throws Exception {
+        String data = "Anand";
+
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(data).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder("QW5hbmQ=").valid(true).validationMessage("Encode Successful!!!").build();
+
+        Assert.assertEquals(outputValidationEntity, validatorService.encodeBase64(inputValidationEntity));
     }
 
-    /**
-     * Decodes data from Base64 format and returns error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    public ValidationEntity decodeBase64(ValidationEntity validationEntity) {
-        try {
-            String decodedString = new String(Base64.getDecoder().decode(validationEntity.getInputMessage()));
-            log.debug("decodeBase64 completed successfully: {}", decodedString);
-            validationEntity.setValid(true);
-            validationEntity.setInputMessage(decodedString);
-            validationEntity.setValidationMessage("Decode Successful!!!");
-        } catch (Exception e) {
-            validationEntity.setValidationMessage(e.getMessage());
-            log.error("Exception occurred in Decoding: ", e);
-        } finally {
-            return validationEntity;
-        }
+    @Test
+    public void decodeBase64_whenValidContent_returnTrue() throws Exception {
+        String data = "QW5hbmQ=";
+
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(data).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder("Anand").valid(true).validationMessage("Decode Successful!!!").build();
+
+        Assert.assertEquals(outputValidationEntity, validatorService.decodeBase64(inputValidationEntity));
     }
 }
