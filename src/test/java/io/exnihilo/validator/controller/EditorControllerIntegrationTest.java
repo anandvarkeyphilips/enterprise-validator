@@ -3,7 +3,7 @@ package io.exnihilo.validator.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.exnihilo.validator.entity.ValidationEntity;
-import io.exnihilo.validator.service.ValidatorService;
+import io.exnihilo.validator.service.IValidatorService;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,7 +35,7 @@ public class EditorControllerIntegrationTest {
 
     private MockMvc mockMvc;
     @Mock
-    private ValidatorService validatorServiceMock;
+    private IValidatorService validatorServiceMock;
     @InjectMocks
     private EditorController editorController;
 

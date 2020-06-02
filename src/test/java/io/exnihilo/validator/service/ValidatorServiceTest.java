@@ -4,7 +4,10 @@ import io.exnihilo.validator.entity.ValidationEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.stereotype.Service;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.util.ResourceUtils;
 import org.w3c.dom.Node;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -13,13 +16,14 @@ import org.xml.sax.InputSource;
 import org.yaml.snakeyaml.Yaml;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Base64;
 import java.util.Map;
 
 import static io.exnihilo.validator.util.Utils.getNumberFromRegexMatcher;
-
 /**
  * Validator Service Class handles the functional aspects of all configured validators.
  *
@@ -28,8 +32,44 @@ import static io.exnihilo.validator.util.Utils.getNumberFromRegexMatcher;
  * @since 2.0.0.RELEASE
  */
 @Slf4j
-@Service
-public class ValidatorService implements IValidatorService {
+public class ValidatorServiceTest {
+
+
+    private IValidatorService validatorService;
+
+    @Before
+    public void setUp() {
+        validatorService = new ValidatorService();
+    }
+
+    @Test
+    public void validateYamlService_whenValidYaml_returnTrue() throws Exception {
+        File file = ResourceUtils.getFile("classpath:valid-yaml.yml");
+        String inputYamlData = new String(Files.readAllBytes(file.toPath()));
+
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputYamlData).valid(true).validationMessage("Valid YAML!!!").build();
+
+        Assert.assertEquals(outputValidationEntity, validatorService.validateYamlService(inputValidationEntity));
+    }
+
+    @Test
+    public void validateYamlService_whenInvalidYaml_returnFalse() throws Exception {
+        File file = ResourceUtils.getFile("classpath:invalid-yaml.yml");
+        String inputYamlData = new String(Files.readAllBytes(file.toPath()));
+
+        ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
+        ValidationEntity outputValidationEntity = ValidationEntity.builder(inputYamlData).valid(false).validationMessage("mapping values are not allowed here\n" +
+                " in 'string', line 7, column 27:\n" +
+                "       pid.fail-on-write-error: true\n" +
+                "                              ^\n")
+                .lineNumber(7)
+                .columnNumber(27)
+                .build();
+
+        Assert.assertEquals(outputValidationEntity, validatorService.validateYamlService(inputValidationEntity));
+    }
+
 
     /**
      * Splits yaml data in case of multiple documents "---" and validates each part,
