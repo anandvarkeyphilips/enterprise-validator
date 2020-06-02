@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.ApplicationPidFileWriter;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.annotation.PreDestroy;
@@ -24,9 +26,9 @@ import java.time.format.DateTimeFormatter;
 @SpringBootApplication
 public class EnterpriseValidator {
 
-    private static String applicationName;
+    private String applicationName;
     private static final ZoneId ZONE_ID = ZoneId.of("Asia/Kolkata");
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd:MMM:YYY hh:mm:ss:SSS a");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd:MMM:YYY hh:mm:ss:SSS a");
 
     @Value("${application.name}")
     public void setApplicationName(String applicationName) {
@@ -37,12 +39,16 @@ public class EnterpriseValidator {
         SpringApplicationBuilder app = new SpringApplicationBuilder(EnterpriseValidator.class);
         app.build().addListeners(new ApplicationPidFileWriter());
         app.run();
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    void logApplicationStart() {
         log.info("{} Application is started at Indian Standard Time: {}", applicationName,
                 ZonedDateTime.now(ZONE_ID).format(DATE_TIME_FORMATTER));
     }
 
     @PreDestroy
-    void logExit() {
+    void logApplicationExit() {
         log.info("{} Application is being gracefully stopped at Indian Standard Time: {}", applicationName,
                 ZonedDateTime.now(ZONE_ID).format(DATE_TIME_FORMATTER));
     }
