@@ -94,7 +94,7 @@ public class ValidatorService implements IValidatorService {
             log.debug("JSON Value formatted successfully: {}", indentedJson);
             validationEntity.setValid(true);
             validationEntity.setInputMessage(indentedJson);
-            validationEntity.setValidationMessage("Valid JSON!!!");
+            validationEntity.setValidationMessage("Formatted JSON!!!");
         } catch (JSONException e) {
             validationEntity.setValidationMessage(e.getMessage());
             log.error("Exception occurred in validation: ", e);
