@@ -74,6 +74,12 @@
             <artifactId>json-java-ordered</artifactId>
             <version>20180813</version>
         </dependency>
+        <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-parent</artifactId>
+            <version>1.5.2</version>
+            <type>pom</type>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -90,6 +96,38 @@
                 </executions>
                 <configuration>
                     <executable>true</executable>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.5.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                        <phase>test</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <targetClasses>
+                        <param>io.exnihilo.validator.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>io.exnihilo.validator.*</param>
+                    </targetTests>
+                    <mutators>
+                        <mutator>CONSTRUCTOR_CALLS</mutator>
+                        <mutator>VOID_METHOD_CALLS</mutator>
+                        <mutator>RETURN_VALS</mutator>
+                        <mutator>NON_VOID_METHOD_CALLS</mutator>
+                        <mutator>INCREMENTS</mutator>
+                        <mutator>MATH</mutator>
+                        <mutator>NEGATE_CONDITIONALS</mutator>
+                        <mutator>INVERT_NEGS</mutator>
+                        <mutator>CONDITIONALS_BOUNDARY</mutator>
+                    </mutators>
                 </configuration>
             </plugin>
             <plugin>
