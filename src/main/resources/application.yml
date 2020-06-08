@@ -5,6 +5,9 @@ application:
 spring:
   profiles.active: prod
   pid.fail-on-write-error: true
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
 server:
   port: 8090
 logging:

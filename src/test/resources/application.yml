@@ -6,6 +6,9 @@ spring:
   profiles.active: default
   pid.fail-on-write-error: true
   pid.file: /packages/config/${application.artifactId}/${application.artifactId}.pid
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
 server:
   port: 8090
 logging:
