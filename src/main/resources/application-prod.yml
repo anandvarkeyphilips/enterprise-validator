@@ -1,0 +1,9 @@
+#This section contains the properties that will be over-written for the Prod environment
+spring:
+  pid.file: /packages/config/${application.artifactId}/${application.artifactId}.pid
+server:
+  port: 8090
+logging:
+  level.root: info
+  level.io.exnihilo: debug
+  file: /packages/logs/${application.artifactId}/${application.artifactId}.log

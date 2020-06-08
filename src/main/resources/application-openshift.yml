@@ -1,0 +1,9 @@
+#This section contains the properties that will be over-written for the Docker environment
+spring:
+  pid.file: ${application.artifactId}.pid
+server:
+  port: 8080
+logging:
+  level.root: info
+  level.io.exnihilo: info
+  file: logs/${application.artifactId}.log
