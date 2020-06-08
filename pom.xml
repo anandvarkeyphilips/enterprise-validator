@@ -107,38 +107,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-maven</artifactId>
-                <version>1.5.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>mutationCoverage</goal>
-                        </goals>
-                        <phase>test</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <targetClasses>
-                        <param>io.exnihilo.validator.*</param>
-                    </targetClasses>
-                    <targetTests>
-                        <param>io.exnihilo.validator.*</param>
-                    </targetTests>
-                    <mutators>
-                        <mutator>CONSTRUCTOR_CALLS</mutator>
-                        <mutator>VOID_METHOD_CALLS</mutator>
-                        <mutator>RETURN_VALS</mutator>
-                        <mutator>NON_VOID_METHOD_CALLS</mutator>
-                        <mutator>INCREMENTS</mutator>
-                        <mutator>MATH</mutator>
-                        <mutator>NEGATE_CONDITIONALS</mutator>
-                        <mutator>INVERT_NEGS</mutator>
-                        <mutator>CONDITIONALS_BOUNDARY</mutator>
-                    </mutators>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.9</version>
@@ -162,4 +130,49 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>mutation-testing</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <version>1.5.2</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                                <phase>verify</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <targetClasses>
+                                <param>io.exnihilo.validator.*</param>
+                            </targetClasses>
+                            <targetTests>
+                                <param>io.exnihilo.validator.*</param>
+                            </targetTests>
+                            <mutators>
+                                <mutator>CONSTRUCTOR_CALLS</mutator>
+                                <mutator>VOID_METHOD_CALLS</mutator>
+                                <mutator>RETURN_VALS</mutator>
+                                <mutator>NON_VOID_METHOD_CALLS</mutator>
+                                <mutator>INCREMENTS</mutator>
+                                <mutator>MATH</mutator>
+                                <mutator>NEGATE_CONDITIONALS</mutator>
+                                <mutator>INVERT_NEGS</mutator>
+                                <mutator>CONDITIONALS_BOUNDARY</mutator>
+                            </mutators>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
