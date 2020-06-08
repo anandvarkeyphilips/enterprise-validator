@@ -197,6 +197,36 @@
             </build>
         </profile>
         <profile>
+            <id>sonarqube-scanner</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.projectKey>enterprise-validator</sonar.projectKey>
+                <sonar.organization>anandvarkeyphilips</sonar.organization>
+                <sonar.host.url>${env.VARKEYS_SONAR_URL}</sonar.host.url>
+                <sonar.login>${env.VARKEYS_SONAR_LOGIN}</sonar.login>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>3.6.1.1688</version>
+                        <executions>
+                            <execution>
+                                <id>sonar-verify</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>docker-install</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
