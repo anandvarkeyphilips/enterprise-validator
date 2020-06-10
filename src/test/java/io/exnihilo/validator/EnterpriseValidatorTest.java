@@ -16,13 +16,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class EnterpriseValidatorTest {
 
-    @Test
-    public void contextLoads() {
-        Assert.assertTrue(true);
-    }
+  @Test
+  public void contextLoads() {
+    Assert.assertTrue(true);
+  }
 
-    @Test
-    public void applicationStarts() {
-        EnterpriseValidator.main(new String[] {});
-    }
+  @Test
+  public void applicationStarts() {
+    EnterpriseValidator.main(new String[] {});
+  }
 }

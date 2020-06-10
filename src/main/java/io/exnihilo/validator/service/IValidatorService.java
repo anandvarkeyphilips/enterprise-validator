@@ -4,7 +4,8 @@ import io.exnihilo.validator.entity.ValidationEntity;
 import org.springframework.stereotype.Service;
 
 /**
- * Validator Service Interface for proving custom implementations of configured validators if required.
+ * Validator Service Interface for proving custom implementations of configured validators if
+ * required.
  *
  * @author Anand Varkey Philips
  * @date 27/10/2018
@@ -13,53 +14,53 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IValidatorService {
 
-    /**
-     * Splits yaml data in case of multiple documents "---" and validates each part,
-     * and then returns error message, line and column numbers in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    ValidationEntity validateYamlService(ValidationEntity validationEntity);
+  /**
+   * Splits yaml data in case of multiple documents "---" and validates each part, and then returns
+   * error message, line and column numbers in case of failure.
+   *
+   * @param validationEntity
+   * @return validationEntity
+   */
+  ValidationEntity validateYamlService(ValidationEntity validationEntity);
 
-    /**
-     * Validates the format of json data string and returns error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    ValidationEntity validateJsonService(ValidationEntity validationEntity);
+  /**
+   * Validates the format of json data string and returns error details in case of failure.
+   *
+   * @param validationEntity
+   * @return validationEntity
+   */
+  ValidationEntity validateJsonService(ValidationEntity validationEntity);
 
-    /**
-     * Validates the format of json data string and returns formatted json
-     * along with error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    ValidationEntity formatJsonService(ValidationEntity validationEntity);
+  /**
+   * Validates the format of json data string and returns formatted json along with error details in
+   * case of failure.
+   *
+   * @param validationEntity
+   * @return validationEntity
+   */
+  ValidationEntity formatJsonService(ValidationEntity validationEntity);
 
-    /**
-     * Validates the format of xml data string and returns  error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    ValidationEntity formatXmlService(ValidationEntity validationEntity);
+  /**
+   * Validates the format of xml data string and returns error details in case of failure.
+   *
+   * @param validationEntity
+   * @return validationEntity
+   */
+  ValidationEntity formatXmlService(ValidationEntity validationEntity);
 
-    /**
-     * Encodes data in Base64 format and returns error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    ValidationEntity encodeBase64(ValidationEntity validationEntity);
+  /**
+   * Encodes data in Base64 format and returns error details in case of failure.
+   *
+   * @param validationEntity
+   * @return validationEntity
+   */
+  ValidationEntity encodeBase64(ValidationEntity validationEntity);
 
-    /**
-     * Decodes data from Base64 format and returns error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validationEntity
-     */
-    ValidationEntity decodeBase64(ValidationEntity validationEntity);
+  /**
+   * Decodes data from Base64 format and returns error details in case of failure.
+   *
+   * @param validationEntity
+   * @return validationEntity
+   */
+  ValidationEntity decodeBase64(ValidationEntity validationEntity);
 }

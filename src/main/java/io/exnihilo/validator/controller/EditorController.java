@@ -7,8 +7,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,112 +15,98 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RestController
-@ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Successfully connected and validated with API Validator"),
-        @ApiResponse(code = 401, message = "You are not authenticated properly to view the resource!"),
-        @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden!"),
-        @ApiResponse(code = 404, message = "Validator Service not available right now!"),
-})
+@ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully connected and validated with API Validator"),
+    @ApiResponse(code = 401, message = "You are not authenticated properly to view the resource!"),
+    @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden!"),
+    @ApiResponse(code = 404, message = "Validator Service not available right now!"),})
 public class EditorController {
 
-    @Autowired
-    private IValidatorService validatorService;
+  @Autowired
+  private IValidatorService validatorService;
 
-    @GetMapping("/editor")
-    public ModelAndView editor() {
-        log.info("Inside editor");
-        return new ModelAndView("editor");
-    }
+  @GetMapping("/editor")
+  public ModelAndView editor() {
+    log.info("Inside editor");
+    return new ModelAndView("editor");
+  }
 
-    /**
-     * Splits yaml data in case of multiple documents "---" and validates each part,
-     * and then returns error message, line and column numbers in case of failure.
-     *
-     * @param validationEntity
-     * @return validation result
-     */
-    @PostMapping("/yaml")
-    @ApiOperation(
-            value = "API for Validating the YAML Data",
-            notes = "This API validates YAML data input.")
-    public ResponseEntity<ValidationEntity> validateYamlController(@RequestBody ValidationEntity validationEntity) {
-        log.debug("Calling validateYamlController...");
-        return new ResponseEntity<>(validatorService.validateYamlService(validationEntity), HttpStatus.OK);
-    }
+  /**
+   * Splits yaml data in case of multiple documents "---" and validates each part, and then returns
+   * error message, line and column numbers in case of failure.
+   *
+   * @param validationEntity
+   * @return validation result
+   */
+  @PostMapping("/yaml")
+  @ApiOperation(value = "API for Validating the YAML Data", notes = "This API validates YAML data input.")
+  public ValidationEntity validateYamlController(@RequestBody ValidationEntity validationEntity) {
+    log.debug("Calling validateYamlController...");
+    return validatorService.validateYamlService(validationEntity);
+  }
 
-    /**
-     * Validates the format of json data string and returns error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validation result
-     */
-    @PostMapping("/json")
-    @ApiOperation(
-            value = "API for Validating the JSON Data",
-            notes = "This API validates JSON data input.")
-    public ResponseEntity<ValidationEntity> validateJsonController(@RequestBody ValidationEntity validationEntity) {
-        log.debug("Calling validateJsonController...");
-        return new ResponseEntity<>(validatorService.validateJsonService(validationEntity), HttpStatus.OK);
-    }
+  /**
+   * Validates the format of json data string and returns error details in case of failure.
+   *
+   * @param validationEntity
+   * @return validation result
+   */
+  @PostMapping("/json")
+  @ApiOperation(value = "API for Validating the JSON Data", notes = "This API validates JSON data input.")
+  public ValidationEntity validateJsonController(@RequestBody ValidationEntity validationEntity) {
+    log.debug("Calling validateJsonController...");
+    return validatorService.validateJsonService(validationEntity);
+  }
 
-    /**
-     * Validates the format of json data string and returns formatted json
-     * along with error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validation result
-     */
-    @PostMapping("/formatJson")
-    @ApiOperation(
-            value = "API for formatting the JSON Data",
-            notes = "This API formats JSON data input.")
-    public ResponseEntity<ValidationEntity> formatJsonController(@RequestBody ValidationEntity validationEntity) {
-        log.debug("Calling formatJsonController...");
-        return new ResponseEntity<>(validatorService.formatJsonService(validationEntity), HttpStatus.OK);
-    }
+  /**
+   * Validates the format of json data string and returns formatted json along with error details in
+   * case of failure.
+   *
+   * @param validationEntity
+   * @return validation result
+   */
+  @PostMapping("/formatJson")
+  @ApiOperation(value = "API for formatting the JSON Data", notes = "This API formats JSON data input.")
+  public ValidationEntity formatJsonController(@RequestBody ValidationEntity validationEntity) {
+    log.debug("Calling formatJsonController...");
+    return validatorService.formatJsonService(validationEntity);
+  }
 
-    /**
-     * Validates the format of xml data string and returns  error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validation result
-     */
-    @PostMapping("/formatXml")
-    @ApiOperation(
-            value = "API for formatting the XML Data",
-            notes = "This API formats XML data input.")
-    public ResponseEntity<ValidationEntity> formatXmlController(@RequestBody ValidationEntity validationEntity) {
-        log.debug("Calling formatXmlController...");
-        return new ResponseEntity<>(validatorService.formatXmlService(validationEntity), HttpStatus.OK);
-    }
+  /**
+   * Validates the format of xml data string and returns error details in case of failure.
+   *
+   * @param validationEntity
+   * @return validation result
+   */
+  @PostMapping("/formatXml")
+  @ApiOperation(value = "API for formatting the XML Data", notes = "This API formats XML data input.")
+  public ValidationEntity formatXmlController(@RequestBody ValidationEntity validationEntity) {
+    log.debug("Calling formatXmlController...");
+    return validatorService.formatXmlService(validationEntity);
+  }
 
-    /**
-     * Encodes data in Base64 format and returns error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validation result
-     */
-    @PostMapping("/base64Encode")
-    @ApiOperation(
-            value = "API for Base64 encoding Data",
-            notes = "This API encodes data input.")
-    public ResponseEntity<ValidationEntity> base64EncodeController(@RequestBody ValidationEntity validationEntity) {
-        log.debug("Calling base64EncodeController...");
-        return new ResponseEntity<>(validatorService.encodeBase64(validationEntity), HttpStatus.OK);
-    }
+  /**
+   * Encodes data in Base64 format and returns error details in case of failure.
+   *
+   * @param validationEntity
+   * @return validation result
+   */
+  @PostMapping("/base64Encode")
+  @ApiOperation(value = "API for Base64 encoding Data", notes = "This API encodes data input.")
+  public ValidationEntity base64EncodeController(@RequestBody ValidationEntity validationEntity) {
+    log.debug("Calling base64EncodeController...");
+    return validatorService.encodeBase64(validationEntity);
+  }
 
-    /**
-     * Decodes data from Base64 format and returns error details in case of failure.
-     *
-     * @param validationEntity
-     * @return validation result
-     */
-    @PostMapping("/base64Decode")
-    @ApiOperation(
-            value = "API for Base64 decoding Data",
-            notes = "This API decodes data input.")
-    public ResponseEntity<ValidationEntity> base64DecodeController(@RequestBody ValidationEntity validationEntity) {
-        log.debug("Calling base64DecodeController...");
-        return new ResponseEntity<>(validatorService.decodeBase64(validationEntity), HttpStatus.OK);
-    }
+  /**
+   * Decodes data from Base64 format and returns error details in case of failure.
+   *
+   * @param validationEntity
+   * @return validation result
+   */
+  @PostMapping("/base64Decode")
+  @ApiOperation(value = "API for Base64 decoding Data", notes = "This API decodes data input.")
+  public ValidationEntity base64DecodeController(@RequestBody ValidationEntity validationEntity) {
+    log.debug("Calling base64DecodeController...");
+    return validatorService.decodeBase64(validationEntity);
+  }
 }
