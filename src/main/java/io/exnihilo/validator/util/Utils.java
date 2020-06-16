@@ -20,7 +20,7 @@ public final class Utils {
     int number = 0;
     Pattern p = Pattern.compile(Pattern.quote(startingPhrase) + "(.*?)" + Pattern.quote(endingPhrase));
     Matcher m = p.matcher(searchText);
-    if (m.find()) {
+    while (m.find()) {
       number = Integer.parseInt(m.group(1));
     }
     return number;
