@@ -2,26 +2,27 @@ package io.exnihilo.validator.controller;
 
 import io.exnihilo.validator.entity.ValidationEntity;
 import io.exnihilo.validator.service.IValidatorService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Slf4j
 @CrossOrigin(maxAge = 3600)
 @RestController
+@Api(tags = {"Validator Service"})
 @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully connected and validated with API Validator"),
     @ApiResponse(code = 401, message = "You are not authenticated properly to view the resource!"),
     @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden!"),
-    @ApiResponse(code = 404, message = "Validator Service not available right now!"),})
+    @ApiResponse(code = 404, message = "Validator Service page you are looking for is not available right now!"),})
 public class EditorController {
 
   @Autowired
   private IValidatorService validatorService;
 
+  @ApiIgnore
   @GetMapping("/editor")
   public ModelAndView editor() {
     log.info("Inside editor");

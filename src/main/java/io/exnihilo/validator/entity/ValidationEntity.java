@@ -2,6 +2,7 @@ package io.exnihilo.validator.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -22,10 +23,15 @@ import org.springframework.stereotype.Component;
 @EqualsAndHashCode
 @Scope(value = "prototype", proxyMode = ScopedProxyMode.INTERFACES)
 public class ValidationEntity {
+  @ApiModelProperty(readOnly = true) // NOSONAR
   private boolean valid;
+  @ApiModelProperty(readOnly = true) // NOSONAR
   private int lineNumber;
+  @ApiModelProperty(readOnly = true) // NOSONAR
   private int columnNumber;
+  @ApiModelProperty(required = true, example = "example data for validation", value = "input data for validation")
   private String inputMessage;
+  @ApiModelProperty(readOnly = true) // NOSONAR
   private String validationMessage;
 
   @JsonCreator

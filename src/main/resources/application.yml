@@ -1,21 +1,16 @@
 application:
   name: '@project.name@'
+  description: '@project.description@'
   artifactId: '@project.artifactId@'
   version: '@project.version@'
+swagger:
+  contactName: 'Anand Varkey Philips'
+  contactUrl: 'https://about.me/anandvarkeyphilips'
+  contactEmail: 'anandvarkeyphilips@gmail.com'
+  licenseUrl: 'https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/LICENSE'
+  termsOfServiceUrl: 'https://www.termsfeed.com/live/21586f44-4d39-4c46-bc36-c6e5f0063ba0'
 spring:
   profiles.active: prod
-  pid.fail-on-write-error: true
   freemarker:
     template-loader-path: classpath:/templates
     suffix: .ftl
-server:
-  port: 8090
-logging:
-  level.root: info
-  level.io.exnihilo: debug
-management:
-  endpoints:
-    web.exposure.include: "*"
-    web.exposure.exclude: loggers
-  endpoint:
-    shutdown.enabled: true
