@@ -9,6 +9,7 @@
     <version>2.4.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Enterprise Validator</name>
+    <description>Enterprise Validator for YAML, JSON and XML formats and also options for Base64 encoding and decoding</description>
 
     <properties>
         <start-class>io.exnihilo.validator.EnterpriseValidator</start-class>
@@ -162,7 +163,7 @@
                                 <configuration>
                                     <rules>
                                         <rule>
-                                            <element>PACKAGE</element>
+                                            <element>BUNDLE</element>
                                             <limits>
                                                 <limit>
                                                     <counter>LINE</counter>
@@ -205,6 +206,9 @@
                             <targetTests>
                                 <param>io.exnihilo.validator.*</param>
                             </targetTests>
+                            <excludedClasses>
+                                <param>io.exnihilo.validator.config.*</param>
+                            </excludedClasses>
                             <mutators>
                                 <mutator>CONSTRUCTOR_CALLS</mutator>
                                 <mutator>VOID_METHOD_CALLS</mutator>

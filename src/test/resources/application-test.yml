@@ -1,0 +1,18 @@
+#This section contains the properties that will be over-written for the Test environment
+swagger:
+  host: 'localhost:8090'
+  protocols: http, https
+spring:
+  pid.fail-on-write-error: true
+  pid.file: /packages/config/${application.artifactId}/${application.artifactId}.pid
+server:
+  port: 8090
+  servlet.context-path: /
+management:
+  endpoints:
+    web.exposure.include: health,info
+    jmx.exposure.exclude: '*'
+  endpoint:
+    shutdown.enabled: false
+logging:
+  level.root: error
