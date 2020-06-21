@@ -1,0 +1,1363 @@
+{
+	"info": {
+		"_postman_id": "4d4b5954-9be7-41f9-866d-7cd4c4609847",
+		"name": "Enterprise Validator",
+		"description": "Enterprise Validator for YAML, JSON and XML formats and also options for Base64 encoding and decoding\n\nContact Support:\n Name: Anand Varkey Philips\n Email: anandvarkeyphilips@gmail.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API for Base64 decoding Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72daf43f-7d39-4630-a55b-813b37792fff",
+						"exec": [
+							"pm.test(\"api response status\", () => \r",
+							"  pm.response.to.be.success );\r",
+							"pm.test(\"inputMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().inputMessage).to.equal(\"adasdasd\"));\r",
+							"pm.test(\"valid is true\", () => \r",
+							"  pm.expect(pm.response.json().valid).to.equal(true));\r",
+							"pm.test(\"validationMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().validationMessage).to.equal(\"Decode Successful!!!\"));\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().lineNumber).to.be.equal(0) );\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().columnNumber).to.be.equal(0) );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inputMessage\": \"YWRhc2Rhc2Q=\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/base64Decode",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"base64Decode"
+					]
+				},
+				"description": "This API decodes data input."
+			},
+			"response": [
+				{
+					"name": "Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Decode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Decode"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "You are not authenticated properly to view the resource!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Decode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Decode"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Accessing the resource you were trying to reach is forbidden!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Decode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Decode"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Successfully connected and validated with API Validator",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Decode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Decode"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Validator Service page you are looking for is not available right now!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Decode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Decode"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "API for Base64 encoding Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "83a9f4d1-0352-4de0-892d-5cb446a8b3c4",
+						"exec": [
+							"pm.test(\"api response status\", () => \r",
+							"  pm.response.to.be.success );\r",
+							"pm.test(\"inputMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().inputMessage).to.equal(\"YWRhc2Rhc2Q=\"));\r",
+							"pm.test(\"valid is true\", () => \r",
+							"  pm.expect(pm.response.json().valid).to.equal(true));\r",
+							"pm.test(\"validationMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().validationMessage).to.equal(\"Encode Successful!!!\"));\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().lineNumber).to.be.equal(0) );\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().columnNumber).to.be.equal(0) );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inputMessage\": \"adasdasd\"\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/base64Encode",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"base64Encode"
+					]
+				},
+				"description": "This API encodes data input."
+			},
+			"response": [
+				{
+					"name": "Accessing the resource you were trying to reach is forbidden!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Encode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Encode"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "You are not authenticated properly to view the resource!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Encode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Encode"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Successfully connected and validated with API Validator",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Encode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Encode"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Validator Service page you are looking for is not available right now!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Encode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Encode"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/base64Encode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"base64Encode"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "API for formatting the JSON Data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inputMessage\": \"<string>\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/formatJson",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"formatJson"
+					]
+				},
+				"description": "This API formats JSON data input."
+			},
+			"response": [
+				{
+					"name": "Successfully connected and validated with API Validator",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatJson",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatJson"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "You are not authenticated properly to view the resource!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatJson",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatJson"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Validator Service page you are looking for is not available right now!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatJson",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatJson"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatJson",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatJson"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Accessing the resource you were trying to reach is forbidden!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatJson",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatJson"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "API for formatting the XML Data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inputMessage\": \"<string>\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/formatXml",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"formatXml"
+					]
+				},
+				"description": "This API formats XML data input."
+			},
+			"response": [
+				{
+					"name": "Accessing the resource you were trying to reach is forbidden!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatXml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatXml"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Validator Service page you are looking for is not available right now!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatXml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatXml"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "You are not authenticated properly to view the resource!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatXml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatXml"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Successfully connected and validated with API Validator",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatXml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatXml"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/formatXml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"formatXml"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "API for Validating the JSON Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db2383f0-8a18-4f6c-95b4-1d9ade4a20e1",
+						"exec": [
+							"pm.test(\"api response status\", () => \r",
+							"  pm.response.to.be.success );\r",
+							"pm.test(\"inputMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().inputMessage).to.equal(\"{\\r\\n  \\\"glossary\\\": {\\r\\n    \\\"title\\\": \\\"example glossary\\\",\\r\\n    \\\"GlossDiv\\\": {\\r\\n      \\\"title\\\": \\\"S\\\",\\r\\n      \\\"GlossList\\\": {\\r\\n        \\\"GlossEntry\\\": {\\r\\n          \\\"ID\\\": \\\"SGML\\\",\\r\\n          \\\"SortAs\\\": \\\"SGML\\\",\\r\\n          \\\"GlossTerm\\\": \\\"Standard Generalized Markup Language\\\",\\r\\n          \\\"Acronym\\\": \\\"SGML\\\",\\r\\n          \\\"Abbrev\\\": \\\"ISO 8879:1986\\\",\\r\\n          \\\"GlossDef\\\": {\\r\\n            \\\"para\\\": \\\"A meta-markup language, used to create markup languages such as DocBook.\\\",\\r\\n            \\\"GlossSeeAlso\\\": [\\\"GML\\\", \\\"XML\\\"]\\r\\n          },\\r\\n          \\\"GlossSee\\\": \\\"markup\\\"\\r\\n        }\\r\\n      }\\r\\n    }\\r\\n  }\\r\\n}\"));\r",
+							"pm.test(\"valid is true\", () => \r",
+							"  pm.expect(pm.response.json().valid).to.equal(true));\r",
+							"pm.test(\"validationMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().validationMessage).to.equal(\"Valid JSON!!!\"));\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().lineNumber).to.be.equal(0) );\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().columnNumber).to.be.equal(0) );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"inputMessage\":\"{\\r\\n  \\\"glossary\\\": {\\r\\n    \\\"title\\\": \\\"example glossary\\\",\\r\\n    \\\"GlossDiv\\\": {\\r\\n      \\\"title\\\": \\\"S\\\",\\r\\n      \\\"GlossList\\\": {\\r\\n        \\\"GlossEntry\\\": {\\r\\n          \\\"ID\\\": \\\"SGML\\\",\\r\\n          \\\"SortAs\\\": \\\"SGML\\\",\\r\\n          \\\"GlossTerm\\\": \\\"Standard Generalized Markup Language\\\",\\r\\n          \\\"Acronym\\\": \\\"SGML\\\",\\r\\n          \\\"Abbrev\\\": \\\"ISO 8879:1986\\\",\\r\\n          \\\"GlossDef\\\": {\\r\\n            \\\"para\\\": \\\"A meta-markup language, used to create markup languages such as DocBook.\\\",\\r\\n            \\\"GlossSeeAlso\\\": [\\\"GML\\\", \\\"XML\\\"]\\r\\n          },\\r\\n          \\\"GlossSee\\\": \\\"markup\\\"\\r\\n        }\\r\\n      }\\r\\n    }\\r\\n  }\\r\\n}\"}\n",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/json",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"json"
+					]
+				},
+				"description": "This API validates JSON data input."
+			},
+			"response": [
+				{
+					"name": "Validator Service page you are looking for is not available right now!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"json"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Accessing the resource you were trying to reach is forbidden!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"json"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"json"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "You are not authenticated properly to view the resource!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"json"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Successfully connected and validated with API Validator",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"json"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "API for Validating the Correct YAML Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "404562d2-9448-4e9b-a03a-65195c9c5505",
+						"exec": [
+							"pm.test(\"api response status\", () => \r",
+							"  pm.response.to.be.success );\r",
+							"pm.test(\"inputMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().inputMessage).to.equal(\"server:\\n  port: 8090\\n  servlet.context-path: /enterprise-validator\\nlogging:\\n  level.root: info\\n  level.io.exnihilo: debug\\n  file: /packages/logs/enterprise-validator/enterprise-validator.log\\nspring.pid.fail-on-write-error: true\\nspring.pid.file: /packages/config/enterprise-validator/enterprise-validator.pid\\n\\nmanagement:\\n  endpoints:\\n    web.exposure.include: \\\"*\\\"\\n    web.exposure.exclude: loggers\\n  endpoint:\\n    shutdown.enabled: true\"));\r",
+							"pm.test(\"valid is true\", () => \r",
+							"  pm.expect(pm.response.json().valid).to.equal(true));\r",
+							"pm.test(\"validationMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().validationMessage).to.equal(\"Valid YAML!!!\"));\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().lineNumber).to.be.equal(0) );\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().columnNumber).to.be.equal(0) );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"inputMessage\":\"server:\\n  port: 8090\\n  servlet.context-path: /enterprise-validator\\nlogging:\\n  level.root: info\\n  level.io.exnihilo: debug\\n  file: /packages/logs/enterprise-validator/enterprise-validator.log\\nspring.pid.fail-on-write-error: true\\nspring.pid.file: /packages/config/enterprise-validator/enterprise-validator.pid\\n\\nmanagement:\\n  endpoints:\\n    web.exposure.include: \\\"*\\\"\\n    web.exposure.exclude: loggers\\n  endpoint:\\n    shutdown.enabled: true\"}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/yaml",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"yaml"
+					]
+				},
+				"description": "This API validates YAML data input."
+			},
+			"response": [
+				{
+					"name": "Successfully connected and validated with API Validator",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Accessing the resource you were trying to reach is forbidden!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "You are not authenticated properly to view the resource!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Validator Service page you are looking for is not available right now!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "API for Validating the Incorrect YAML Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c03f0e34-d51b-4082-ad69-e279147853ff",
+						"exec": [
+							"pm.test(\"api response status\", () => \r",
+							"  pm.response.to.be.success );\r",
+							"pm.test(\"inputMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().inputMessage).to.equal(\"server:\\n   port: 8090\\n  servlet.context-path: /enterprise-validator\"));\r",
+							"pm.test(\"valid is false\", () => \r",
+							"  pm.expect(pm.response.json().valid).to.equal(false));\r",
+							"pm.test(\"validationMessage is correct\", () => \r",
+							"  pm.expect(pm.response.json().validationMessage).to.equal(\"while parsing a block mapping\\n in 'string', line 1, column 1:\\n    server:\\n    ^\\nexpected <block end>, but found '<block mapping start>'\\n in 'string', line 3, column 3:\\n      servlet.context-path: /enterpris ... \\n      ^\\n\"));\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().lineNumber).to.be.equal(3) );\r",
+							"pm.test(\"lineNumber is correct\", () => \r",
+							"  pm.expect(pm.response.json().columnNumber).to.be.equal(3) );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"inputMessage\":\"server:\\n   port: 8090\\n  servlet.context-path: /enterprise-validator\"}\n",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/yaml",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"yaml"
+					]
+				},
+				"description": "This API validates YAML data input."
+			},
+			"response": [
+				{
+					"name": "Validator Service page you are looking for is not available right now!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "You are not authenticated properly to view the resource!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Accessing the resource you were trying to reach is forbidden!",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Successfully connected and validated with API Validator",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/yaml",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"yaml"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6ccd6fcd-7bbd-488f-b7be-c3e6e514d9ba",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9822a1ca-68e3-4909-80ae-63a8879ab03c",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"environment to be production\", function () {",
+					"    pm.expect(pm.environment.get(\"env\")).to.equal(\"prod\");",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e7a09337-aa6a-49e5-87b4-769df813b4ac",
+			"key": "baseUrl",
+			"value": "http://localhost:8090/",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
