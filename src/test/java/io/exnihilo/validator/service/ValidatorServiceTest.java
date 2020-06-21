@@ -1,13 +1,14 @@
 package io.exnihilo.validator.service;
 
 import io.exnihilo.validator.entity.ValidationEntity;
-import java.io.File;
-import java.nio.file.Files;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.nio.file.Files;
 
 /**
  * Validator Service Class handles the functional aspects of all configured validators.
@@ -71,7 +72,7 @@ public class ValidatorServiceTest {
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
     ValidationEntity outputValidationEntity = ValidationEntity.builder(inputJsonData).valid(false)
-        .validationMessage("Expected a ',' or '}' at 135 [character 21 line 7]").lineNumber(7).columnNumber(21).build();
+        .validationMessage("Expected a ',' or '}' at 129 [character 21 line 7]").lineNumber(7).columnNumber(21).build();
 
     Assert.assertEquals(outputValidationEntity, validatorService.validateJsonService(inputValidationEntity));
   }
@@ -105,7 +106,7 @@ public class ValidatorServiceTest {
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
     ValidationEntity outputValidationEntity = ValidationEntity.builder(inputJsonData).valid(false)
-        .validationMessage("Expected a ',' or '}' at 135 [character 21 line 7]").lineNumber(7).columnNumber(21).build();
+        .validationMessage("Expected a ',' or '}' at 129 [character 21 line 7]").lineNumber(7).columnNumber(21).build();
 
     Assert.assertEquals(outputValidationEntity, validatorService.formatJsonService(inputValidationEntity));
   }

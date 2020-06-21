@@ -120,6 +120,7 @@
                                     <goal>format</goal>
                                 </goals>
                                 <configuration>
+                                    <lineEnding>LF</lineEnding>
                                     <configFile>assembly/code-format/eclipse-java-google-style.xml</configFile>
                                 </configuration>
                             </execution>
