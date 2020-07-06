@@ -22,8 +22,8 @@ RUN mkdir config config/enterprise-validator apps apps/enterprise-validator
 # Add the application's jar to the container
 ADD ${JAR_FILE} apps/enterprise-validator/enterprise-validator.jar
 
-# Make port 8090 available to the world outside this container
-EXPOSE 8090
+# Make port 80 available to the world outside this container
+EXPOSE 80
 
 # Run the jar file
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","apps/enterprise-validator/enterprise-validator.jar"]

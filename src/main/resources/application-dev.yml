@@ -1,12 +1,12 @@
-#This section contains the properties that will be over-written for the Prod environment
+#This section contains the properties that will be over-written for the Dev environment
 swagger:
-  host: 'enterprise-validator.azurewebsites.net'
-  protocols: https
+  host: 'localhost:8090'
+  protocols: http, https
 spring:
   pid.fail-on-write-error: true
   pid.file: /packages/config/${application.artifactId}/${application.artifactId}.pid
 server:
-  port: 80
+  port: 8090
   servlet.context-path: /
 management:
   endpoints:

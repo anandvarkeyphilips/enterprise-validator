@@ -290,5 +290,37 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>azure-app-service</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.microsoft.azure</groupId>
+                        <artifactId>azure-webapp-maven-plugin</artifactId>
+                        <version>1.9.1</version>
+                        <configuration>
+                            <authentication>
+                                <serverId>azure-service-principal-auth</serverId>
+                            </authentication>
+                            <resourceGroup>enterprise-validator-app-service</resourceGroup>
+                            <appName>enterprise-validator</appName>
+                            <region>westus</region>
+                            <containerSettings>
+                                <imageName>anandvarkeyphilips/${project.artifactId}:latest</imageName>
+                            </containerSettings>
+                            <appSettings>
+                                <property>
+                                    <name>PORT</name>
+                                    <value>80</value>
+                                </property>
+                            </appSettings>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
