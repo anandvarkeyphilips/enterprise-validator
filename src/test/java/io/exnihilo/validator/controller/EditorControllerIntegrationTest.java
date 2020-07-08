@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ResourceUtils;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -37,12 +38,14 @@ public class EditorControllerIntegrationTest {
   private CustomErrorController customErrorController;
   @LocalServerPort
   private int port;
+  @Autowired
+  private ServletContext servletContext;
 
   private URL url;
 
   @Before
   public void setUp() throws MalformedURLException {
-    url = new URL("http://localhost:" + port);
+    url = new URL("http://localhost:" + port + "/" + servletContext.getContextPath());
   }
 
   @Test

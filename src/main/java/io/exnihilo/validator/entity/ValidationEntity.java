@@ -29,7 +29,7 @@ public class ValidationEntity {
   private int lineNumber;
   @ApiModelProperty(readOnly = true) // NOSONAR
   private int columnNumber;
-  @ApiModelProperty(required = true, example = "example data for validation", value = "input data for validation")
+  @ApiModelProperty(required = true, example = "exampleData", value = "inputData")
   private String inputMessage;
   @ApiModelProperty(readOnly = true) // NOSONAR
   private String validationMessage;

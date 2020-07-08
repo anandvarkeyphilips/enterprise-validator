@@ -14,7 +14,6 @@
     <script type="text/javascript" src="js/ace-noconflict/ace.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/ace-noconflict/mode-yaml.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/ace-noconflict/theme-idle_fingers.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/ace-noconflict/theme-idle_fingers.js" charset="utf-8"></script>
 </head>
 <body>
 <section class="hero is-light">
