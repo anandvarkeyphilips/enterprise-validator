@@ -10,7 +10,7 @@ swagger:
   licenseUrl: 'https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/LICENSE'
   termsOfServiceUrl: 'https://www.termsfeed.com/live/21586f44-4d39-4c46-bc36-c6e5f0063ba0'
 spring:
-  profiles.active: prod
+  profiles.active: dev
   freemarker:
     template-loader-path: classpath:/templates
     suffix: .ftl
