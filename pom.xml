@@ -261,7 +261,7 @@
         <profile>
             <id>docker-install</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
@@ -272,13 +272,14 @@
                         <configuration>
                             <repository>anandvarkeyphilips/enterprise-validator</repository>
                             <tag>${project.version}</tag>
+                            <tag>latest</tag>
                             <buildArgs>
                                 <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                             </buildArgs>
                         </configuration>
                         <executions>
                             <execution>
-                                <id>default</id>
+                                <id>image-build-bush</id>
                                 <phase>install</phase>
                                 <goals>
                                     <goal>build</goal>
@@ -318,6 +319,15 @@
                                 </property>
                             </appSettings>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>app-service-deploy</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
