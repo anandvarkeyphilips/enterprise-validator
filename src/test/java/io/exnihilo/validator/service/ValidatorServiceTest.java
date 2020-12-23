@@ -32,9 +32,9 @@ public class ValidatorServiceTest {
     File file = ResourceUtils.getFile("classpath:valid-yaml.yml");
     String inputYamlData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
     ValidationEntity outputValidationEntity =
-        ValidationEntity.builder(inputYamlData).valid(true).validationMessage("Valid YAML!!!").build();
+        ValidationEntity.builder().inputMessage(inputYamlData).valid(true).validationMessage("Valid YAML!!!").build();
 
     Assert.assertEquals(outputValidationEntity, validatorService.validateYamlService(inputValidationEntity));
   }
@@ -44,8 +44,8 @@ public class ValidatorServiceTest {
     File file = ResourceUtils.getFile("classpath:invalid-yaml.yml");
     String inputYamlData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder(inputYamlData).valid(false)
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).valid(false)
         .validationMessage("mapping values are not allowed here\n" + " in 'string', line 7, column 27:\n"
             + "       pid.fail-on-write-error: true\n" + "                              ^\n")
         .lineNumber(7).columnNumber(27).build();
@@ -58,9 +58,9 @@ public class ValidatorServiceTest {
     File file = ResourceUtils.getFile("classpath:valid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
     ValidationEntity outputValidationEntity =
-        ValidationEntity.builder(inputJsonData).valid(true).validationMessage("Valid JSON!!!").build();
+        ValidationEntity.builder().inputMessage(inputJsonData).valid(true).validationMessage("Valid JSON!!!").build();
 
     Assert.assertEquals(outputValidationEntity, validatorService.validateJsonService(inputValidationEntity));
   }
@@ -70,8 +70,8 @@ public class ValidatorServiceTest {
     File file = ResourceUtils.getFile("classpath:invalid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder(inputJsonData).valid(false)
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).valid(false)
         .validationMessage("Expected a ',' or '}' at 129 [character 21 line 7]").lineNumber(7).columnNumber(21).build();
 
     Assert.assertEquals(outputValidationEntity, validatorService.validateJsonService(inputValidationEntity));
@@ -82,8 +82,8 @@ public class ValidatorServiceTest {
     File file = ResourceUtils.getFile("classpath:minified-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder("{\n" + "    \"glossary\": {\n"
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("{\n" + "    \"glossary\": {\n"
         + "        \"title\": \"example glossary\",\n" + "        \"GlossDiv\": {\n" + "            \"title\": \"S\",\n"
         + "            \"GlossList\": {\n" + "                \"GlossEntry\": {\n"
         + "                    \"ID\": \"SGML\",\n" + "                    \"SortAs\": \"SGML\",\n"
@@ -104,8 +104,8 @@ public class ValidatorServiceTest {
     File file = ResourceUtils.getFile("classpath:invalid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder(inputJsonData).valid(false)
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).valid(false)
         .validationMessage("Expected a ',' or '}' at 129 [character 21 line 7]").lineNumber(7).columnNumber(21).build();
 
     Assert.assertEquals(outputValidationEntity, validatorService.formatJsonService(inputValidationEntity));
@@ -116,9 +116,9 @@ public class ValidatorServiceTest {
     File file = ResourceUtils.getFile("classpath:valid-xml.xml");
     String inputXmlData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputXmlData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity
-        .builder("<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n" + "<book>\n" + "    <title>java book</title>\n"
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputXmlData).build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder()
+        .inputMessage("<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n" + "<book>\n" + "    <title>java book</title>\n"
             + "    <author>nick bore</author>\n" + "    <pages>1020</pages>\n"
             + "    <example>xml - valid xml file</example>\n" + "</book>\n")
         .valid(true).validationMessage("Formatted XML!!!").build();
@@ -131,9 +131,9 @@ public class ValidatorServiceTest {
     File file = ResourceUtils.getFile("classpath:invalid-xml.xml");
     String inputXmlData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputXmlData).build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputXmlData).build();
     ValidationEntity outputValidationEntity =
-        ValidationEntity.builder(inputXmlData).valid(false)
+        ValidationEntity.builder().inputMessage(inputXmlData).valid(false)
             .validationMessage(
                 "Element type \"pages1020\" must be followed by either attribute specifications, \">\" or \"/>\".")
             .build();
@@ -145,9 +145,9 @@ public class ValidatorServiceTest {
   public void encodeBase64_whenValidContent_returnTrue() throws Exception {
     String data = "Anand";
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(data).build();
-    ValidationEntity outputValidationEntity =
-        ValidationEntity.builder("QW5hbmQ=").valid(true).validationMessage("Encode Successful!!!").build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(data).build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("QW5hbmQ=").valid(true)
+        .validationMessage("Encode Successful!!!").build();
 
     Assert.assertEquals(outputValidationEntity, validatorService.encodeBase64(inputValidationEntity));
   }
@@ -156,9 +156,9 @@ public class ValidatorServiceTest {
   public void decodeBase64_whenValidContent_returnTrue() throws Exception {
     String data = "QW5hbmQ=";
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(data).build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(data).build();
     ValidationEntity outputValidationEntity =
-        ValidationEntity.builder("Anand").valid(true).validationMessage("Decode Successful!!!").build();
+        ValidationEntity.builder().inputMessage("Anand").valid(true).validationMessage("Decode Successful!!!").build();
 
     Assert.assertEquals(outputValidationEntity, validatorService.decodeBase64(inputValidationEntity));
   }

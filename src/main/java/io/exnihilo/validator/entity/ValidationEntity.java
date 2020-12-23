@@ -44,8 +44,4 @@ public class ValidationEntity {
     this.inputMessage = inputMessage;
     this.validationMessage = validationMessage;
   }
-
-  public static ValidationEntityBuilder builder(String inputMessage) {
-    return new ValidationEntityBuilder().inputMessage(inputMessage);
-  }
 }

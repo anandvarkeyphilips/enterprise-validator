@@ -75,7 +75,7 @@ public class EditorControllerIntegrationTest {
   public void whenUserPostValidXML_ThenSuccess() throws IllegalStateException, IOException {
     File file = ResourceUtils.getFile("classpath:valid-yaml.yml");
     String inputYamlData = new String(Files.readAllBytes(file.toPath()));
-    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
 
     ObjectMapper mapper = new ObjectMapper();
     String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
