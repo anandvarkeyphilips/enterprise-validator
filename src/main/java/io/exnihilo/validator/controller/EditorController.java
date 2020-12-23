@@ -33,7 +33,7 @@ public class EditorController {
    * Splits yaml data in case of multiple documents "---" and validates each part, and then returns
    * error message, line and column numbers in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validation result
    */
   @PostMapping("/yaml")
@@ -46,7 +46,7 @@ public class EditorController {
   /**
    * Validates the format of json data string and returns error details in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validation result
    */
   @PostMapping("/json")
@@ -60,7 +60,7 @@ public class EditorController {
    * Validates the format of json data string and returns formatted json along with error details in
    * case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validation result
    */
   @PostMapping("/formatJson")
@@ -73,7 +73,7 @@ public class EditorController {
   /**
    * Validates the format of xml data string and returns error details in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validation result
    */
   @PostMapping("/formatXml")
@@ -86,7 +86,7 @@ public class EditorController {
   /**
    * Encodes data in Base64 format and returns error details in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validation result
    */
   @PostMapping("/base64Encode")
@@ -99,7 +99,7 @@ public class EditorController {
   /**
    * Decodes data from Base64 format and returns error details in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validation result
    */
   @PostMapping("/base64Decode")

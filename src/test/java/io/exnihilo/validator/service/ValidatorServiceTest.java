@@ -14,7 +14,6 @@ import java.nio.file.Files;
  * Validator Service Class handles the functional aspects of all configured validators.
  *
  * @author Anand Varkey Philips
- * @date 27/10/2018
  * @since 2.0.0.RELEASE
  */
 @Slf4j

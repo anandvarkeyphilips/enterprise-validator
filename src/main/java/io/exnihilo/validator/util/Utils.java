@@ -8,12 +8,12 @@ public final class Utils {
   private Utils() {}
 
   /**
-   * if startingPhrase is "line ", endingPhrase is "]" and string is "Error at line 21]", the method
+   * if searchText is "Error at line [21]" startingPhrase is "line [", endingPhrase is "]", the method
    * will return 21.
    *
-   * @param startingPhrase
-   * @param endingPhrase
-   * @param searchText
+   * @param startingPhrase startingPhrase from which the number capture starts
+   * @param endingPhrase endingPhrase with which the number capture ends
+   * @param searchText complete string from the number should be captured
    * @return matched number from enclosing string pattern
    */
   public static int getNumberFromRegexPattern(String startingPhrase, String endingPhrase, String searchText) {

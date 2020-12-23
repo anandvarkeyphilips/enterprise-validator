@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
  * required.
  *
  * @author Anand Varkey Philips
- * @date 27/10/2018
  * @since 2.0.0.RELEASE
  */
 @Service
@@ -18,7 +17,7 @@ public interface IValidatorService {
    * Splits yaml data in case of multiple documents "---" and validates each part, and then returns
    * error message, line and column numbers in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validationEntity
    */
   ValidationEntity validateYamlService(ValidationEntity validationEntity);
@@ -26,7 +25,7 @@ public interface IValidatorService {
   /**
    * Validates the format of json data string and returns error details in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validationEntity
    */
   ValidationEntity validateJsonService(ValidationEntity validationEntity);
@@ -35,7 +34,7 @@ public interface IValidatorService {
    * Validates the format of json data string and returns formatted json along with error details in
    * case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validationEntity
    */
   ValidationEntity formatJsonService(ValidationEntity validationEntity);
@@ -43,7 +42,7 @@ public interface IValidatorService {
   /**
    * Validates the format of xml data string and returns error details in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validationEntity
    */
   ValidationEntity formatXmlService(ValidationEntity validationEntity);
@@ -51,7 +50,7 @@ public interface IValidatorService {
   /**
    * Encodes data in Base64 format and returns error details in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validationEntity
    */
   ValidationEntity encodeBase64(ValidationEntity validationEntity);
@@ -59,7 +58,7 @@ public interface IValidatorService {
   /**
    * Decodes data from Base64 format and returns error details in case of failure.
    *
-   * @param validationEntity
+   * @param validationEntity Model entity for all api requests and responses
    * @return validationEntity
    */
   ValidationEntity decodeBase64(ValidationEntity validationEntity);
