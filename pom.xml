@@ -250,7 +250,7 @@
         <profile>
             <id>sonarqube-scanner</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <sonar.projectKey>enterprise-validator</sonar.projectKey>
@@ -311,7 +311,7 @@
             </build>
         </profile>
         <profile>
-        <id>ossrh-maven-central-releaseapp-service</id>
+        <id>ossrh-maven-central-release</id>
         <activation>
             <activeByDefault>true</activeByDefault>
         </activation>
@@ -357,7 +357,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.5</version>
+                    <version>1.6</version>
                     <executions>
                         <execution>
                             <id>sign-artifacts</id>
@@ -365,8 +365,18 @@
                             <goals>
                                 <goal>sign</goal>
                             </goals>
+                            <configuration>
+                                <keyname>Anand Varkey Philips</keyname>
+                                <passphraseServerId>gpg-passphrase</passphraseServerId>
+                            </configuration>
                         </execution>
                     </executions>
+                    <configuration>
+                        <gpgArguments>
+                            <arg>--pinentry-mode</arg>
+                            <arg>loopback</arg>
+                        </gpgArguments>
+                    </configuration>
                 </plugin>
             </plugins>
         </build>

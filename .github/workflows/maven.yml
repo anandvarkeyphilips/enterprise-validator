@@ -30,14 +30,22 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Build with Maven
-        run: mvn -s assembly/.m2/settings.xml --no-transfer-progress install
+      - id: install-secret-key
+        name: Install gpg secret key
+        run: cat <(echo -e "${{ secrets.VARKEYS_EV_MAVEN_GPG_SECRET_KEY }}") | gpg --batch --import
+        env: # Or as an environment variable
+          VARKEYS_EV_MAVEN_GPG_SECRET_KEY: ${{ secrets.VARKEYS_EV_MAVEN_GPG_SECRET_KEY }}
+      - name: Compile, Test, Verify,Build and Push Docker image, Deploy Azure App with Maven
+        run: mvn -s assembly/.m2/settings.xml --no-transfer-progress deploy
         env: # Or as an environment variable
           VARKEYS_DOCKERHUB_DOCKER_ACCESS_TOKEN: ${{ secrets.VARKEYS_DOCKERHUB_DOCKER_ACCESS_TOKEN }}
           VARKEYS_DOCKERHUB_DOCKER_USERNAME: ${{ secrets.VARKEYS_DOCKERHUB_DOCKER_USERNAME }}
           VARKEYS_EV_AZURE_SERVICE_PRINCIPAL_PASSWORD: ${{ secrets.VARKEYS_EV_AZURE_SERVICE_PRINCIPAL_PASSWORD }}
           VARKEYS_EV_AZURE_SERVICE_PRINCIPAL_USERNAME: ${{ secrets.VARKEYS_EV_AZURE_SERVICE_PRINCIPAL_USERNAME }}
           VARKEYS_EV_AZURE_SERVICE_PRINCIPAL_TENANT: ${{ secrets.VARKEYS_EV_AZURE_SERVICE_PRINCIPAL_TENANT }}
+          VARKEYS_EV_MAVEN_GPG_PASSPHRASE: ${{ secrets.VARKEYS_EV_MAVEN_GPG_PASSPHRASE }}
+          VARKEYS_EV_MAVEN_CENTRAL_JIRA_USERNAME: ${{ secrets.VARKEYS_EV_MAVEN_CENTRAL_JIRA_USERNAME }}
+          VARKEYS_EV_MAVEN_CENTRAL_JIRA_PASSWORD: ${{ secrets.VARKEYS_EV_MAVEN_CENTRAL_JIRA_PASSWORD }}
           VARKEYS_SONAR_LOGIN: ${{ secrets.VARKEYS_SONAR_LOGIN }}
           VARKEYS_SONAR_URL: ${{ secrets.VARKEYS_SONAR_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
