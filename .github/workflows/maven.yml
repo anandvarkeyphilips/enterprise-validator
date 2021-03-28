@@ -54,3 +54,8 @@ jobs:
         with:
           name: artifacts
           path: target
+      - name: API Testing with Postman-Newman Collection
+        uses: matt-ball/newman-action@master
+        with:
+          collection: postman_collection.json
+          environment: postman_environment.json
