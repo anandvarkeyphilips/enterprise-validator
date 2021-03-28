@@ -4,7 +4,7 @@
 
     <groupId>com.github.anandvarkeyphilips</groupId>
     <artifactId>enterprise-validator</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>2.3.1</version>
     <packaging>jar</packaging>
     <name>Enterprise Validator</name>
     <description>Enterprise Validator for YAML, JSON and XML formats and also options for Base64 encoding and decoding</description>
@@ -26,7 +26,7 @@
         <connection>scm:git:git@github.com:anandvarkeyphilips/enterprise-validator.git</connection>
         <developerConnection>scm:git:git@github.com:anandvarkeyphilips/enterprise-validator.git</developerConnection>
         <url>https://github.com/anandvarkeyphilips/enterprise-validator/tree/master</url>
-      <tag>enterprise-validator-2.3.0</tag>
+      <tag>enterprise-validator-2.3.1</tag>
   </scm>
 
     <properties>
