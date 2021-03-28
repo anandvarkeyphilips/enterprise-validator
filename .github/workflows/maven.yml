@@ -54,8 +54,10 @@ jobs:
         with:
           name: artifacts
           path: target
-      - name: API Testing with Postman-Newman Collection
-        uses: matt-ball/newman-action@master
+      - name: Run API Tests
+        id: run-newman
+        uses: anthonyvscode/newman-action@v1
         with:
-          collection: postman_collection.json
-          environment: postman_environment.json
+          collection: assembly/postman-scripts/enterprise-validator.postman_collection.json
+          environment: assembly/postman-scripts/enterprise-validator-prod.postman_environment.json
+          reporters: cli
