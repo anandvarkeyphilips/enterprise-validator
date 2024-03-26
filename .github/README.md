@@ -16,6 +16,8 @@ YAML validator which is better than http://www.yamllint.com as this app follows 
 which is not supported my YAML Lint. JSON validator and formatter follows the JSON spec at http://json.org/. Also, now 
 you dont have to use https://www.base64decode.org/ as this app also provides options for Decode from and to Base64 format.
 
+![Alt text](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true?raw=true)
+
 Here's the Docker container version of the Application hosted in Microsoft Azure Cloud:  
 **http://enterprise-validator.centralus.azurecontainer.io:8090/enterprise-validator/editor**  
 Here's the fatty jar Application running in Microsoft Azure RHEL VM(May Have Issues):  
@@ -23,7 +25,7 @@ Here's the fatty jar Application running in Microsoft Azure RHEL VM(May Have Iss
 Here's the Openshift version of the Application hosted in Redhat Openshift(May Have Issues):  
 **http://enterprise-validator-enterprise-validator.7e14.starter-us-west-2.openshiftapps.com/editor**  
 
-![Alt text](README-IMAGES/enterprise-validator.png?raw=true "Enterprise Validator Suite")
+![Alt text](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true?raw=true "Enterprise Validator Suite")
 
 ### Recipe Ingredients
  * spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator
