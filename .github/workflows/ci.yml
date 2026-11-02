@@ -149,6 +149,8 @@ jobs:
           distribution: zulu
           java-version: '25'
           server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
           settings-path: ${{ github.workspace }}/settings.xml
 
       - name: Publish jar
