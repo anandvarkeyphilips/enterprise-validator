@@ -51,20 +51,58 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('formatXmlData').addEventListener('click', function() {
     ajaxCall('formatXml');
   });
-  document.getElementById('shareByEmail').addEventListener('click', function() {
+  var shareButton = document.getElementById('shareByEmail');
+  var shareMenu = document.getElementById('shareMenu');
+
+  function closeShareMenu() {
+    shareMenu.classList.remove('show');
+    shareButton.setAttribute('aria-expanded', 'false');
+  }
+
+  shareButton.addEventListener('click', function(event) {
+    event.stopPropagation();
+    var opening = !shareMenu.classList.contains('show');
+    shareMenu.classList.toggle('show', opening);
+    shareButton.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  });
+  document.addEventListener('click', function(event) {
+    if (!shareMenu.contains(event.target) && !shareButton.contains(event.target)) {
+      closeShareMenu();
+    }
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeShareMenu();
+    }
+  });
+
+  document.getElementById('shareCopy').addEventListener('click', function() {
+    closeShareMenu();
+    var data = editor.getValue();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(data).then(function() {
+        updateResult('Validation data copied to the clipboard.', 'validation-message-success');
+      }).catch(function() {
+        updateResult('Copying to the clipboard was blocked by the browser. Use the email option instead.',
+            'validation-message-error');
+      });
+    } else {
+      updateResult('The clipboard is not available in this browser. Use the email option instead.',
+          'validation-message-error');
+    }
+  });
+
+  document.getElementById('shareEmail').addEventListener('click', function() {
+    closeShareMenu();
     var data = editor.getValue();
     if (data.length > 2000) {
       alert('The maximum Data Size for sharing by email is 2000 chars for the time being!')
       return false;
     }
     var link = 'mailto:' +
-      '?cc=' + encodeURIComponent('anandvarkeyphilips@gmail.com') +
-      '&subject=' + encodeURIComponent('Data used for validation') +
+      '?subject=' + encodeURIComponent('Data used for validation') +
       '&body=' + encodeURIComponent(data);
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(data).catch(function() {});
-    }
-    updateResult('Opening your mail client with the validation data. It has also been copied to the clipboard.',
+    updateResult('Opening your mail client with the validation data. Choose the recipients and press send.',
         'validation-message-success');
     window.location.href = link;
   });

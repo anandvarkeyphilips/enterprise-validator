@@ -34,7 +34,13 @@
         <button type="button" id="validateJsonData" class="btn btn-success">Validate JSON</button>
         <button type="button" id="formatJsonData" class="btn btn-success">Format JSON</button>
         <button type="button" id="formatXmlData" class="btn btn-success">Format XML</button>
-        <button type="button" id="shareByEmail" class="btn btn-info">Share Data</button>
+        <div class="dropdown">
+            <button type="button" id="shareByEmail" class="btn btn-info" aria-expanded="false" aria-haspopup="true">Share Data</button>
+            <div class="dropdown-menu" id="shareMenu" role="menu" aria-label="Share options">
+                <button type="button" class="dropdown-item" id="shareCopy" role="menuitem">Copy to clipboard</button>
+                <button type="button" class="dropdown-item" id="shareEmail" role="menuitem">Email the data</button>
+            </div>
+        </div>
     </div>
     <pre id="editor" class="m-0"></pre>
     <div id="validationResultBlock" tabindex="-1" class="mt-3"></div>

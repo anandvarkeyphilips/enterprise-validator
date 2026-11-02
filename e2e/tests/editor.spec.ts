@@ -133,12 +133,17 @@ test.describe('XML formatting', () => {
 });
 
 test.describe('sharing', () => {
-  test('share button confirms and copies the data', async ({ page }) => {
+  test('share menu offers copy and email, copy confirms', async ({ page }) => {
     await setEditorValue(page, 'Anand');
     await page.click('#shareByEmail');
+    const menu = page.locator('#shareMenu');
+    await expect(menu).toHaveClass(/show/);
+    await expect(menu.locator('#shareCopy')).toBeVisible();
+    await expect(menu.locator('#shareEmail')).toBeVisible();
+    await page.click('#shareCopy');
     const result = page.locator('#validationResultBlock');
     await expect(result).toHaveClass(/validation-message-success/);
-    await expect(result).toContainText('Opening your mail client');
+    await expect(result).toContainText('copied to the clipboard');
   });
 });
 

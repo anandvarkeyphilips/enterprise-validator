@@ -15,6 +15,7 @@ export default defineConfig({
     baseURL: `http://localhost:${appPort}`,
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
+    permissions: ['clipboard-write'],
   },
   webServer: {
     command: `java -jar ${appJar} --server.port=${appPort} --spring.pid.file=target-e2e.pid --logging.file.name=target-e2e.log`,
