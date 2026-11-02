@@ -14,7 +14,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 <header class="bg-body-tertiary py-4 border-bottom">
-    <div class="container d-flex align-items-center gap-3">
+    <div class="container d-flex align-items-center justify-content-center gap-3">
         <img src="favicon-256.png" alt="Enterprise Validator logo" width="72" height="72" class="flex-shrink-0">
         <div>
             <p class="title h3 fw-semibold text-body mb-1">Enterprise Validator</p>
