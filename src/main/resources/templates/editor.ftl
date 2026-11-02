@@ -40,14 +40,12 @@
     </div>
     <div id="editorRow" class="d-flex gap-3 flex-grow-1">
         <pre id="editor" class="m-0"></pre>
-        <div id="comparePane" class="d-none flex-column gap-2 flex-grow-1">
-            <div class="d-flex gap-2 align-items-center flex-shrink-0">
-                <span id="compareTitle" class="small text-body-secondary flex-grow-1">Comparison document</span>
-                <button type="button" id="diffRun" class="btn btn-sm btn-primary">Run Diff</button>
-                <button type="button" id="diffClose" class="btn btn-sm btn-outline-secondary" aria-label="Close compare pane">&times;</button>
-            </div>
-            <pre id="compareEditor" class="m-0"></pre>
-        </div>
+        <pre id="compareEditor" class="m-0 d-none"></pre>
+    </div>
+    <div id="diffBar" class="d-flex gap-2 align-items-center justify-content-center flex-shrink-0 d-none">
+        <span id="compareTitle" class="small text-body-secondary">Comparison document</span>
+        <button type="button" id="diffRun" class="btn btn-sm btn-primary">Run Diff</button>
+        <button type="button" id="diffClose" class="btn btn-sm btn-outline-secondary" aria-label="Close compare pane">&times;</button>
     </div>
     <div id="validationResultBlock" tabindex="-1" class="flex-shrink-0"></div>
 </main>

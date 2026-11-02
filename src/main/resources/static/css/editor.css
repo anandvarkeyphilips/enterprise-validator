@@ -83,3 +83,13 @@ body {
     border-radius: var(--bs-border-radius-lg);
     box-shadow: var(--bs-box-shadow-sm);
 }
+
+.diff-highlight-removed {
+    position: absolute;
+    background: rgba(220, 53, 69, 0.28);
+}
+
+.diff-highlight-added {
+    position: absolute;
+    background: rgba(25, 135, 84, 0.28);
+}

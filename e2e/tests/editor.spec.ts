@@ -159,10 +159,10 @@ test.describe('Base64 encoding', () => {
 });
 
 test.describe('document diff', () => {
-  test('diff JSON opens side-by-side pane and reports key differences', async ({ page }) => {
+  test('diff JSON opens side-by-side editors and reports key differences', async ({ page }) => {
     await setEditorValue(page, '{"a":1,"b":{"c":2}}');
     await page.click('#diffJsonData');
-    const pane = page.locator('#comparePane');
+    const pane = page.locator('#compareEditor');
     await expect(pane).toBeVisible();
     await page.evaluate((v) => {
       (window as unknown as { compareEditor: { setValue: (s: string, c: number) => void; clearSelection: () => void } })
@@ -175,9 +175,37 @@ test.describe('document diff', () => {
     await expect(result).toContainText('3 key difference(s) found');
     await expect(result).toContainText('~ $.a: expected 1, found 2');
     await expect(result).toContainText('+ $.b.d: added 3');
-    await expect(pane).toBeVisible();
+    // line-level highlights in both editors
+    const markers = await page.evaluate(() => {
+      const w = window as unknown as { editor: { session: { getMarkers: () => Record<string, { clazz: string }> } },
+        compareEditor: { session: { getMarkers: () => Record<string, { clazz: string }> } } };
+      const count = (s: { getMarkers: () => Record<string, { clazz: string }> }, clazz: string) =>
+        Object.values(s.getMarkers()).filter((m) => m.clazz === clazz).length;
+      return { removed: count(w.editor.session, 'diff-highlight-removed'), added: count(w.compareEditor.session, 'diff-highlight-added') };
+    });
+    expect(markers.removed).toBeGreaterThan(0);
+    expect(markers.added).toBeGreaterThan(0);
     await page.click('#diffClose');
     await expect(pane).toBeHidden();
+  });
+
+  test('any action button resets previous diff highlights', async ({ page }) => {
+    await setEditorValue(page, 'server:\n  port: 8090\n');
+    await page.click('#diffYamlData');
+    await page.evaluate(() => {
+      const w = window as unknown as { compareEditor: { setValue: (s: string, c: number) => void; clearSelection: () => void } };
+      w.compareEditor.setValue('server:\n  port: 80\n', 0);
+      w.compareEditor.clearSelection();
+    });
+    await page.click('#diffRun');
+    await page.locator('#validationResultBlock').waitFor({ state: 'visible' });
+    await page.click('#validateYamlData');
+    await expect(page.locator('#validationResultBlock')).toHaveText('Valid YAML!!!');
+    const markers = await page.evaluate(() => {
+      const w = window as unknown as { editor: { session: { getMarkers: () => Record<string, { clazz: string }> } } };
+      return Object.values(w.editor.session.getMarkers()).filter((m) => m.clazz.startsWith('diff-highlight')).length;
+    });
+    expect(markers).toBe(0);
   });
 
   test('diff YAML reports key-identical documents', async ({ page }) => {
@@ -192,5 +220,21 @@ test.describe('document diff', () => {
     const result = page.locator('#validationResultBlock');
     await expect(result).toHaveClass(/validation-message-success/);
     await expect(result).toContainText('key-identical');
+  });
+
+  test('formatting XML on an empty editor loads an XML sample', async ({ page }) => {
+    await setEditorValue(page, '');
+    await page.click('#formatXmlData');
+    await expect(page.locator('#validationResultBlock')).toContainText('Formatted XML!!!');
+    const value = await getEditorValue(page);
+    expect(value).toContain('<?xml');
+  });
+
+  test('validating JSON on an empty editor loads a JSON sample', async ({ page }) => {
+    await setEditorValue(page, '');
+    await page.click('#validateJsonData');
+    await expect(page.locator('#validationResultBlock')).toHaveText('Valid JSON!!!');
+    const value = await getEditorValue(page);
+    expect(value.trim().startsWith('{')).toBe(true);
   });
 });
