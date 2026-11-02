@@ -40,9 +40,9 @@ test.describe('editor page', () => {
     expect(editorValue).toContain('port: 8090');
   });
 
-  test('shows all nine action buttons', async ({ page }) => {
+  test('shows all eight action buttons', async ({ page }) => {
     for (const id of ['encodeData', 'decodeData', 'validateYamlData', 'validateJsonData',
-      'formatJsonData', 'formatXmlData', 'diffJsonData', 'diffYamlData', 'copyData']) {
+      'formatJsonData', 'formatXmlData', 'diffJsonData', 'diffYamlData']) {
       await expect(page.locator(`#${id}`)).toBeVisible();
     }
   });
@@ -132,15 +132,6 @@ test.describe('XML formatting', () => {
   });
 });
 
-test.describe('copy', () => {
-  test('copy button copies the editor content and confirms', async ({ page }) => {
-    await setEditorValue(page, 'Anand');
-    await page.click('#copyData');
-    const result = page.locator('#validationResultBlock');
-    await expect(result).toHaveClass(/validation-message-success/);
-    await expect(result).toContainText('copied to the clipboard');
-  });
-});
 
 test.describe('Base64 encoding', () => {
   test('encodes plain text to Base64', async ({ page }) => {

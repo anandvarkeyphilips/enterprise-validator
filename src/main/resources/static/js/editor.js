@@ -189,21 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
   actionButton('formatJsonData', 'json', 'formatJson');
   actionButton('formatXmlData', 'xml', 'formatXml');
 
-  document.getElementById('copyData').addEventListener('click', function() {
-    resetVisualState();
-    closeComparePane();
-    var data = editor.getValue();
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(data).then(function() {
-        updateResult('Editor content copied to the clipboard.', 'validation-message-success');
-      }).catch(function() {
-        updateResult('Copying to the clipboard was blocked by the browser.', 'validation-message-error');
-      });
-    } else {
-      updateResult('The clipboard is not available in this browser.', 'validation-message-error');
-    }
-  });
-
   var diffMode = null;
   var compareEditorElement = document.getElementById('compareEditor');
   var diffBar = document.getElementById('diffBar');

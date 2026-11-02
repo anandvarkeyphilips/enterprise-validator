@@ -36,7 +36,6 @@
         <button type="button" id="formatXmlData" class="btn btn-info">Format XML</button>
         <button type="button" id="diffJsonData" class="btn btn-secondary">Diff JSON</button>
         <button type="button" id="diffYamlData" class="btn btn-secondary">Diff YAML</button>
-        <button type="button" id="copyData" class="btn btn-outline-secondary">Copy</button>
     </div>
     <div id="editorRow" class="d-flex gap-3 flex-grow-1">
         <pre id="editor" class="m-0"></pre>
