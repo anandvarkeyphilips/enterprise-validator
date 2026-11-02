@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
@@ -35,7 +34,6 @@ public class EnterpriseValidator {
 
   public static void main(String[] args) {
     SpringApplicationBuilder app = new SpringApplicationBuilder(EnterpriseValidator.class);
-    app.build().addListeners(new ApplicationPidFileWriter());
     app.run(args);
   }
 

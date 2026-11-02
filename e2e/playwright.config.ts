@@ -18,7 +18,7 @@ export default defineConfig({
     permissions: ['clipboard-write'],
   },
   webServer: {
-    command: `java -jar ${appJar} --server.port=${appPort} --spring.pid.file=target-e2e.pid --logging.file.name=target-e2e.log`,
+    command: `java -jar ${appJar} --server.port=${appPort} --logging.file.name=target-e2e.log`,
     url: `http://localhost:${appPort}/editor`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
