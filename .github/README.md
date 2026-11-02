@@ -60,6 +60,48 @@ Here's the Openshift version of the Application hosted in Redhat Openshift (DEPR
 **http://enterprise-validator-enterprise-validator.7e14.starter-us-west-2.openshiftapps.com/editor**
 </details>
 
+## Engineering practices
+
+This repo is deliberately run like a production service, not a demo. Everything below is wired
+into the build and CI — nothing is aspirational.
+
+### Automated quality gates (the build fails without them)
+
+| Gate | Tooling | Threshold |
+| --- | --- | --- |
+| Unit & integration tests | JUnit 5, Mockito, AssertJ, EqualsVerifier | all green |
+| Line coverage | JaCoCo, enforced in `mvn verify` | ≥ 90% |
+| Mutation testing | PIT (pitest-maven), enforced in `mvn verify` | ≥ 90% mutants killed |
+| Code formatting | google-java-format via formatter-maven-plugin | applied on every build |
+| Browser end-to-end | Playwright, 16 specs driving the real packaged jar | all green |
+| API regression | Postman collection, runnable with Newman against any deployment | on release |
+
+A note on **mutation testing**, the strongest of these gates: PIT mutates the production bytecode
+(flips boolean conditions, swaps numeric returns, removes method calls) and re-runs the tests
+against every mutant. If a mutant survives, no test can tell the difference — meaning the tests
+look thorough but aren't actually pinning the behaviour. Requiring 90% of mutants killed proves
+the test suite detects real logic changes, not just that lines were executed.
+
+### CI/CD on GitHub Actions
+
+* One pipeline job runs verify → Playwright e2e → deploy → live smoke test, with no stored
+  artifacts (the jar never leaves the runner except to Azure).
+* **Deploy uses OpenID Connect federation** — no Azure passwords or client secrets anywhere;
+  a federated credential scoped to this repository's `master` branch and `production`
+  environment, holding *Website Contributor* on a single resource group.
+* Pushing a `v*` tag **publishes to Maven Central** (GPG-signed, sources + javadoc attached,
+  via the Central Portal) and auto-creates the GitHub Release with generated notes.
+* A scheduled health ping keeps the live deployment warm (see `keep-warm.yml`).
+
+### Dependency & toolchain hygiene
+
+* Spring Boot 3.5.16 on **Java 25 LTS** (Azul Zulu), pinned per-project via `.sdkmanrc`.
+* Recent CVE remediation in one jump: Spring Framework 5.2 → 6.2, Tomcat 9 → 10.1,
+  jackson-databind 2.11 → 2.21, snakeyaml 1.x → 2.x (CVE-2022-1471), springfox replaced by
+  springdoc-openapi, jQuery/Bootstrap 3 retired in favour of a single self-hosted Bootstrap 5
+  stylesheet.
+* All front-end assets are self-hosted — no CDN calls — honouring the offline-enterprise use case.
+
 ## Report an issue
 
 Found a bug or have an idea? Please [open a GitHub issue](https://github.com/anandvarkeyphilips/enterprise-validator/issues) —
