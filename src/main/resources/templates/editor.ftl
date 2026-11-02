@@ -26,8 +26,8 @@
         </div>
     </div>
 </header>
-<main class="container py-4 flex-grow-1">
-    <div class="d-flex flex-wrap gap-2 mb-3" role="toolbar" aria-label="Editor actions">
+<main class="container py-4 flex-grow-1 d-flex flex-column gap-3">
+    <div class="d-flex flex-wrap gap-2 flex-shrink-0" role="toolbar" aria-label="Editor actions">
         <button type="button" id="encodeData" class="btn btn-primary">BASE64 Encode</button>
         <button type="button" id="decodeData" class="btn btn-warning">BASE64 Decode</button>
         <button type="button" id="validateYamlData" class="btn btn-success">Validate YAML</button>
@@ -43,7 +43,7 @@
         </div>
     </div>
     <pre id="editor" class="m-0"></pre>
-    <div id="validationResultBlock" tabindex="-1" class="mt-3"></div>
+    <div id="validationResultBlock" tabindex="-1" class="flex-shrink-0"></div>
 </main>
 <footer class="py-3 text-center border-top">
     <p class="mb-0 text-body-secondary">

@@ -1,6 +1,14 @@
+html,
+body {
+    height: 100%;
+}
+
 #editor {
     position: relative;
-    height: 75vh;
+    /* Fill the viewport space between the header/toolbar and the footer so the
+        footer stays visible instead of being pushed below the fold. */
+    flex: 1 1 auto;
+    min-height: 280px;
     margin: 0;
     font-family: var(--bs-font-monospace);
     border: var(--bs-border-width) solid var(--bs-border-color);
