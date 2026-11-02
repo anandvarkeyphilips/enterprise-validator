@@ -1,66 +1,79 @@
-
-# Welcome to the Enterprise Validator
+# Enterprise Validator
 
 ![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/enterprise-validator.svg)
 [![CI](https://github.com/anandvarkeyphilips/enterprise-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/actions/workflows/ci.yml)
 [![GitHub issues](https://img.shields.io/github/issues/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/issues)
 [![GitHub forks](https://img.shields.io/github/forks/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/network)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/enterprise-validator/Lobby)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-### Getting Started
+A self-contained Spring Boot application for enterprises that cannot use public websites for data
+validation and manipulation — everything runs locally, no external services are called.
 
-This Spring Boot Fully executable stand alone application is made for enterprises which cannot access/use public
-websites for data validation and manipulation. This app provides,
+**Try it live:** https://enterprise-validator.azurewebsites.net/editor
 
-YAML validator which is better than http://www.yamllint.com as this app follows YAML spec, support multiple doc feature
-which is not supported my YAML Lint. JSON validator and formatter follows the JSON spec at http://json.org/. Also, now 
-you dont have to use https://www.base64decode.org/ as this app also provides options for Decode from and to Base64 format.
+![Enterprise Validator Suite](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true)
 
-Here's the current deployment hosted as an Azure App Service (Java 25):
-**https://enterprise-validator.azurewebsites.net/editor**  
+## Features
+
+* **YAML validation** following the YAML spec, including multi-document (`---`) support that
+  http://www.yamllint.com does not offer — with line and column markers on the failing key.
+* **JSON validation and formatting** per the JSON spec at http://json.org/.
+* **XML formatting** with pretty printing.
+* **Base64 encoding and decoding** — no need for https://www.base64decode.org/.
+* **Share** the editor content by copying it to the clipboard or opening a pre-filled email.
+* **OpenAPI / Swagger UI** documentation of every endpoint at `/swagger-ui.html`.
+
+## How to use
+
+* Click **Validate YAML** / **Validate JSON** to validate the editor content.
+* Click **Format JSON** / **Format XML** to pretty print the editor content.
+* Click **BASE64 Encode** / **BASE64 Decode** to convert the editor content.
+* Click **Share Data** to copy the data to the clipboard or open it in your mail client.
+
+## Under the hood
+
+* Java 25 (LTS, Azul Zulu) — pinned via `.sdkmanrc` (`sdk env` selects it automatically)
+* Spring Boot 3.5.16, Maven 3.9.16 via the wrapper (`./mvnw clean verify`)
+* spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator
+* springdoc-openapi, org.json, snakeyaml, lombok, jackson-databind
+* CI/CD on GitHub Actions: build + coverage/mutation gates, Playwright end-to-end tests,
+  OIDC deploy to Azure App Service (Java 25 runtime), releases published to Maven Central
+* Docker base image: `azul/zulu-openjdk-alpine:25-jre`
+
+## Develop locally
+
+```bash
+sdk env                       # select Zulu JDK 25 (or install: sdk install java 25.0.5.0+8-zulu)
+./mvnw clean verify           # build, tests, JaCoCo + PIT mutation gates
+./mvnw -DskipTests package && java -jar target/enterprise-validator-*.jar --server.port=8080
+cd e2e && npx playwright test # browser end-to-end suite against the packaged jar
+```
 
 <details>
 <summary>Deprecated deployments (no longer active, kept for reference)</summary>
 
-Here's the Docker container version of the Application hosted in Microsoft Azure Container Instances (DEPRECATED — no longer active):  
-**http://enterprise-validator.centralus.azurecontainer.io:8090/enterprise-validator/editor**  
-Here's the fatty jar Application running in Microsoft Azure RHEL VM (DEPRECATED — no longer active):  
-**http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/enterprise-validator/editor**  
-Here's the Openshift version of the Application hosted in Redhat Openshift (DEPRECATED — no longer active):  
-**http://enterprise-validator-enterprise-validator.7e14.starter-us-west-2.openshiftapps.com/editor**  
+Here's the Docker container version of the Application hosted in Microsoft Azure Container Instances (DEPRECATED — no longer active):
+**http://enterprise-validator.centralus.azurecontainer.io:8090/enterprise-validator/editor**
+Here's the fatty jar Application running in Microsoft Azure RHEL VM (DEPRECATED — no longer active):
+**http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/enterprise-validator/editor**
+Here's the Openshift version of the Application hosted in Redhat Openshift (DEPRECATED — no longer active):
+**http://enterprise-validator-enterprise-validator.7e14.starter-us-west-2.openshiftapps.com/editor**
 </details>
 
-![Enterprise Validator Suite](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true)
+## Report an issue
 
-### Recipe Ingredients
- * spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator
- * springdoc-openapi (Swagger UI), org.json, snakeyaml, lombok, jackson-databind, spring-boot-test
+Found a bug or have an idea? Please [open a GitHub issue](https://github.com/anandvarkeyphilips/enterprise-validator/issues) —
+include the input data and the validation message whenever possible.
 
-### Toolchain
- * Java 25 (latest LTS) — pinned via `.sdkmanrc` (`sdk env` selects Azul Zulu 25 automatically; installed with `sdk install java 25.0.5.0+8-zulu`)
- * Spring Boot 3.5.16, Maven 3.9.16 (via the wrapper: `./mvnw clean verify`)
- * Docker base image: `azul/zulu-openjdk-alpine:25-jre`
+## Help and support
 
+Join the [Gitter chat](https://gitter.im/enterprise-validator/Lobby/).
 
-### How to?
-* Click on "BASE 64Encode" to encode to Base64 format.
-* Click on "BASE 64Encode" to decode from Base64 format.
-* Click on "Validate YAML" to validate YAML data.
-* Click on "Validate JSON" to validate JSON data.
-* Click on "Format YAML" to format JSON data.
-* Click on "Share Data" to share the data through configured Mailing App.
+## Change log
 
+See the changes in each release [here](https://github.com/anandvarkeyphilips/enterprise-validator/releases).
 
-### Jira
-* [Epic](https://jira.global.atlassian.com/browse/<JIRA-ID>) - Work in Progress
+## Want to contribute?
 
-### For help and support,
-Please contact: [Join the Gitter Chat](https://gitter.im/enterprise-validator/Lobby/)
-
-### Change Log
- 
- * You can view the changes in each releases [here](https://github.com/anandvarkeyphilips/enterprise-validator/releases).
- 
-### Want to Contribute?
-  * We love participation. We are ready to listen and discuss about changing underlying technologies or anything..
-    You can check the document [here](CONTRIBUTING.md).
+We love participation and are ready to discuss changing underlying technologies or anything else.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
