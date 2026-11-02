@@ -3,8 +3,10 @@ package io.exnihilo.validator.controller;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +42,12 @@ public class EditorControllerUnitTest {
   @BeforeEach
   public void setUp() throws Exception {
     mockMvc = MockMvcBuilders.standaloneSetup(editorController).build();
+  }
+
+  @Test
+  public void index_whenRootUrl_ThenRedirectToEditor() throws Exception {
+    mockMvc.perform(get("/")).andDo(MockMvcResultHandlers.print()).andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("/editor"));
   }
 
   @Test

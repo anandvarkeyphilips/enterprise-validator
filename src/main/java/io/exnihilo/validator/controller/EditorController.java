@@ -28,6 +28,12 @@ public class EditorController {
   private IValidatorService validatorService;
 
   @Hidden
+  @GetMapping("/")
+  public ModelAndView index() {
+    return new ModelAndView("redirect:/editor");
+  }
+
+  @Hidden
   @GetMapping("/editor")
   public ModelAndView editor() {
     log.info("Inside editor");

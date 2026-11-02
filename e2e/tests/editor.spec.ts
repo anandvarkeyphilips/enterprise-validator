@@ -26,6 +26,12 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('editor page', () => {
+  test('root path redirects to the editor', async ({ page }) => {
+    await page.goto('/');
+    await expect(page).toHaveURL(/\/editor$/);
+    await expect(page.locator('p.title')).toHaveText('Enterprise Validator');
+  });
+
   test('loads with title, hero and preloaded YAML sample', async ({ page }) => {
     await expect(page).toHaveTitle('Enterprise Validator');
     await expect(page.locator('p.title')).toHaveText('Enterprise Validator');
