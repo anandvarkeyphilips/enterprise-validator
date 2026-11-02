@@ -109,7 +109,7 @@ include the input data and the validation message whenever possible.
 
 ## Help and support
 
-Join the [Gitter chat]({NEW}).
+Join the [Gitter chat](https://app.gitter.im/#/room/#enterprise-validator_Lobby:gitter.im).
 
 ## Change log
 

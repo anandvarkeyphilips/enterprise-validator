@@ -19,7 +19,7 @@ This project and everyone participating in it is governed by the [Code of Conduc
 
     If chat is more your speed, you can join the Gitter team:
 
-* [Join the Gitter Chat]({NEW})
+* [Join the Gitter Chat](https://app.gitter.im/#/room/#enterprise-validator_Lobby:gitter.im)
  
 ### How do I make a contribution?
  Never made an open source contribution before? Wondering how contributions work in the in our project? Here's a quick rundown!

@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/anandvarkeyphilips/enterprise-validator/discussions
     about: Ask questions and discuss ideas before opening a feature request.
   - name: Gitter chat
-    url: {NEW}
+    url: https://app.gitter.im/#/room/#enterprise-validator_Lobby:gitter.im
     about: Chat with the community.
