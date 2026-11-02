@@ -27,8 +27,12 @@ Here's the Openshift version of the Application hosted in Redhat Openshift(May H
 
 ### Recipe Ingredients
  * spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator
- * springfox-swagger2, springfox-swagger-ui
- * org.json,snakeyaml, lombok, jackson-databind, spring-boot-test
+ * springdoc-openapi (Swagger UI), org.json, snakeyaml, lombok, jackson-databind, spring-boot-test
+
+### Toolchain
+ * Java 25 (latest LTS) — pinned via `.sdkmanrc` (`sdk env` selects Azul Zulu 25 automatically; installed with `sdk install java 25.0.5.0+8-zulu`)
+ * Spring Boot 3.5.16, Maven 3.9.16 (via the wrapper: `./mvnw clean verify`)
+ * Docker base image: `azul/zulu-openjdk-alpine:25-jre`
 
 
 ### How to?
