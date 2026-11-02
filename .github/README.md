@@ -18,12 +18,19 @@ you dont have to use https://www.base64decode.org/ as this app also provides opt
 
 ![Alt text](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true?raw=true)
 
+Here's the current deployment hosted as an Azure App Service (container):  
+**https://enterprise-validator.azurewebsites.net/editor**  
 Here's the Docker container version of the Application hosted in Microsoft Azure Cloud:  
 **http://enterprise-validator.centralus.azurecontainer.io:8090/enterprise-validator/editor**  
-Here's the fatty jar Application running in Microsoft Azure RHEL VM(May Have Issues):  
+
+<details>
+<summary>Deprecated deployments (no longer active, kept for reference)</summary>
+
+Here's the fatty jar Application running in Microsoft Azure RHEL VM (DEPRECATED — no longer active):  
 **http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/enterprise-validator/editor**  
-Here's the Openshift version of the Application hosted in Redhat Openshift(May Have Issues):  
+Here's the Openshift version of the Application hosted in Redhat Openshift (DEPRECATED — no longer active):  
 **http://enterprise-validator-enterprise-validator.7e14.starter-us-west-2.openshiftapps.com/editor**  
+</details>
 
 ![Alt text](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true?raw=true "Enterprise Validator Suite")
 
