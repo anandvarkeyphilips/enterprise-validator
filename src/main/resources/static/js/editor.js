@@ -17,84 +17,83 @@ management:
   endpoint:
     shutdown.enabled: true`;
 
-$(document).ready(function() {
-    editor = ace.edit("editor");
-    editor.setTheme("ace/theme/idle_fingers");
-    yamlMode = ace.require("ace/mode/yaml").Mode;
-    editor.session.setMode(new yamlMode());
-        editor.setValue(initialData, 0);
-    editor.clearSelection();
+function updateResult(message, className) {
+  var block = document.getElementById('validationResultBlock');
+  block.textContent = message;
+  block.classList.remove('validation-message-success', 'validation-message-failure', 'validation-message-error');
+  block.classList.add(className);
+  block.focus();
+}
 
-    $("#encodeData").click(function() {
-        ajaxCall("base64Encode");
-    });
-    $("#decodeData").click(function() {
-        ajaxCall("base64Decode");
-    });
-    $("#validateYamlData").click(function() {
-        ajaxCall("yaml");
-    });
-    $("#validateJsonData").click(function() {
-        ajaxCall("json");
-    });
-    $("#formatJsonData").click(function() {
-        ajaxCall("formatJson");
-    });
-    $("#formatXmlData").click(function() {
-        ajaxCall("formatXml");
-    });
-    $("#shareByEmail").click(function() {
-        if (editor.getValue().length > 2000) {
-            alert("The maximum Data Size for sharing by email is 2000 chars for the time being!")
-            return false;
-        }
-        var link = "mailto:" +
-            "?cc=anandvarkeyphilips@gmail.com" +
-            "&subject=" + escape("Data used for validation") +
-            "&body=" + escape(editor.getValue());
-        window.location.href = link;
-    });
+document.addEventListener('DOMContentLoaded', function() {
+  editor = ace.edit('editor');
+  editor.setTheme('ace/theme/idle_fingers');
+  yamlMode = ace.require('ace/mode/yaml').Mode;
+  editor.session.setMode(new yamlMode());
+  editor.setValue(initialData, 0);
+  editor.clearSelection();
+
+  document.getElementById('encodeData').addEventListener('click', function() {
+    ajaxCall('base64Encode');
+  });
+  document.getElementById('decodeData').addEventListener('click', function() {
+    ajaxCall('base64Decode');
+  });
+  document.getElementById('validateYamlData').addEventListener('click', function() {
+    ajaxCall('yaml');
+  });
+  document.getElementById('validateJsonData').addEventListener('click', function() {
+    ajaxCall('json');
+  });
+  document.getElementById('formatJsonData').addEventListener('click', function() {
+    ajaxCall('formatJson');
+  });
+  document.getElementById('formatXmlData').addEventListener('click', function() {
+    ajaxCall('formatXml');
+  });
+  document.getElementById('shareByEmail').addEventListener('click', function() {
+    if (editor.getValue().length > 2000) {
+      alert('The maximum Data Size for sharing by email is 2000 chars for the time being!')
+      return false;
+    }
+    var link = 'mailto:' +
+      '?cc=anandvarkeyphilips@gmail.com' +
+      '&subject=' + escape('Data used for validation') +
+      '&body=' + escape(editor.getValue());
+    window.location.href = link;
+  });
 });
 
 function ajaxCall(url) {
-    var newEditSession = editor.getSession();
-    newEditSession.removeGutterDecoration((errorLineNumber - 1), "failedGutter");
-    editor.setSession(newEditSession);
-    errorLineNumber = 0;
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: JSON.stringify({
-            inputMessage: editor.getValue()
-        }),
-        contentType: "application/json",
-        success: function(data) {
-            editor.setValue(data.inputMessage);
-            if (data.valid) {
-                $('#validationResultBlock').text(data.validationMessage);
-                $('#validationResultBlock').removeClass("validation-message-failure validation-message-error");
-                $('#validationResultBlock').addClass("validation-message-success");
-                editor.clearSelection();
-                $('#validationResultBlock').focus();
-            } else {
-                $('#validationResultBlock').text(data.validationMessage);
-                $('#validationResultBlock').removeClass( "validation-message-success validation-message-error");
-                $('#validationResultBlock').addClass( "validation-message-failure" );
-                if (data.lineNumber > 0) {
-                    errorLineNumber = data.lineNumber;
-                    var newEditSession = editor.getSession();
-                    newEditSession.addGutterDecoration((errorLineNumber - 1), "failedGutter");
-                    editor.setSession(newEditSession);
-                    editor.gotoLine(data.lineNumber, data.columnNumber, true);
-                }
-                editor.clearSelection();
-                $('#validationResultBlock').focus();
-            }
-        },
-        error: function(data) {
-            $('#validationResultBlock').text("Technical failure possibly due to poor internet connectivity.");
-            $('#validationResultBlock').removeClass("validation-message-success validation-message-failure");
-            $('#validationResultBlock').addClass("validation-message-error");
-        }
-    });
+  var newEditSession = editor.getSession();
+  newEditSession.removeGutterDecoration((errorLineNumber - 1), 'failedGutter');
+  editor.setSession(newEditSession);
+  errorLineNumber = 0;
+  fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ inputMessage: editor.getValue() })
+  }).then(function(response) {
+    if (!response.ok) {
+      throw new Error('HTTP ' + response.status);
+    }
+    return response.json();
+  }).then(function(data) {
+    editor.setValue(data.inputMessage);
+    if (data.valid) {
+      updateResult(data.validationMessage, 'validation-message-success');
+    } else {
+      updateResult(data.validationMessage, 'validation-message-failure');
+      if (data.lineNumber > 0) {
+        errorLineNumber = data.lineNumber;
+        var session = editor.getSession();
+        session.addGutterDecoration((errorLineNumber - 1), 'failedGutter');
+        editor.setSession(session);
+        editor.gotoLine(data.lineNumber, data.columnNumber, true);
+      }
+    }
+    editor.clearSelection();
+  }).catch(function() {
+    updateResult('Technical failure possibly due to poor internet connectivity.', 'validation-message-error');
+  });
 }

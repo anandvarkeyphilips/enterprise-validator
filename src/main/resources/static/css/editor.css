@@ -1,32 +1,41 @@
-body {
-    overflow: hidden;
-}
-#editor{
+#editor {
     position: relative;
+    height: 75vh;
     margin: 0;
-    top:  0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
+    font-family: var(--bs-font-monospace);
 }
-.failedGutter{
+
+.failedGutter {
     background-color: #d60e0e !important;
 }
 
-.validation-message-failure{
-    color: white;
-    padding: 10px;
-    background-color: red
+#validationResultBlock {
+    outline: none;
 }
 
-.validation-message-error{
+#validationResultBlock:empty {
+    display: none;
+}
+
+.validation-message-success {
+    color: white;
+    padding: 10px 15px;
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-success);
+}
+
+.validation-message-failure {
+    color: white;
+    padding: 10px 15px;
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-danger);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.validation-message-error {
     color: black;
-    padding: 10px;
-    background-color: '#d2ab0e'
-}
-
-.validation-message-success{
-    color: white;
-    padding: 10px;
-    background-color: green
+    padding: 10px 15px;
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-warning);
 }
