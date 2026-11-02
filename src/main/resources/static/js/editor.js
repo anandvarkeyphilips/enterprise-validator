@@ -30,6 +30,28 @@ spring.pid.file: /packages/config/enterprise-validator/enterprise-validator.pid`
   text: 'Enterprise Validator'
 };
 
+/* Comparison-document variants used when the base editor holds a built-in sample, so
+   opening a diff immediately demonstrates a few differences on Run Diff. */
+var DIFF_SAMPLES = {
+  json: `{
+    "server": {
+        "port": 80
+    },
+    "logging": {
+        "level": "info"
+    },
+    "management": {
+        "endpoint": "health"
+    }
+}`,
+  yaml: `server:
+  port: 80
+logging:
+  level: info
+management:
+  endpoint: health`
+};
+
 function updateResult(message, className) {
   var block = document.getElementById('validationResultBlock');
   block.textContent = message;
@@ -65,13 +87,18 @@ function resetVisualState() {
 }
 
 function ensureSample(kind) {
-  var current = editor.getValue();
-  if (!current.trim() || Object.keys(SAMPLES).some(function(key) {
-    return SAMPLES[key] === current;
-  })) {
+  if (isBuiltInSample(editor.getValue()) || !editor.getValue().trim()) {
     editor.setValue(SAMPLES[kind], 0);
     editor.clearSelection();
   }
+}
+
+function isBuiltInSample(value) {
+  return Object.keys(SAMPLES).some(function(key) {
+    return SAMPLES[key] === value;
+  }) || Object.keys(DIFF_SAMPLES).some(function(key) {
+    return DIFF_SAMPLES[key] === value;
+  });
 }
 
 /* Line-level LCS diff: returns the base lines only present in the base document and the
@@ -207,13 +234,12 @@ document.addEventListener('DOMContentLoaded', function() {
   function openComparePane(mode) {
     resetVisualState();
     diffMode = mode;
-    ensureSample(mode === 'diffJson' ? 'json' : 'yaml');
+    var kind = mode === 'diffJson' ? 'json' : 'yaml';
+    ensureSample(kind);
     ensureCompareEditor();
-    document.getElementById('compareTitle').textContent =
-        mode === 'diffJson' ? 'Base document (left) vs comparison document (right) - JSON key diff'
-            : 'Base document (left) vs comparison document (right) - YAML key diff';
     if (!compareEditor.getValue().trim()) {
-      compareEditor.setValue(editor.getValue(), 0);
+      var prefill = isBuiltInSample(editor.getValue()) ? DIFF_SAMPLES[kind] : editor.getValue();
+      compareEditor.setValue(prefill, 0);
       compareEditor.clearSelection();
     }
     compareEditorElement.classList.remove('d-none');
@@ -232,10 +258,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   document.getElementById('diffYamlData').addEventListener('click', function() {
     openComparePane('diffYaml');
-  });
-  document.getElementById('diffClose').addEventListener('click', function() {
-    resetVisualState();
-    closeComparePane();
   });
   document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape' && diffMode) {

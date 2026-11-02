@@ -176,7 +176,7 @@ test.describe('document diff', () => {
     });
     expect(markers.removed).toBeGreaterThan(0);
     expect(markers.added).toBeGreaterThan(0);
-    await page.click('#diffClose');
+    await page.keyboard.press('Escape');
     await expect(pane).toBeHidden();
   });
 
@@ -236,6 +236,19 @@ test.describe('document diff', () => {
     await page.click('#validateJsonData');
     const value = await getEditorValue(page);
     expect(value).toContain('a: 1');
+  });
+
+  test('diff JSON from the YAML start loads JSON in both editors with visible differences', async ({ page }) => {
+    await page.goto('/editor');
+    await page.click('#diffJsonData');
+    const left = await getEditorValue(page);
+    const right = await page.evaluate(() =>
+      (window as unknown as { compareEditor: { getValue: () => string } }).compareEditor.getValue());
+    expect(left.trim().startsWith('{')).toBe(true);
+    expect(right.trim().startsWith('{')).toBe(true);
+    expect(left).not.toBe(right);
+    await page.click('#diffRun');
+    await expect(page.locator('#validationResultBlock')).toContainText('key difference');
   });
 
   test('moving from diff to validate closes the compare pane', async ({ page }) => {

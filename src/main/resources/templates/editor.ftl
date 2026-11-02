@@ -41,10 +41,8 @@
         <pre id="editor" class="m-0"></pre>
         <pre id="compareEditor" class="m-0 d-none"></pre>
     </div>
-    <div id="diffBar" class="d-flex gap-2 align-items-center justify-content-center flex-shrink-0 d-none">
-        <span id="compareTitle" class="small text-body-secondary">Comparison document</span>
+    <div id="diffBar" class="d-flex align-items-center justify-content-center flex-shrink-0 d-none">
         <button type="button" id="diffRun" class="btn btn-sm btn-primary">Run Diff</button>
-        <button type="button" id="diffClose" class="btn btn-sm btn-outline-secondary" aria-label="Close compare pane">&times;</button>
     </div>
     <div id="validationResultBlock" tabindex="-1" class="flex-shrink-0"></div>
 </main>
