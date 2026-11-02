@@ -1,0 +1,2 @@
+# Auto-env: run 'sdk config' and set sdkman_auto_env=true to switch automatically
+java=25.0.5.0+8-zulu
