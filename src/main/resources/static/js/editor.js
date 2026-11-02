@@ -52,14 +52,20 @@ document.addEventListener('DOMContentLoaded', function() {
     ajaxCall('formatXml');
   });
   document.getElementById('shareByEmail').addEventListener('click', function() {
-    if (editor.getValue().length > 2000) {
+    var data = editor.getValue();
+    if (data.length > 2000) {
       alert('The maximum Data Size for sharing by email is 2000 chars for the time being!')
       return false;
     }
     var link = 'mailto:' +
-      '?cc=anandvarkeyphilips@gmail.com' +
-      '&subject=' + escape('Data used for validation') +
-      '&body=' + escape(editor.getValue());
+      '?cc=' + encodeURIComponent('anandvarkeyphilips@gmail.com') +
+      '&subject=' + encodeURIComponent('Data used for validation') +
+      '&body=' + encodeURIComponent(data);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(data).catch(function() {});
+    }
+    updateResult('Opening your mail client with the validation data. It has also been copied to the clipboard.',
+        'validation-message-success');
     window.location.href = link;
   });
 });

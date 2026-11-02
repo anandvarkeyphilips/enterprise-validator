@@ -3,6 +3,9 @@
     height: 75vh;
     margin: 0;
     font-family: var(--bs-font-monospace);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius-lg);
+    box-shadow: var(--bs-box-shadow-sm);
 }
 
 .failedGutter {

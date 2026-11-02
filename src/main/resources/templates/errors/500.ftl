@@ -105,7 +105,8 @@
     }
 
     window.addEventListener('resize', sizeGrid);
-    sizeGrid();
+    document.addEventListener('DOMContentLoaded', sizeGrid);
+    window.addEventListener('load', sizeGrid);
 
     var delay = 1000;
     sequence.forEach(function (name) {

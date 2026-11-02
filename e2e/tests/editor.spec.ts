@@ -132,6 +132,16 @@ test.describe('XML formatting', () => {
   });
 });
 
+test.describe('sharing', () => {
+  test('share button confirms and copies the data', async ({ page }) => {
+    await setEditorValue(page, 'Anand');
+    await page.click('#shareByEmail');
+    const result = page.locator('#validationResultBlock');
+    await expect(result).toHaveClass(/validation-message-success/);
+    await expect(result).toContainText('Opening your mail client');
+  });
+});
+
 test.describe('Base64 encoding', () => {
   test('encodes plain text to Base64', async ({ page }) => {
     await setEditorValue(page, 'Anand');

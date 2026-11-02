@@ -13,15 +13,15 @@
     <script type="text/javascript" src="js/editor.js" defer></script>
 </head>
 <body class="d-flex flex-column min-vh-100">
-<header class="bg-dark text-white py-4 border-bottom border-secondary-subtle">
+<header class="bg-body-tertiary py-4 border-bottom">
     <div class="container d-flex align-items-center gap-3">
-        <img src="favicon-256.png" alt="Enterprise Validator logo" width="72" height="72" class="rounded-3 flex-shrink-0">
+        <img src="favicon-256.png" alt="Enterprise Validator logo" width="72" height="72" class="flex-shrink-0">
         <div>
-            <p class="title h3 fw-semibold text-white mb-1">Enterprise Validator</p>
-            <p class="text-white-50 mb-0">
+            <p class="title h3 fw-semibold text-body mb-1">Enterprise Validator</p>
+            <p class="text-body-secondary mb-0">
                 Now you can validate JSON and YAML easily!!<br/>
-                A YAML validator better than the <a href="http://www.yamllint.com" class="link-info">YAML Lint</a>.<br/>
-                A JSON validator and formatter that follows the JSON spec at <a href="http://json.org/" class="link-info">JSON.org</a>.
+                A YAML validator better than the <a href="http://www.yamllint.com">YAML Lint</a>.<br/>
+                A JSON validator and formatter that follows the JSON spec at <a href="http://json.org/">JSON.org</a>.
             </p>
         </div>
     </div>
