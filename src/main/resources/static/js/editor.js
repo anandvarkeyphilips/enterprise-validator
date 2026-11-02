@@ -129,6 +129,84 @@ document.addEventListener('DOMContentLoaded', function() {
     updateResultWithMailLink('Opening your mail client with the validation data - choose the recipients and press send.', link);
     window.location.href = link;
   });
+
+  var diffMode = null;
+  var diffModal = document.getElementById('diffModal');
+  var compareInput = document.getElementById('compareInput');
+
+  function openDiffModal(mode) {
+    diffMode = mode;
+    document.getElementById('diffTitle').textContent =
+        mode === 'diffJson' ? 'Compare JSON documents' : 'Compare YAML documents';
+    diffModal.classList.add('show');
+    compareInput.focus();
+  }
+
+  function closeDiffModal() {
+    diffModal.classList.remove('show');
+    diffMode = null;
+  }
+
+  document.getElementById('diffJsonData').addEventListener('click', function() {
+    openDiffModal('diffJson');
+  });
+  document.getElementById('diffYamlData').addEventListener('click', function() {
+    openDiffModal('diffYaml');
+  });
+  document.getElementById('diffCancel').addEventListener('click', closeDiffModal);
+  diffModal.addEventListener('click', function(event) {
+    if (event.target === diffModal) {
+      closeDiffModal();
+    }
+  });
+
+  document.getElementById('diffRun').addEventListener('click', function() {
+    if (!diffMode) {
+      return;
+    }
+    fetch(diffMode, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        inputMessage: editor.getValue(),
+        compareMessage: compareInput.value
+      })
+    }).then(function(response) {
+      if (!response.ok) {
+        throw new Error('HTTP ' + response.status);
+      }
+      return response.json();
+    }).then(function(data) {
+      var block = document.getElementById('validationResultBlock');
+      block.textContent = '';
+      block.classList.remove('validation-message-success', 'validation-message-failure', 'validation-message-error');
+      if (!data.valid) {
+        block.classList.add('validation-message-failure');
+        block.textContent = data.validationMessage;
+      } else if (data.identical) {
+        block.classList.add('validation-message-success');
+        block.textContent = data.validationMessage;
+      } else {
+        block.classList.add('validation-message-failure');
+        var summary = document.createElement('span');
+        summary.className = 'diff-line';
+        summary.textContent = data.validationMessage;
+        block.appendChild(summary);
+        (data.differences || []).forEach(function(line) {
+          var item = document.createElement('span');
+          item.className = 'diff-line';
+          item.textContent = line;
+          block.appendChild(item);
+        });
+      }
+      block.focus();
+      closeDiffModal();
+    }).catch(function() {
+      updateResult('Technical failure possibly due to poor internet connectivity.', 'validation-message-error');
+      closeDiffModal();
+    });
+  });
+
 });
 
 function ajaxCall(url) {

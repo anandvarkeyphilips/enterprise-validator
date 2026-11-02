@@ -1,5 +1,6 @@
 package io.exnihilo.validator.service;
 
+import io.exnihilo.validator.entity.DiffEntity;
 import io.exnihilo.validator.entity.ValidationEntity;
 import org.springframework.stereotype.Service;
 
@@ -62,4 +63,22 @@ public interface IValidatorService {
    * @return validationEntity
    */
   ValidationEntity decodeBase64(ValidationEntity validationEntity);
+
+  /**
+   * Compares two json documents by keys and reports added, removed and changed key paths.
+   *
+   * @param diffEntity holds the base document (inputMessage) and the comparison document
+   *        (compareMessage)
+   * @return diffEntity with the list of differences
+   */
+  DiffEntity diffJsonService(DiffEntity diffEntity);
+
+  /**
+   * Compares two yaml documents by keys and reports added, removed and changed key paths.
+   *
+   * @param diffEntity holds the base document (inputMessage) and the comparison document
+   *        (compareMessage)
+   * @return diffEntity with the list of differences
+   */
+  DiffEntity diffYamlService(DiffEntity diffEntity);
 }

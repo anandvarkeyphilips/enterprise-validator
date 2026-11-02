@@ -1,5 +1,6 @@
 package io.exnihilo.validator.controller;
 
+import io.exnihilo.validator.entity.DiffEntity;
 import io.exnihilo.validator.entity.ValidationEntity;
 import io.exnihilo.validator.service.IValidatorService;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -123,5 +124,35 @@ public class EditorController {
   public ValidationEntity base64DecodeController(@RequestBody ValidationEntity validationEntity) {
     log.debug("Calling base64DecodeController...");
     return validatorService.decodeBase64(validationEntity);
+  }
+
+  /**
+   * Compares two json documents by keys and reports added, removed and changed key paths.
+   *
+   * @param diffEntity holds the base document (inputMessage) and the comparison document
+   *        (compareMessage)
+   * @return diff result with the list of differences
+   */
+  @PostMapping("/diffJson")
+  @Operation(summary = "API for a key-based diff of two JSON documents",
+      description = "This API compares the base document with the comparison document by keys.")
+  public DiffEntity diffJsonController(@RequestBody DiffEntity diffEntity) {
+    log.debug("Calling diffJsonController...");
+    return validatorService.diffJsonService(diffEntity);
+  }
+
+  /**
+   * Compares two yaml documents by keys and reports added, removed and changed key paths.
+   *
+   * @param diffEntity holds the base document (inputMessage) and the comparison document
+   *        (compareMessage)
+   * @return diff result with the list of differences
+   */
+  @PostMapping("/diffYaml")
+  @Operation(summary = "API for a key-based diff of two YAML documents",
+      description = "This API compares the base document with the comparison document by keys.")
+  public DiffEntity diffYamlController(@RequestBody DiffEntity diffEntity) {
+    log.debug("Calling diffYamlController...");
+    return validatorService.diffYamlService(diffEntity);
   }
 }

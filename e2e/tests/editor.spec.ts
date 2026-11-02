@@ -40,9 +40,9 @@ test.describe('editor page', () => {
     expect(editorValue).toContain('port: 8090');
   });
 
-  test('shows all seven action buttons', async ({ page }) => {
+  test('shows all nine action buttons', async ({ page }) => {
     for (const id of ['encodeData', 'decodeData', 'validateYamlData', 'validateJsonData',
-      'formatJsonData', 'formatXmlData', 'shareByEmail']) {
+      'formatJsonData', 'formatXmlData', 'diffJsonData', 'diffYamlData', 'shareByEmail']) {
       await expect(page.locator(`#${id}`)).toBeVisible();
     }
   });
@@ -171,5 +171,32 @@ test.describe('Base64 encoding', () => {
     await page.click('#decodeData');
     await expect(page.locator('#validationResultBlock')).toHaveText('Decode Successful!!!');
     await expect.poll(() => getEditorValue(page)).toBe('Anand');
+  });
+});
+
+test.describe('document diff', () => {
+  test('diff JSON reports key differences from the compare modal', async ({ page }) => {
+    await setEditorValue(page, '{"a":1,"b":{"c":2}}');
+    await page.click('#diffJsonData');
+    const modal = page.locator('#diffModal');
+    await expect(modal).toHaveClass(/show/);
+    await page.fill('#compareInput', '{"a":2,"b":{"d":3}}');
+    await page.click('#diffRun');
+    const result = page.locator('#validationResultBlock');
+    await expect(result).toHaveClass(/validation-message-failure/);
+    await expect(result).toContainText('3 key difference(s) found');
+    await expect(result).toContainText('~ $.a: expected 1, found 2');
+    await expect(result).toContainText('+ $.b.d: added 3');
+    await expect(modal).not.toHaveClass(/show/);
+  });
+
+  test('diff YAML reports key-identical documents', async ({ page }) => {
+    await setEditorValue(page, 'a: 1\n');
+    await page.click('#diffYamlData');
+    await page.fill('#compareInput', 'a: 1\n');
+    await page.click('#diffRun');
+    const result = page.locator('#validationResultBlock');
+    await expect(result).toHaveClass(/validation-message-success/);
+    await expect(result).toContainText('key-identical');
   });
 });

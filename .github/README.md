@@ -30,6 +30,7 @@ SonarCloud, Maven Central and Azure App Service — with no servers to patch.*
 * **JSON validation and formatting** per the JSON spec at http://json.org/.
 * **XML formatting** with pretty printing.
 * **Base64 encoding and decoding** — no need for https://www.base64decode.org/.
+* **Key-based diff** between two JSON or YAML documents - added, removed and changed key paths.
 * **Share** the editor content by copying it to the clipboard or opening a pre-filled email.
 * **OpenAPI / Swagger UI** documentation of every endpoint at `/swagger-ui.html`.
 

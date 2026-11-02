@@ -34,6 +34,8 @@
         <button type="button" id="validateJsonData" class="btn btn-success">Validate JSON</button>
         <button type="button" id="formatJsonData" class="btn btn-success">Format JSON</button>
         <button type="button" id="formatXmlData" class="btn btn-success">Format XML</button>
+        <button type="button" id="diffJsonData" class="btn btn-secondary">Diff JSON</button>
+        <button type="button" id="diffYamlData" class="btn btn-secondary">Diff YAML</button>
         <div class="dropdown">
             <button type="button" id="shareByEmail" class="btn btn-info" aria-expanded="false" aria-haspopup="true">Share Data</button>
             <div class="dropdown-menu" id="shareMenu" role="menu" aria-label="Share options">
@@ -45,6 +47,18 @@
     <pre id="editor" class="m-0"></pre>
     <div id="validationResultBlock" tabindex="-1" class="flex-shrink-0"></div>
 </main>
+
+<div id="diffModal" role="dialog" aria-modal="true" aria-label="Compare documents">
+    <div id="diffDialog">
+        <p class="mb-2 fw-semibold" id="diffTitle">Compare documents</p>
+        <p class="mb-1 text-body-secondary small">The editor holds the base document. Paste the document to compare against:</p>
+        <textarea id="compareInput" rows="12" spellcheck="false"></textarea>
+        <div class="d-flex gap-2 justify-content-end mt-2">
+            <button type="button" id="diffCancel" class="btn btn-outline-secondary">Close</button>
+            <button type="button" id="diffRun" class="btn btn-primary">Run Diff</button>
+        </div>
+    </div>
+</div>
 <footer class="py-3 text-center border-top">
     <p class="mb-0 text-body-secondary">
         Made with <span class="text-danger">&#9829;</span> in India by
