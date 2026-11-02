@@ -148,17 +148,28 @@ jobs:
         with:
           distribution: zulu
           java-version: '25'
-          server-id: github
-          server-username: GITHUB_ACTOR
-          server-password: GITHUB_TOKEN
-          settings-path: ${{ github.workspace }}/settings.xml
+
+      - name: Write Maven settings for GitHub Packages
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<'EOF'
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${env.GITHUB_ACTOR}</username>
+                <password>${env.GITHUB_TOKEN}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
       - name: Publish jar
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mvn -s settings.xml -B -ntp deploy:deploy-file \
+          mvn -B -ntp deploy:deploy-file \
             -DrepositoryId=github \
             -Durl=https://maven.pkg.github.com/${{ github.repository }} \
             -Dfile="$(ls artifact/enterprise-validator-*.jar)" \
