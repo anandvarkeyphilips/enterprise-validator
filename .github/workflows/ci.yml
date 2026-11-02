@@ -132,6 +132,8 @@ jobs:
     needs: build
     if: startsWith(github.ref, 'refs/tags/v')
     environment: production
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v7
 
@@ -164,4 +166,9 @@ jobs:
         run: >
           ./mvnw -B -ntp -P maven-central-publish deploy
           -Dgpg.passphrase="${{ secrets.VARKEYS_EV_MAVEN_GPG_PASSPHRASE }}"
+
+      - name: Create GitHub release from the tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "$GITHUB_REF_NAME" --generate-notes --title "$GITHUB_REF_NAME" || echo "Release already exists"
 
