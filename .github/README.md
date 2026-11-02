@@ -3,6 +3,7 @@
 ![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/enterprise-validator.svg)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.anandvarkeyphilips/enterprise-validator)](https://central.sonatype.com/artifact/com.github.anandvarkeyphilips/enterprise-validator)
 [![CI](https://github.com/anandvarkeyphilips/enterprise-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/actions/workflows/ci.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=anandvarkeyphilips_enterprise-validator&metric=alert_status)](https://sonarcloud.io/project/overview?id=anandvarkeyphilips_enterprise-validator)
 [![GitHub issues](https://img.shields.io/github/issues/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/issues)
 [![GitHub forks](https://img.shields.io/github/forks/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/network)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -12,7 +13,9 @@ validation and manipulation — everything runs locally, no external services ar
 
 *Originally developed 2018–2021; revived and fully modernized in November 2026 — Java 25, Spring Boot 3.5,
 CVE remediation across the dependency tree, OIDC-based CI/CD, Playwright end-to-end tests and the
-Bootstrap 5 UI redesign you see in the screenshot.*
+Bootstrap 5 UI redesign you see in the screenshot. The 2018–2021 stack ran on a personal VM (Jenkins,
+SonarQube, Artifactory, Ansible); everything now runs on managed free-tier services — GitHub Actions,
+SonarCloud, Maven Central and Azure App Service — with no servers to patch.*
 
 **Java 25 LTS** · **Spring Boot 3.5.16** · **≥ 90% coverage & mutation gates** · **17 Playwright e2e specs** · **OIDC CI/CD → Azure** · **releases on Maven Central**
 
@@ -81,6 +84,8 @@ the test suite detects real logic changes, not just that lines were executed.
 
 ### Publicly verifiable
 
+* Static analysis & quality gate on SonarCloud:
+  [project dashboard](https://sonarcloud.io/project/overview?id=anandvarkeyphilips_enterprise-validator)
 * Deployed app: [editor](https://enterprise-validator.azurewebsites.net/editor) ·
   [Swagger UI](https://enterprise-validator.azurewebsites.net/swagger-ui.html) ·
   [OpenAPI spec](https://enterprise-validator.azurewebsites.net/v3/api-docs) ·
