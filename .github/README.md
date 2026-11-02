@@ -2,10 +2,10 @@
 # Welcome to the Enterprise Validator
 
 ![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/enterprise-validator.svg)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/enterprise-validator/Lobby)
+[![CI](https://github.com/anandvarkeyphilips/enterprise-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/actions/workflows/ci.yml)
 [![GitHub issues](https://img.shields.io/github/issues/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/issues)
 [![GitHub forks](https://img.shields.io/github/forks/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/network)
-[![Build Status](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/buildStatus/icon?job=pipeline-job)](http://varkeys-rhel-jenkins.westus.cloudapp.azure.com:8080/job/pipeline-job/)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/enterprise-validator/Lobby)
 
 ### Getting Started
 
@@ -16,23 +16,21 @@ YAML validator which is better than http://www.yamllint.com as this app follows 
 which is not supported my YAML Lint. JSON validator and formatter follows the JSON spec at http://json.org/. Also, now 
 you dont have to use https://www.base64decode.org/ as this app also provides options for Decode from and to Base64 format.
 
-![Alt text](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true?raw=true)
-
-Here's the current deployment hosted as an Azure App Service (container):  
+Here's the current deployment hosted as an Azure App Service (Java 25):
 **https://enterprise-validator.azurewebsites.net/editor**  
-Here's the Docker container version of the Application hosted in Microsoft Azure Cloud:  
-**http://enterprise-validator.centralus.azurecontainer.io:8090/enterprise-validator/editor**  
 
 <details>
 <summary>Deprecated deployments (no longer active, kept for reference)</summary>
 
+Here's the Docker container version of the Application hosted in Microsoft Azure Container Instances (DEPRECATED — no longer active):  
+**http://enterprise-validator.centralus.azurecontainer.io:8090/enterprise-validator/editor**  
 Here's the fatty jar Application running in Microsoft Azure RHEL VM (DEPRECATED — no longer active):  
 **http://varkeys-rhel-jenkins.westus.cloudapp.azure.com/enterprise-validator/editor**  
 Here's the Openshift version of the Application hosted in Redhat Openshift (DEPRECATED — no longer active):  
 **http://enterprise-validator-enterprise-validator.7e14.starter-us-west-2.openshiftapps.com/editor**  
 </details>
 
-![Alt text](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true?raw=true "Enterprise Validator Suite")
+![Enterprise Validator Suite](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true)
 
 ### Recipe Ingredients
  * spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator

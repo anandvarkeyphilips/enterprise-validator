@@ -83,3 +83,45 @@ jobs:
           path: e2e/playwright-report/
           if-no-files-found: ignore
           retention-days: 7
+
+  deploy:
+    name: Deploy to Azure App Service (OIDC)
+    runs-on: ubuntu-latest
+    needs: [build, e2e]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    environment: production
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Azure login via OIDC federation
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Download jar from the build job
+        uses: actions/download-artifact@v4
+        with:
+          name: app-jar
+          path: artifact
+
+      - name: Deploy jar to the App Service
+        run: |
+          az webapp deploy \
+            --name enterprise-validator \
+            --resource-group enterprise-validator-app-service \
+            --src-path "$(ls artifact/enterprise-validator-*.jar)" \
+            --type jar
+
+      - name: Smoke test the live site
+        run: |
+          for i in $(seq 1 24); do
+            status=$(curl -s -o /dev/null -w '%{http_code}' -m 15 https://enterprise-validator.azurewebsites.net/actuator/health || true)
+            body=$(curl -s -m 15 https://enterprise-validator.azurewebsites.net/actuator/health || true)
+            if [ "$body" = '{"status":"UP"}' ]; then echo "Site is UP"; exit 0; fi
+            echo "attempt $i: status=$status body=$body"; sleep 10
+          done
+          echo "Site did not become healthy in time"; exit 1
+
