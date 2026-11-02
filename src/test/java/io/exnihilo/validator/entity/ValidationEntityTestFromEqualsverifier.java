@@ -3,7 +3,7 @@ package io.exnihilo.validator.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Validation Response Entity has the response details for all configured editor methods. Tests are

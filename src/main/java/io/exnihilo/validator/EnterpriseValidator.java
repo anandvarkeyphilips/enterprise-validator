@@ -3,7 +3,7 @@ package io.exnihilo.validator;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * This is the entry point for spring boot admin server application. There are lots of
@@ -20,7 +19,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author Anand Varkey Philips
  * @since 2.0.6.RELEASE
  */
-@EnableSwagger2
 @Slf4j
 @SpringBootApplication
 public class EnterpriseValidator {

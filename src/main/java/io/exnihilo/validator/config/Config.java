@@ -1,23 +1,21 @@
 package io.exnihilo.validator.config;
 
-import com.google.common.base.Predicates;
-import io.swagger.annotations.ApiKeyAuthDefinition;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.tags.Tag;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.*;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spi.service.contexts.SecurityContext;
-import springfox.documentation.spring.web.plugins.Docket;
-
-import javax.servlet.ServletContext;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 
 @Slf4j
 @Configuration
@@ -45,23 +43,22 @@ public class Config {
   private String[] protocols;
 
   @Bean
-  public Docket api(ServletContext servletContext) {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .securitySchemes(Collections.singletonList(
-            new ApiKey("JWT", HttpHeaders.AUTHORIZATION, ApiKeyAuthDefinition.ApiKeyLocation.HEADER.name())))
-        .securityContexts(
-            Collections.singletonList(SecurityContext.builder()
-                .securityReferences(Collections.singletonList(
-                    SecurityReference.builder().reference("JWT").scopes(new AuthorizationScope[0]).build()))
-                .build()))
-        .select().apis(RequestHandlerSelectors.basePackage("io.exnihilo"))
-        .paths(Predicates.not(PathSelectors.ant("/actuator/**"))).build().apiInfo(apiInfo()).host(host)
-        .protocols(new HashSet<>(Arrays.asList(protocols))).tags(new Tag("Validator Service",
-            "Validator APISs for YAML, JSON and XML formats and Base64 encoding and decoding"));
-  }
-
-  private ApiInfo apiInfo() {
-    return new ApiInfo(applicationName, applicationDescription, applicationVersion, termsOfServiceUrl,
-        new Contact(contactName, contactUrl, contactEmail), "License of API", licenseUrl, Collections.emptyList());
+  public OpenAPI api() {
+    final String securitySchemeName = "JWT";
+    List<Server> servers = new ArrayList<>();
+    for (String protocol : protocols) {
+      servers.add(new Server().url(protocol.trim() + "://" + host).description(applicationName + " server"));
+    }
+    return new OpenAPI()
+        .info(new Info().title(applicationName).description(applicationDescription).version(applicationVersion)
+            .termsOfService(termsOfServiceUrl)
+            .contact(new Contact().name(contactName).url(contactUrl).email(contactEmail))
+            .license(new License().name("License of API").url(licenseUrl)))
+        .servers(servers).addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+        .components(new Components().addSecuritySchemes(securitySchemeName,
+            new SecurityScheme().name(HttpHeaders.AUTHORIZATION).type(SecurityScheme.Type.APIKEY)
+                .in(SecurityScheme.In.HEADER).description("JWT authentication token")))
+        .tags(List.of(new Tag().name("Validator Service")
+            .description("Validator APIs for YAML, JSON and XML formats and Base64 encoding and decoding")));
   }
 }

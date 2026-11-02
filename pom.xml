@@ -1,46 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.anandvarkeyphilips</groupId>
+    <groupId>io.exnihilo</groupId>
     <artifactId>enterprise-validator</artifactId>
     <version>2.4.0</version>
     <packaging>jar</packaging>
     <name>Enterprise Validator</name>
     <description>Enterprise Validator for YAML, JSON and XML formats and also options for Base64 encoding and decoding</description>
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <name>Anand Varkey Philips</name>
-            <email>anandvarkeyphilips@gmail.com</email>
-            <organization>ExNihilo</organization>
-            <organizationUrl>https://www.anandvarkeyphilips.me</organizationUrl>
-        </developer>
-    </developers>
-    <scm>
-        <connection>scm:git:git@github.com:anandvarkeyphilips/enterprise-validator.git</connection>
-        <developerConnection>scm:git:git@github.com:anandvarkeyphilips/enterprise-validator.git</developerConnection>
-        <url>https://github.com/anandvarkeyphilips/enterprise-validator/tree/master</url>
-      <tag>enterprise-validator-2.3.0</tag>
-  </scm>
 
     <properties>
         <start-class>io.exnihilo.validator.EnterpriseValidator</start-class>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.test.skip>true</maven.test.skip>
+        <java.version>25</java.version>
+        <maven.test.skip>false</maven.test.skip>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.0.RELEASE</version>
+        <version>3.5.16</version>
     </parent>
     <dependencies>
         <dependency>
@@ -68,27 +48,20 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.11.0</version>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.17</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>1.18.48</version>
         </dependency>
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.26</version>
         </dependency>
         <dependency>
             <groupId>com.github.anandvarkeyphilips</groupId>
@@ -96,24 +69,30 @@
             <version>20180813</version>
         </dependency>
         <dependency>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-parent</artifactId>
-            <version>1.5.2</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>3.3</version>
+            <version>4.5.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.48</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.0.5.RELEASE</version>
             </plugin>
         </plugins>
     </build>
@@ -122,14 +101,14 @@
         <profile>
             <id>google-java-code-format</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>net.revelc.code.formatter</groupId>
                         <artifactId>formatter-maven-plugin</artifactId>
-                        <version>2.11.0</version>
+                        <version>2.29.0</version>
                         <executions>
                             <execution>
                                 <id>code-format</id>
@@ -150,14 +129,14 @@
         <profile>
             <id>jacoco-coverage-verification</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.5</version>
+                        <version>0.8.16</version>
                         <executions>
                             <execution>
                                 <id>jacoco-initialize</id>
@@ -202,14 +181,21 @@
         <profile>
             <id>mutation-testing</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-maven</artifactId>
-                        <version>1.5.2</version>
+                        <version>1.30.1</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.pitest</groupId>
+                                <artifactId>pitest-junit5-plugin</artifactId>
+                                <version>1.2.3</version>
+                            </dependency>
+                        </dependencies>
                         <executions>
                             <execution>
                                 <goals>
@@ -231,7 +217,11 @@
                             <mutators>
                                 <mutator>CONSTRUCTOR_CALLS</mutator>
                                 <mutator>VOID_METHOD_CALLS</mutator>
-                                <mutator>RETURN_VALS</mutator>
+                                <mutator>EMPTY_RETURNS</mutator>
+                                <mutator>FALSE_RETURNS</mutator>
+                                <mutator>TRUE_RETURNS</mutator>
+                                <mutator>NULL_RETURNS</mutator>
+                                <mutator>PRIMITIVE_RETURNS</mutator>
                                 <mutator>NON_VOID_METHOD_CALLS</mutator>
                                 <mutator>INCREMENTS</mutator>
                                 <mutator>MATH</mutator>
@@ -249,7 +239,7 @@
         <profile>
             <id>sonarqube-scanner</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <sonar.projectKey>enterprise-validator</sonar.projectKey>
@@ -262,7 +252,7 @@
                     <plugin>
                         <groupId>org.sonarsource.scanner.maven</groupId>
                         <artifactId>sonar-maven-plugin</artifactId>
-                        <version>3.6.1.1688</version>
+                        <version>5.8.0.7211</version>
                         <executions>
                             <execution>
                                 <id>sonar-verify</id>
@@ -277,79 +267,7 @@
             </build>
         </profile>
         <profile>
-        <id>ossrh-maven-central-release</id>
-        <activation>
-            <activeByDefault>false</activeByDefault>
-        </activation>
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.7</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <serverId>ossrh</serverId>
-                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>2.2.1</version>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <goals>
-                                <goal>jar-no-fork</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.9.1</version>
-                    <executions>
-                        <execution>
-                            <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.6</version>
-                    <executions>
-                        <execution>
-                            <id>sign-artifacts</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>sign</goal>
-                            </goals>
-                            <configuration>
-                                <keyname>Anand Varkey Philips</keyname>
-                                <passphraseServerId>gpg-passphrase</passphraseServerId>
-                            </configuration>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <gpgArguments>
-                            <arg>--pinentry-mode</arg>
-                            <arg>loopback</arg>
-                        </gpgArguments>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-        </profile>
-
-        <profile>
-            <id>docker-deploy</id>
+            <id>docker-install</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -358,37 +276,22 @@
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>dockerfile-maven-plugin</artifactId>
-                        <version>1.4.13</version>
+                        <version>1.4.9</version>
                         <configuration>
-                            <repository>docker.io/anandvarkeyphilips/enterprise-validator</repository>
-                            <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                            <repository>anandvarkeyphilips/enterprise-validator</repository>
+                            <tag>${project.version}</tag>
                             <buildArgs>
                                 <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                             </buildArgs>
                         </configuration>
                         <executions>
                             <execution>
-                                <id>build-tag-push-version</id>
-                                <phase>deploy</phase>
+                                <id>default</id>
+                                <phase>install</phase>
                                 <goals>
                                     <goal>build</goal>
-                                    <goal>tag</goal>
                                     <goal>push</goal>
                                 </goals>
-                                <configuration>
-                                    <tag>${project.version}</tag>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>tag-push-latest</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>tag</goal>
-                                    <goal>push</goal>
-                                </goals>
-                                <configuration>
-                                    <tag>latest</tag>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -398,24 +301,27 @@
         <profile>
             <id>azure-app-service</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>com.microsoft.azure</groupId>
                         <artifactId>azure-webapp-maven-plugin</artifactId>
-                        <version>1.9.1</version>
+                        <version>2.14.1</version>
                         <configuration>
-                            <authentication>
-                                <serverId>azure-service-principal-auth</serverId>
-                            </authentication>
                             <resourceGroup>enterprise-validator-app-service</resourceGroup>
                             <appName>enterprise-validator</appName>
                             <region>westus</region>
-                            <containerSettings>
-                                <imageName>anandvarkeyphilips/${project.artifactId}:latest</imageName>
-                            </containerSettings>
+                            <deployment>
+                                <type>docker-container</type>
+                                <containers>
+                                    <container>
+                                        <name>enterprise-validator</name>
+                                        <imageName>anandvarkeyphilips/${project.artifactId}:latest</imageName>
+                                    </container>
+                                </containers>
+                            </deployment>
                             <appSettings>
                                 <property>
                                     <name>PORT</name>
@@ -423,28 +329,9 @@
                                 </property>
                             </appSettings>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <id>app-service-deploy</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>deploy</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 </project>

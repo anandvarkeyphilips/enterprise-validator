@@ -1,27 +1,5 @@
 package io.exnihilo.validator.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.exnihilo.validator.entity.ValidationEntity;
-import io.exnihilo.validator.service.IValidatorService;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.ResourceUtils;
-
-import java.io.File;
-import java.nio.file.Files;
-
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -29,7 +7,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.exnihilo.validator.entity.ValidationEntity;
+import io.exnihilo.validator.service.IValidatorService;
+import java.io.File;
+import java.nio.file.Files;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.ResourceUtils;
+
+@ExtendWith(MockitoExtension.class)
 public class EditorControllerUnitTest {
 
   private MockMvc mockMvc;
@@ -38,7 +37,7 @@ public class EditorControllerUnitTest {
   @InjectMocks
   private EditorController editorController;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     mockMvc = MockMvcBuilders.standaloneSetup(editorController).build();
   }
@@ -48,9 +47,9 @@ public class EditorControllerUnitTest {
     File file = ResourceUtils.getFile("classpath:valid-yaml.yml");
     String inputYamlData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
     ValidationEntity outputValidationEntity =
-        ValidationEntity.builder().inputMessage(inputYamlData).valid(true).validationMessage("Valid YAML").build();
+        ValidationEntity.builder(inputYamlData).valid(true).validationMessage("Valid YAML").build();
     Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
@@ -65,15 +64,14 @@ public class EditorControllerUnitTest {
     Mockito.verifyNoMoreInteractions(validatorServiceMock);
 
     ValidationEntity captorValue = validatorServiceArgumentCaptor.getValue();
-    Assert.assertThat(captorValue, is(inputValidationEntity));
+    MatcherAssert.assertThat(captorValue, is(inputValidationEntity));
   }
 
   @Test
   public void validateYamlController_whenInvalidYaml_returnFalse() throws Exception {
     String inputYamlData = "Wrong : Data :";
-    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
-    ValidationEntity outputValidationEntity =
-        ValidationEntity.builder().inputMessage(inputYamlData).valid(false).build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputYamlData).build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder(inputYamlData).valid(false).build();
     Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
@@ -90,9 +88,9 @@ public class EditorControllerUnitTest {
     File file = ResourceUtils.getFile("classpath:valid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
     ValidationEntity outputValidationEntity =
-        ValidationEntity.builder().inputMessage(inputJsonData).valid(true).validationMessage("Valid JSON!!!").build();
+        ValidationEntity.builder(inputJsonData).valid(true).validationMessage("Valid JSON!!!").build();
     Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateJsonService(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
@@ -107,7 +105,7 @@ public class EditorControllerUnitTest {
     Mockito.verifyNoMoreInteractions(validatorServiceMock);
 
     ValidationEntity captorValue = validatorServiceArgumentCaptor.getValue();
-    Assert.assertThat(captorValue, is(inputValidationEntity));
+    MatcherAssert.assertThat(captorValue, is(inputValidationEntity));
   }
 
   @Test
@@ -115,8 +113,8 @@ public class EditorControllerUnitTest {
     File file = ResourceUtils.getFile("classpath:valid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("{\n" + "    \"glossary\": {\n"
+    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder("{\n" + "    \"glossary\": {\n"
         + "        \"title\": \"example glossary\",\n" + "        \"GlossDiv\": {\n" + "            \"title\": \"S\",\n"
         + "            \"GlossList\": {\n" + "                \"GlossEntry\": {\n"
         + "                    \"ID\": \"SGML\",\n" + "                    \"SortAs\": \"SGML\",\n"
@@ -142,7 +140,7 @@ public class EditorControllerUnitTest {
     Mockito.verifyNoMoreInteractions(validatorServiceMock);
 
     ValidationEntity captorValue = validatorServiceArgumentCaptor.getValue();
-    Assert.assertThat(captorValue, is(inputValidationEntity));
+    MatcherAssert.assertThat(captorValue, is(inputValidationEntity));
   }
 
   @Test
@@ -150,9 +148,9 @@ public class EditorControllerUnitTest {
     File file = ResourceUtils.getFile("classpath:valid-xml.xml");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder()
-        .inputMessage("<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n" + "<book>\n" + "    <title>java book</title>\n"
+    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
+    ValidationEntity outputValidationEntity = ValidationEntity
+        .builder("<?xml version=\"1.0\" encoding=\"UTF-16\"?><book>\n" + "    <title>java book</title>\n"
             + "    <author>nick bore</author>\n" + "    <pages>1020</pages>\n"
             + "    <example>xml - valid xml file</example>\n" + "</book>\n")
         .valid(true).validationMessage("Formatted XML!!!").build();
@@ -170,16 +168,16 @@ public class EditorControllerUnitTest {
     Mockito.verifyNoMoreInteractions(validatorServiceMock);
 
     ValidationEntity captorValue = validatorServiceArgumentCaptor.getValue();
-    Assert.assertThat(captorValue, is(inputValidationEntity));
+    MatcherAssert.assertThat(captorValue, is(inputValidationEntity));
   }
 
   @Test
   public void base64EncodeController_whenValidData_returnTrue() throws Exception {
     String inputJsonData = "Anand";
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("QW5hbmQ=").valid(true)
-        .validationMessage("Encode Successful!!!").build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
+    ValidationEntity outputValidationEntity =
+        ValidationEntity.builder("QW5hbmQ=").valid(true).validationMessage("Encode Successful!!!").build();
     Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).encodeBase64(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
@@ -194,16 +192,16 @@ public class EditorControllerUnitTest {
     Mockito.verifyNoMoreInteractions(validatorServiceMock);
 
     ValidationEntity captorValue = validatorServiceArgumentCaptor.getValue();
-    Assert.assertThat(captorValue, is(inputValidationEntity));
+    MatcherAssert.assertThat(captorValue, is(inputValidationEntity));
   }
 
   @Test
   public void base64DecodeController_whenValidData_returnTrue() throws Exception {
     String inputJsonData = "QW5hbmQ=";
 
-    ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
+    ValidationEntity inputValidationEntity = ValidationEntity.builder(inputJsonData).build();
     ValidationEntity outputValidationEntity =
-        ValidationEntity.builder().inputMessage("Anand").valid(true).validationMessage("Decode Successful!!!").build();
+        ValidationEntity.builder("Anand").valid(true).validationMessage("Decode Successful!!!").build();
     Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).decodeBase64(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
@@ -218,6 +216,6 @@ public class EditorControllerUnitTest {
     Mockito.verifyNoMoreInteractions(validatorServiceMock);
 
     ValidationEntity captorValue = validatorServiceArgumentCaptor.getValue();
-    Assert.assertThat(captorValue, is(inputValidationEntity));
+    MatcherAssert.assertThat(captorValue, is(inputValidationEntity));
   }
 }

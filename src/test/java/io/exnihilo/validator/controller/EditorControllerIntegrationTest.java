@@ -2,40 +2,34 @@ package io.exnihilo.validator.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.exnihilo.validator.entity.ValidationEntity;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.servlet.ServletContext;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.Files;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ResourceUtils;
 
-import javax.servlet.ServletContext;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.Files;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ActiveProfiles("test")
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class EditorControllerIntegrationTest {
 
   @Autowired
   private TestRestTemplate restTemplate;
-  @Autowired
-  private CustomErrorController customErrorController;
   @LocalServerPort
   private int port;
   @Autowired
@@ -43,9 +37,9 @@ public class EditorControllerIntegrationTest {
 
   private URL url;
 
-  @Before
-  public void setUp() throws MalformedURLException {
-    url = new URL("http://localhost:" + port + "/" + servletContext.getContextPath());
+  @BeforeEach
+  public void setUp() throws IOException {
+    url = URI.create("http://localhost:" + port + "/" + servletContext.getContextPath()).toURL();
   }
 
   @Test
@@ -66,7 +60,6 @@ public class EditorControllerIntegrationTest {
 
   @Test
   public void whenError_ThenRouteToErrorPage() {
-    assertEquals("/error", customErrorController.getErrorPath());
     ResponseEntity<String> response = restTemplate.getForEntity(url.toString() + "/error", String.class);
     assertTrue(response.getBody().contains("This doesn't happen usually"));
   }

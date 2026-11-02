@@ -2,27 +2,32 @@ package io.exnihilo.validator.controller;
 
 import io.exnihilo.validator.entity.ValidationEntity;
 import io.exnihilo.validator.service.IValidatorService;
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import springfox.documentation.annotations.ApiIgnore;
 
 @Slf4j
 @CrossOrigin(maxAge = 3600)
 @RestController
-@Api(tags = {"Validator Service"})
-@ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully connected and validated with API Validator"),
-    @ApiResponse(code = 401, message = "You are not authenticated properly to view the resource!"),
-    @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden!"),
-    @ApiResponse(code = 404, message = "Validator Service page you are looking for is not available right now!"),})
+@Tag(name = "Validator Service")
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Successfully connected and validated with API Validator"),
+    @ApiResponse(responseCode = "401", description = "You are not authenticated properly to view the resource!"),
+    @ApiResponse(responseCode = "403", description = "Accessing the resource you were trying to reach is forbidden!"),
+    @ApiResponse(responseCode = "404",
+        description = "Validator Service page you are looking for is not available right now!"),})
 public class EditorController {
 
   @Autowired
   private IValidatorService validatorService;
 
-  @ApiIgnore
+  @Hidden
   @GetMapping("/editor")
   public ModelAndView editor() {
     log.info("Inside editor");
@@ -37,7 +42,7 @@ public class EditorController {
    * @return validation result
    */
   @PostMapping("/yaml")
-  @ApiOperation(value = "API for Validating the YAML Data", notes = "This API validates YAML data input.")
+  @Operation(summary = "API for Validating the YAML Data", description = "This API validates YAML data input.")
   public ValidationEntity validateYamlController(@RequestBody ValidationEntity validationEntity) {
     log.debug("Calling validateYamlController...");
     return validatorService.validateYamlService(validationEntity);
@@ -50,7 +55,7 @@ public class EditorController {
    * @return validation result
    */
   @PostMapping("/json")
-  @ApiOperation(value = "API for Validating the JSON Data", notes = "This API validates JSON data input.")
+  @Operation(summary = "API for Validating the JSON Data", description = "This API validates JSON data input.")
   public ValidationEntity validateJsonController(@RequestBody ValidationEntity validationEntity) {
     log.debug("Calling validateJsonController...");
     return validatorService.validateJsonService(validationEntity);
@@ -64,7 +69,7 @@ public class EditorController {
    * @return validation result
    */
   @PostMapping("/formatJson")
-  @ApiOperation(value = "API for formatting the JSON Data", notes = "This API formats JSON data input.")
+  @Operation(summary = "API for formatting the JSON Data", description = "This API formats JSON data input.")
   public ValidationEntity formatJsonController(@RequestBody ValidationEntity validationEntity) {
     log.debug("Calling formatJsonController...");
     return validatorService.formatJsonService(validationEntity);
@@ -77,7 +82,7 @@ public class EditorController {
    * @return validation result
    */
   @PostMapping("/formatXml")
-  @ApiOperation(value = "API for formatting the XML Data", notes = "This API formats XML data input.")
+  @Operation(summary = "API for formatting the XML Data", description = "This API formats XML data input.")
   public ValidationEntity formatXmlController(@RequestBody ValidationEntity validationEntity) {
     log.debug("Calling formatXmlController...");
     return validatorService.formatXmlService(validationEntity);
@@ -90,7 +95,7 @@ public class EditorController {
    * @return validation result
    */
   @PostMapping("/base64Encode")
-  @ApiOperation(value = "API for Base64 encoding Data", notes = "This API encodes data input.")
+  @Operation(summary = "API for Base64 encoding Data", description = "This API encodes data input.")
   public ValidationEntity base64EncodeController(@RequestBody ValidationEntity validationEntity) {
     log.debug("Calling base64EncodeController...");
     return validatorService.encodeBase64(validationEntity);
@@ -103,7 +108,7 @@ public class EditorController {
    * @return validation result
    */
   @PostMapping("/base64Decode")
-  @ApiOperation(value = "API for Base64 decoding Data", notes = "This API decodes data input.")
+  @Operation(summary = "API for Base64 decoding Data", description = "This API decodes data input.")
   public ValidationEntity base64DecodeController(@RequestBody ValidationEntity validationEntity) {
     log.debug("Calling base64DecodeController...");
     return validatorService.decodeBase64(validationEntity);

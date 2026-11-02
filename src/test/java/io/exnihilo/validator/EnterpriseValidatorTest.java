@@ -5,14 +5,13 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import io.exnihilo.validator.config.MemoryAppender;
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This class tests the bean context configurations
@@ -21,14 +20,13 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @since 2.0.6.RELEASE
  */
 @ActiveProfiles("test")
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class EnterpriseValidatorTest {
 
   private MemoryAppender memoryAppender;
   private static final String LOGGER_NAME = "io.exnihilo.validator";
 
-  @Before
+  @BeforeEach
   public void setup() {
     Logger logger = (Logger) LoggerFactory.getLogger(LOGGER_NAME);
     memoryAppender = new MemoryAppender();
@@ -40,7 +38,7 @@ public class EnterpriseValidatorTest {
 
   @Test
   public void contextLoads() {
-    Assert.assertTrue(true);
+    assertTrue(true);
   }
 
   @Test

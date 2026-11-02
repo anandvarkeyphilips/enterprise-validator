@@ -17,4 +17,4 @@ management:
 logging:
   level.root: info
   level.io.exnihilo: info
-  file: logs/${application.artifactId}.log
+  file.name: logs/${application.artifactId}.log

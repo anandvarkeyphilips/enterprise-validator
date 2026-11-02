@@ -1,19 +1,18 @@
 package io.exnihilo.validator.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-import springfox.documentation.annotations.ApiIgnore;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
 
 
 
 @Slf4j
-@ApiIgnore
+@Hidden
 @Controller
 public class CustomErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
 
@@ -27,10 +26,5 @@ public class CustomErrorController implements org.springframework.boot.web.servl
       log.error("Internal error occurred for {}", request.getRequestURL());
       return new ModelAndView("/errors/500");
     }
-  }
-
-  @Override
-  public String getErrorPath() {
-    return "/error";
   }
 }

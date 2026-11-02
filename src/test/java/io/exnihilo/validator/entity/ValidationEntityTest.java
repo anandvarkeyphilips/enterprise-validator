@@ -1,8 +1,13 @@
 package io.exnihilo.validator.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Validation Response Entity has the response details for all configured editor methods. Tests are
@@ -19,28 +24,28 @@ public class ValidationEntityTest {
     ValidationEntity z = x;
 
     // reflexive: for any non-null value x, the expression x.equals(x) should return true.
-    Assert.assertTrue(x.equals(x));
+    assertTrue(x.equals(x));
     // symmetric: for any non-null values x and y, x.equals(y) should return true if and only if
     // y.equals(x) returns true.
-    Assert.assertTrue(x.equals(y) && y.equals(x));
+    assertTrue(x.equals(y) && y.equals(x));
     // transitive: for any non-null values x, y, and z, if x.equals(y) returns true and y.equals(z)
     // returns true, then x.equals(z) should return true.
-    Assert.assertTrue(x.equals(z) && y.equals(z) && x.equals(y));
+    assertTrue(x.equals(z) && y.equals(z) && x.equals(y));
     // consistent: for any non-null values x and y, multiple invocations of x.equals(y) should
     // consistently return true or consistently return false, provided no information used in equals
     // comparisons on the objects is modified.
-    Assert.assertTrue(x.equals(y) && x.equals(y) && x.equals(y) && x.equals(y));
+    assertTrue(x.equals(y) && x.equals(y) && x.equals(y) && x.equals(y));
     // Null check: for any non-null value x, x.equals(null) should return false.
-    Assert.assertFalse(x.equals(null));
+    assertFalse(x.equals(null));
 
-    Assert.assertEquals(x, y);
-    Assert.assertEquals(x.hashCode(), y.hashCode());
-    Assert.assertEquals(x.toString(), y.toString());
-    Assert.assertEquals(x.getInputMessage(), y.getInputMessage());
-    Assert.assertEquals(x.getValidationMessage(), y.getValidationMessage());
-    Assert.assertEquals(x.getLineNumber(), y.getLineNumber());
-    Assert.assertEquals(x.getColumnNumber(), y.getColumnNumber());
-    Assert.assertEquals(x.isValid(), y.isValid());
+    assertEquals(x, y);
+    assertEquals(x.hashCode(), y.hashCode());
+    assertEquals(x.toString(), y.toString());
+    assertEquals(x.getInputMessage(), y.getInputMessage());
+    assertEquals(x.getValidationMessage(), y.getValidationMessage());
+    assertEquals(x.getLineNumber(), y.getLineNumber());
+    assertEquals(x.getColumnNumber(), y.getColumnNumber());
+    assertEquals(x.isValid(), y.isValid());
   }
 
   @Test
@@ -50,14 +55,14 @@ public class ValidationEntityTest {
     ValidationEntity y = ValidationEntity.builder().inputMessage("Custom Input Message").lineNumber(1).columnNumber(2)
         .valid(false).validationMessage("Custom Validation Message").build();
 
-    Assert.assertFalse(x.equals(y) && y.equals(x));
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertNotEquals(x.toString(), y.toString());
-    Assert.assertNotEquals(x.getInputMessage(), y.getInputMessage());
-    Assert.assertNotEquals(x.getValidationMessage(), y.getValidationMessage());
-    Assert.assertNotEquals(x.getLineNumber(), y.getLineNumber());
-    Assert.assertNotEquals(x.getColumnNumber(), y.getColumnNumber());
-    Assert.assertNotEquals(x.isValid(), y.isValid());
+    assertFalse(x.equals(y) && y.equals(x));
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertNotEquals(x.toString(), y.toString());
+    assertNotEquals(x.getInputMessage(), y.getInputMessage());
+    assertNotEquals(x.getValidationMessage(), y.getValidationMessage());
+    assertNotEquals(x.getLineNumber(), y.getLineNumber());
+    assertNotEquals(x.getColumnNumber(), y.getColumnNumber());
+    assertNotEquals(x.isValid(), y.isValid());
   }
 
   @Test
@@ -67,9 +72,9 @@ public class ValidationEntityTest {
     Object y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22).valid(true)
         .validationMessage("Validation Successful").build();
 
-    Assert.assertTrue(x.equals(y) && y.equals(x));
-    Assert.assertEquals(x.hashCode(), y.hashCode());
-    Assert.assertEquals(x.toString(), y.toString());
+    assertTrue(x.equals(y) && y.equals(x));
+    assertEquals(x.hashCode(), y.hashCode());
+    assertEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -79,10 +84,10 @@ public class ValidationEntityTest {
     String y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22).valid(true)
         .validationMessage("Validation Successful").toString();
 
-    Assert.assertEquals(
+    assertEquals(
         "ValidationEntity.ValidationEntityBuilder(valid=true, lineNumber=11, columnNumber=22, inputMessage=inputMessage, validationMessage=Validation Successful)",
         x);
-    Assert.assertEquals(
+    assertEquals(
         "ValidationEntity.ValidationEntityBuilder(valid=true, lineNumber=11, columnNumber=22, inputMessage=inputMessage, validationMessage=Validation Successful)",
         y);
   }
@@ -94,10 +99,10 @@ public class ValidationEntityTest {
     String y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22).valid(true)
         .validationMessage("Validation Successful").build().toString();
 
-    Assert.assertFalse(x.equals(y));
-    Assert.assertFalse(y.equals(x));
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertEquals(x.toString(), y.toString());
+    assertFalse(x.equals(y));
+    assertFalse(y.equals(x));
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -154,10 +159,10 @@ public class ValidationEntityTest {
     }
     ValidationEntityExtended validationEntityExtended =
         new ValidationEntityExtended(true, 11, 22, "inputMessage", "Validation Successful", "additionalDetail");
-    Assert.assertFalse(x.equals(validationEntityExtended));
-    Assert.assertFalse(validationEntityExtended.equals(x));
-    Assert.assertNotEquals(x.hashCode(), validationEntityExtended.hashCode());
-    Assert.assertNotEquals(x.toString(), validationEntityExtended.toString());
+    assertFalse(x.equals(validationEntityExtended));
+    assertFalse(validationEntityExtended.equals(x));
+    assertNotEquals(x.hashCode(), validationEntityExtended.hashCode());
+    assertNotEquals(x.toString(), validationEntityExtended.toString());
   }
 
   @Test
@@ -167,14 +172,14 @@ public class ValidationEntityTest {
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
 
-    Assert.assertTrue(x.equals(y) && y.equals(x));
-    Assert.assertEquals(x.hashCode(), y.hashCode());
-    Assert.assertEquals(x.toString(), y.toString());
-    Assert.assertEquals(x.getInputMessage(), y.getInputMessage());
-    Assert.assertEquals(x.getValidationMessage(), y.getValidationMessage());
-    Assert.assertEquals(x.getLineNumber(), y.getLineNumber());
-    Assert.assertEquals(x.getColumnNumber(), y.getColumnNumber());
-    Assert.assertEquals(x.isValid(), y.isValid());
+    assertTrue(x.equals(y) && y.equals(x));
+    assertEquals(x.hashCode(), y.hashCode());
+    assertEquals(x.toString(), y.toString());
+    assertEquals(x.getInputMessage(), y.getInputMessage());
+    assertEquals(x.getValidationMessage(), y.getValidationMessage());
+    assertEquals(x.getLineNumber(), y.getLineNumber());
+    assertEquals(x.getColumnNumber(), y.getColumnNumber());
+    assertEquals(x.isValid(), y.isValid());
   }
 
   @Test
@@ -184,10 +189,10 @@ public class ValidationEntityTest {
     ValidationEntity y = ValidationEntity.builder().inputMessage(null).lineNumber(11).columnNumber(22).valid(true)
         .validationMessage("Validation Successful").build();
 
-    Assert.assertNotEquals(x, y);
-    Assert.assertNotEquals(y, x);
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertNotEquals(x.toString(), y.toString());
+    assertNotEquals(x, y);
+    assertNotEquals(y, x);
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertNotEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -197,10 +202,10 @@ public class ValidationEntityTest {
     ValidationEntity y = ValidationEntity.builder().inputMessage(null).lineNumber(11).columnNumber(22).valid(true)
         .validationMessage("Validation Successful").build();
 
-    Assert.assertEquals(x, y);
-    Assert.assertEquals(y, x);
-    Assert.assertEquals(x.hashCode(), y.hashCode());
-    Assert.assertEquals(x.toString(), y.toString());
+    assertEquals(x, y);
+    assertEquals(y, x);
+    assertEquals(x.hashCode(), y.hashCode());
+    assertEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -210,9 +215,9 @@ public class ValidationEntityTest {
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Custom Input Message").build();
 
-    Assert.assertFalse(x.equals(y) && y.equals(x));
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertNotEquals(x.toString(), y.toString());
+    assertFalse(x.equals(y) && y.equals(x));
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertNotEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -223,9 +228,9 @@ public class ValidationEntityTest {
         .valid(true).validationMessage("Validation Successful").build();
     y.setValid(false);
 
-    Assert.assertFalse(x.equals(y) && y.equals(x));
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertNotEquals(x.toString(), y.toString());
+    assertFalse(x.equals(y) && y.equals(x));
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertNotEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -236,9 +241,9 @@ public class ValidationEntityTest {
         .valid(true).validationMessage("Validation Successful").build();
     y.setLineNumber(1);
 
-    Assert.assertFalse(x.equals(y) && y.equals(x));
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertNotEquals(x.toString(), y.toString());
+    assertFalse(x.equals(y) && y.equals(x));
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertNotEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -249,9 +254,9 @@ public class ValidationEntityTest {
         .valid(true).validationMessage("Validation Successful").build();
     y.setColumnNumber(2);
 
-    Assert.assertFalse(x.equals(y) && y.equals(x));
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertNotEquals(x.toString(), y.toString());
+    assertFalse(x.equals(y) && y.equals(x));
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertNotEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -261,10 +266,10 @@ public class ValidationEntityTest {
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage(null).build();
 
-    Assert.assertNotEquals(x, y);
-    Assert.assertNotEquals(y, x);
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertNotEquals(x.toString(), y.toString());
+    assertNotEquals(x, y);
+    assertNotEquals(y, x);
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertNotEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -274,10 +279,10 @@ public class ValidationEntityTest {
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage(null).build();
 
-    Assert.assertEquals(x, y);
-    Assert.assertEquals(y, x);
-    Assert.assertEquals(x.hashCode(), y.hashCode());
-    Assert.assertEquals(x.toString(), y.toString());
+    assertEquals(x, y);
+    assertEquals(y, x);
+    assertEquals(x.hashCode(), y.hashCode());
+    assertEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -287,9 +292,9 @@ public class ValidationEntityTest {
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Custom Validation Message").build();
 
-    Assert.assertFalse(x.equals(y) && y.equals(x));
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertNotEquals(x.toString(), y.toString());
+    assertFalse(x.equals(y) && y.equals(x));
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertNotEquals(x.toString(), y.toString());
   }
 
   @Test
@@ -297,14 +302,14 @@ public class ValidationEntityTest {
     ValidationEntity x = new ValidationEntity(true, 11, 22, "inputMessage", "Validation Successful");
     ValidationEntity y = new ValidationEntity(true, 11, 22, "inputMessage", "Validation Successful");
 
-    Assert.assertTrue(x.equals(y) && y.equals(x));
-    Assert.assertEquals(x.hashCode(), y.hashCode());
-    Assert.assertEquals(x.toString(), y.toString());
-    Assert.assertEquals(x.getInputMessage(), y.getInputMessage());
-    Assert.assertEquals(x.getValidationMessage(), y.getValidationMessage());
-    Assert.assertEquals(x.getLineNumber(), y.getLineNumber());
-    Assert.assertEquals(x.getColumnNumber(), y.getColumnNumber());
-    Assert.assertEquals(x.isValid(), y.isValid());
+    assertTrue(x.equals(y) && y.equals(x));
+    assertEquals(x.hashCode(), y.hashCode());
+    assertEquals(x.toString(), y.toString());
+    assertEquals(x.getInputMessage(), y.getInputMessage());
+    assertEquals(x.getValidationMessage(), y.getValidationMessage());
+    assertEquals(x.getLineNumber(), y.getLineNumber());
+    assertEquals(x.getColumnNumber(), y.getColumnNumber());
+    assertEquals(x.isValid(), y.isValid());
   }
 
   @Test
@@ -312,13 +317,13 @@ public class ValidationEntityTest {
     ValidationEntity x = new ValidationEntity(true, 11, 22, "inputMessage", "Validation Successful");
     ValidationEntity y = new ValidationEntity(false, 1, 1, "Custom inputMessage", "Custom Validation Successful");
 
-    Assert.assertFalse(x.equals(y) && y.equals(x));
-    Assert.assertNotEquals(x.hashCode(), y.hashCode());
-    Assert.assertNotEquals(x.toString(), y.toString());
-    Assert.assertNotEquals(x.getInputMessage(), y.getInputMessage());
-    Assert.assertNotEquals(x.getValidationMessage(), y.getValidationMessage());
-    Assert.assertNotEquals(x.getLineNumber(), y.getLineNumber());
-    Assert.assertNotEquals(x.getColumnNumber(), y.getColumnNumber());
-    Assert.assertNotEquals(x.isValid(), y.isValid());
+    assertFalse(x.equals(y) && y.equals(x));
+    assertNotEquals(x.hashCode(), y.hashCode());
+    assertNotEquals(x.toString(), y.toString());
+    assertNotEquals(x.getInputMessage(), y.getInputMessage());
+    assertNotEquals(x.getValidationMessage(), y.getValidationMessage());
+    assertNotEquals(x.getLineNumber(), y.getLineNumber());
+    assertNotEquals(x.getColumnNumber(), y.getColumnNumber());
+    assertNotEquals(x.isValid(), y.isValid());
   }
 }

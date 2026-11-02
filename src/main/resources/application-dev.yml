@@ -17,4 +17,4 @@ management:
 logging:
   level.root: info
   level.io.exnihilo: debug
-  file: /packages/logs/${application.artifactId}/${application.artifactId}.log
+  file.name: /packages/logs/${application.artifactId}/${application.artifactId}.log
