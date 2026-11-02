@@ -145,6 +145,17 @@ test.describe('sharing', () => {
     await expect(result).toHaveClass(/validation-message-success/);
     await expect(result).toContainText('copied to the clipboard');
   });
+
+  test('share menu email option shows a compose link with fallback hint', async ({ page }) => {
+    await setEditorValue(page, 'Anand');
+    await page.click('#shareByEmail');
+    await page.click('#shareEmail');
+    const result = page.locator('#validationResultBlock');
+    await expect(result).toHaveClass(/validation-message-success/);
+    await expect(result).toContainText('mail client');
+    await expect(result.locator('a[href^="mailto:?subject="]')).toBeVisible();
+    await expect(result).toContainText('Copy to clipboard');
+  });
 });
 
 test.describe('Base64 encoding', () => {

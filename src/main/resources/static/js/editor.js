@@ -25,6 +25,30 @@ function updateResult(message, className) {
   block.focus();
 }
 
+/**
+ * Same as updateResult, but appends a clickable mailto link and a hint for
+ * browsers (usually embedded webviews) that cannot open the mail client.
+ */
+function updateResultWithMailLink(message, mailtoLink) {
+  var block = document.getElementById('validationResultBlock');
+  block.textContent = '';
+  block.classList.remove('validation-message-success', 'validation-message-failure', 'validation-message-error');
+  block.classList.add('validation-message-success');
+  var text = document.createElement('span');
+  text.textContent = message + ' ';
+  var link = document.createElement('a');
+  link.href = mailtoLink;
+  link.textContent = 'Open the compose window';
+  var hint = document.createElement('div');
+  hint.style.fontSize = '0.9em';
+  hint.style.opacity = '0.85';
+  hint.textContent = 'Nothing opened? This browser cannot handle mail links (common in embedded browsers) - use Copy to clipboard instead.';
+  block.appendChild(text);
+  block.appendChild(link);
+  block.appendChild(hint);
+  block.focus();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   editor = ace.edit('editor');
   editor.setTheme('ace/theme/idle_fingers');
@@ -102,8 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var link = 'mailto:' +
       '?subject=' + encodeURIComponent('Data used for validation') +
       '&body=' + encodeURIComponent(data);
-    updateResult('Opening your mail client with the validation data. Choose the recipients and press send.',
-        'validation-message-success');
+    updateResultWithMailLink('Opening your mail client with the validation data - choose the recipients and press send.', link);
     window.location.href = link;
   });
 });
