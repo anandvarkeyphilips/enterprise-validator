@@ -16,5 +16,5 @@ management:
     shutdown.enabled: false
 logging:
   level.root: info
-  level.io.exnihilo: debug
+  level.io.exnihilo: info
   file.name: /packages/logs/${application.artifactId}/${application.artifactId}.log
