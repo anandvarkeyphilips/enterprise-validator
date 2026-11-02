@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,8 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
         description = "Validator Service page you are looking for is not available right now!"),})
 public class EditorController {
 
-  @Autowired
-  private IValidatorService validatorService;
+  private final IValidatorService validatorService;
+
+  public EditorController(IValidatorService validatorService) {
+    this.validatorService = validatorService;
+  }
 
   @Hidden
   @GetMapping("/")

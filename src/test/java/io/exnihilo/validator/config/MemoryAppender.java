@@ -6,7 +6,6 @@ import ch.qos.logback.core.read.ListAppender;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MemoryAppender extends ListAppender<ILoggingEvent> {
   public void reset() {
@@ -22,12 +21,12 @@ public class MemoryAppender extends ListAppender<ILoggingEvent> {
   }
 
   public List<ILoggingEvent> search(String string) {
-    return this.list.stream().filter(event -> event.getMessage().contains(string)).collect(Collectors.toList());
+    return this.list.stream().filter(event -> event.getMessage().contains(string)).toList();
   }
 
   public List<ILoggingEvent> search(String string, Level level) {
     return this.list.stream().filter(event -> event.getMessage().contains(string) && event.getLevel().equals(level))
-        .collect(Collectors.toList());
+        .toList();
   }
 
   public int getSize() {

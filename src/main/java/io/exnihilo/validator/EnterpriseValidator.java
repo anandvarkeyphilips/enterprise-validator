@@ -25,7 +25,8 @@ public class EnterpriseValidator {
 
   private String applicationName;
   private static final ZoneId ZONE_ID = ZoneId.of("Asia/Kolkata");
-  private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd:MMM:YYY hh:mm:ss:SSS a");
+  private static final DateTimeFormatter DATE_TIME_FORMATTER =
+      DateTimeFormatter.ofPattern("dd:MMM:yyyy hh:mm:ss:SSS a");
 
   @Value("${application.name}")
   public void setApplicationName(String applicationName) {

@@ -34,6 +34,12 @@ jobs:
       - name: Verify (formatter, tests, JaCoCo 90%, PIT 90%)
         run: ./mvnw -B -ntp clean verify -P '!sonarqube-scanner'
 
+      - name: Static analysis on SonarCloud
+        if: ${{ secrets.SONAR_TOKEN != '' }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./mvnw -B -ntp -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+
       - name: Set up Node
         uses: actions/setup-node@v7
         with:

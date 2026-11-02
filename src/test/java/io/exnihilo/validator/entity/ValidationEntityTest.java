@@ -27,7 +27,8 @@ public class ValidationEntityTest {
     assertTrue(x.equals(x));
     // symmetric: for any non-null values x and y, x.equals(y) should return true if and only if
     // y.equals(x) returns true.
-    assertTrue(x.equals(y) && y.equals(x));
+    assertEquals(x, y);
+    assertEquals(y, x);
     // transitive: for any non-null values x, y, and z, if x.equals(y) returns true and y.equals(z)
     // returns true, then x.equals(z) should return true.
     assertTrue(x.equals(z) && y.equals(z) && x.equals(y));
@@ -55,7 +56,8 @@ public class ValidationEntityTest {
     ValidationEntity y = ValidationEntity.builder().inputMessage("Custom Input Message").lineNumber(1).columnNumber(2)
         .valid(false).validationMessage("Custom Validation Message").build();
 
-    assertFalse(x.equals(y) && y.equals(x));
+    assertNotEquals(x, y);
+    assertNotEquals(y, x);
     assertNotEquals(x.hashCode(), y.hashCode());
     assertNotEquals(x.toString(), y.toString());
     assertNotEquals(x.getInputMessage(), y.getInputMessage());
@@ -99,10 +101,10 @@ public class ValidationEntityTest {
     String y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22).valid(true)
         .validationMessage("Validation Successful").build().toString();
 
-    assertFalse(x.equals(y));
-    assertFalse(y.equals(x));
+    assertNotEquals(x, y);
+    assertNotEquals(y, x);
     assertNotEquals(x.hashCode(), y.hashCode());
-    assertEquals(x.toString(), y.toString());
+    assertEquals(x.toString(), y);
   }
 
   @Test
@@ -125,7 +127,7 @@ public class ValidationEntityTest {
           @JsonProperty("lineNumber") final int lineNumber, @JsonProperty("columnNumber") final int columnNumber,
           @JsonProperty("inputMessage") final String inputMessage,
           @JsonProperty("validationMessage") final String validationMessage, String additionalDetail) {
-        super(true, 11, 22, "inputMessage", "Validation Successful");
+        super(valid, lineNumber, columnNumber, inputMessage, validationMessage);
         this.additionalDetail = additionalDetail;
       }
 
@@ -159,8 +161,8 @@ public class ValidationEntityTest {
     }
     ValidationEntityExtended validationEntityExtended =
         new ValidationEntityExtended(true, 11, 22, "inputMessage", "Validation Successful", "additionalDetail");
-    assertFalse(x.equals(validationEntityExtended));
-    assertFalse(validationEntityExtended.equals(x));
+    assertNotEquals(x, validationEntityExtended);
+    assertNotEquals(validationEntityExtended, x);
     assertNotEquals(x.hashCode(), validationEntityExtended.hashCode());
     assertNotEquals(x.toString(), validationEntityExtended.toString());
   }
@@ -317,7 +319,8 @@ public class ValidationEntityTest {
     ValidationEntity x = new ValidationEntity(true, 11, 22, "inputMessage", "Validation Successful");
     ValidationEntity y = new ValidationEntity(false, 1, 1, "Custom inputMessage", "Custom Validation Successful");
 
-    assertFalse(x.equals(y) && y.equals(x));
+    assertNotEquals(x, y);
+    assertNotEquals(y, x);
     assertNotEquals(x.hashCode(), y.hashCode());
     assertNotEquals(x.toString(), y.toString());
     assertNotEquals(x.getInputMessage(), y.getInputMessage());

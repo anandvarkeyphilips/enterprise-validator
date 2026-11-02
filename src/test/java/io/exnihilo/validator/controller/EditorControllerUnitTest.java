@@ -2,6 +2,7 @@ package io.exnihilo.validator.controller;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -40,7 +41,7 @@ public class EditorControllerUnitTest {
   private EditorController editorController;
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() {
     mockMvc = MockMvcBuilders.standaloneSetup(editorController).build();
   }
 
@@ -58,7 +59,7 @@ public class EditorControllerUnitTest {
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
     ValidationEntity outputValidationEntity =
         ValidationEntity.builder().inputMessage(inputYamlData).valid(true).validationMessage("Valid YAML").build();
-    Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
+    doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
     String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
@@ -81,7 +82,7 @@ public class EditorControllerUnitTest {
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
     ValidationEntity outputValidationEntity =
         ValidationEntity.builder().inputMessage(inputYamlData).valid(false).build();
-    Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
+    doReturn(outputValidationEntity).when(validatorServiceMock).validateYamlService(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
     String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
@@ -100,7 +101,7 @@ public class EditorControllerUnitTest {
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
     ValidationEntity outputValidationEntity =
         ValidationEntity.builder().inputMessage(inputJsonData).valid(true).validationMessage("Valid JSON!!!").build();
-    Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).validateJsonService(inputValidationEntity);
+    doReturn(outputValidationEntity).when(validatorServiceMock).validateJsonService(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
     String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
@@ -123,19 +124,33 @@ public class EditorControllerUnitTest {
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("{\n" + "    \"glossary\": {\n"
-        + "        \"title\": \"example glossary\",\n" + "        \"GlossDiv\": {\n" + "            \"title\": \"S\",\n"
-        + "            \"GlossList\": {\n" + "                \"GlossEntry\": {\n"
-        + "                    \"ID\": \"SGML\",\n" + "                    \"SortAs\": \"SGML\",\n"
-        + "                    \"GlossTerm\": \"Standard Generalized Markup Language\",\n"
-        + "                    \"Acronym\": \"SGML\",\n" + "                    \"Abbrev\": \"ISO 8879:1986\",\n"
-        + "                    \"GlossDef\": {\n"
-        + "                        \"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\n"
-        + "                        \"GlossSeeAlso\": [\n" + "                            \"GML\",\n"
-        + "                            \"XML\"\n" + "                        ]\n" + "                    },\n"
-        + "                    \"GlossSee\": \"markup\"\n" + "                }\n" + "            }\n" + "        }\n"
-        + "    }\n" + "}").valid(true).validationMessage("Formatted JSON!!!").build();
-    Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).formatJsonService(inputValidationEntity);
+    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("""
+        {
+            "glossary": {
+                "title": "example glossary",
+                "GlossDiv": {
+                    "title": "S",
+                    "GlossList": {
+                        "GlossEntry": {
+                            "ID": "SGML",
+                            "SortAs": "SGML",
+                            "GlossTerm": "Standard Generalized Markup Language",
+                            "Acronym": "SGML",
+                            "Abbrev": "ISO 8879:1986",
+                            "GlossDef": {
+                                "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                                "GlossSeeAlso": [
+                                    "GML",
+                                    "XML"
+                                ]
+                            },
+                            "GlossSee": "markup"
+                        }
+                    }
+                }
+            }
+        }""").valid(true).validationMessage("Formatted JSON!!!").build();
+    doReturn(outputValidationEntity).when(validatorServiceMock).formatJsonService(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
     String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
@@ -158,12 +173,15 @@ public class EditorControllerUnitTest {
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder()
-        .inputMessage("<?xml version=\"1.0\" encoding=\"UTF-16\"?><book>\n" + "    <title>java book</title>\n"
-            + "    <author>nick bore</author>\n" + "    <pages>1020</pages>\n"
-            + "    <example>xml - valid xml file</example>\n" + "</book>\n")
-        .valid(true).validationMessage("Formatted XML!!!").build();
-    Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).formatXmlService(inputValidationEntity);
+    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("""
+        <?xml version="1.0" encoding="UTF-16"?><book>
+            <title>java book</title>
+            <author>nick bore</author>
+            <pages>1020</pages>
+            <example>xml - valid xml file</example>
+        </book>
+        """).valid(true).validationMessage("Formatted XML!!!").build();
+    doReturn(outputValidationEntity).when(validatorServiceMock).formatXmlService(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
     String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
@@ -187,7 +205,7 @@ public class EditorControllerUnitTest {
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
     ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("QW5hbmQ=").valid(true)
         .validationMessage("Encode Successful!!!").build();
-    Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).encodeBase64(inputValidationEntity);
+    doReturn(outputValidationEntity).when(validatorServiceMock).encodeBase64(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
     String objectJsonString = mapper.writeValueAsString(inputValidationEntity);
@@ -211,7 +229,7 @@ public class EditorControllerUnitTest {
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
     ValidationEntity outputValidationEntity =
         ValidationEntity.builder().inputMessage("Anand").valid(true).validationMessage("Decode Successful!!!").build();
-    Mockito.doReturn(outputValidationEntity).when(validatorServiceMock).decodeBase64(inputValidationEntity);
+    doReturn(outputValidationEntity).when(validatorServiceMock).decodeBase64(inputValidationEntity);
 
     ObjectMapper mapper = new ObjectMapper();
     String objectJsonString = mapper.writeValueAsString(inputValidationEntity);

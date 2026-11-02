@@ -48,12 +48,12 @@ public class EnterpriseValidatorTest {
     enterpriseValidator.logApplicationExit();
 
     Assertions.assertThat(memoryAppender.countEventsForLogger(LOGGER_NAME)).isEqualTo(2);
-    Assertions.assertThat(memoryAppender.search("Application is started at Indian Standard Time", Level.INFO).size())
-        .isEqualTo(1);
+    Assertions.assertThat(memoryAppender.search("Application is started at Indian Standard Time", Level.INFO))
+        .hasSize(1);
     Assertions
         .assertThat(
-            memoryAppender.search("Application is being gracefully stopped at Indian Standard Time", Level.INFO).size())
-        .isEqualTo(1);
+            memoryAppender.search("Application is being gracefully stopped at Indian Standard Time", Level.INFO))
+        .hasSize(1);
     Assertions
         .assertThat(
             memoryAppender.contains("Application is being gracefully stopped at Indian Standard Time", Level.TRACE))

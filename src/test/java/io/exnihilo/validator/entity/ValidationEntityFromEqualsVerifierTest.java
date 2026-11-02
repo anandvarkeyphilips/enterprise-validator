@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Validation Response Entity has the response details for all configured editor methods. Tests are
- * based on: https://jqno.nl/equalsverifier/ todo: verify contains method in HashSet use cases
+ * based on: https://jqno.nl/equalsverifier/
  */
-public class ValidationEntityTestFromEqualsverifier {
+public class ValidationEntityFromEqualsVerifierTest {
 
   @Test
   public void newValidationEntity_whenEqual_ThenTrue() {
@@ -28,7 +28,7 @@ public class ValidationEntityTestFromEqualsverifier {
           @JsonProperty("lineNumber") final int lineNumber, @JsonProperty("columnNumber") final int columnNumber,
           @JsonProperty("inputMessage") final String inputMessage,
           @JsonProperty("validationMessage") final String validationMessage, String additionalDetail) {
-        super(true, 11, 22, "inputMessage", "Validation Successful");
+        super(valid, lineNumber, columnNumber, inputMessage, validationMessage);
         this.additionalDetail = additionalDetail;
       }
 

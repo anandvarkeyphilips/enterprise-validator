@@ -46,10 +46,13 @@ public class ValidatorServiceTest {
     String inputYamlData = new String(Files.readAllBytes(file.toPath()));
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).valid(false)
-        .validationMessage("mapping values are not allowed here\n" + " in 'string', line 7, column 27:\n"
-            + "       pid.fail-on-write-error: true\n" + "                              ^\n")
-        .lineNumber(7).columnNumber(27).build();
+    ValidationEntity outputValidationEntity =
+        ValidationEntity.builder().inputMessage(inputYamlData).valid(false).validationMessage("""
+            mapping values are not allowed here
+             in 'string', line 7, column 27:
+                   pid.fail-on-write-error: true
+                                          ^
+            """).lineNumber(7).columnNumber(27).build();
 
     assertEquals(outputValidationEntity, validatorService.validateYamlService(inputValidationEntity));
   }
@@ -84,18 +87,32 @@ public class ValidatorServiceTest {
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("{\n" + "    \"glossary\": {\n"
-        + "        \"title\": \"example glossary\",\n" + "        \"GlossDiv\": {\n" + "            \"title\": \"S\",\n"
-        + "            \"GlossList\": {\n" + "                \"GlossEntry\": {\n"
-        + "                    \"ID\": \"SGML\",\n" + "                    \"SortAs\": \"SGML\",\n"
-        + "                    \"GlossTerm\": \"Standard Generalized Markup Language\",\n"
-        + "                    \"Acronym\": \"SGML\",\n" + "                    \"Abbrev\": \"ISO 8879:1986\",\n"
-        + "                    \"GlossDef\": {\n"
-        + "                        \"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\n"
-        + "                        \"GlossSeeAlso\": [\n" + "                            \"GML\",\n"
-        + "                            \"XML\"\n" + "                        ]\n" + "                    },\n"
-        + "                    \"GlossSee\": \"markup\"\n" + "                }\n" + "            }\n" + "        }\n"
-        + "    }\n" + "}").valid(true).validationMessage("Formatted JSON!!!").build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("""
+        {
+            "glossary": {
+                "title": "example glossary",
+                "GlossDiv": {
+                    "title": "S",
+                    "GlossList": {
+                        "GlossEntry": {
+                            "ID": "SGML",
+                            "SortAs": "SGML",
+                            "GlossTerm": "Standard Generalized Markup Language",
+                            "Acronym": "SGML",
+                            "Abbrev": "ISO 8879:1986",
+                            "GlossDef": {
+                                "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                                "GlossSeeAlso": [
+                                    "GML",
+                                    "XML"
+                                ]
+                            },
+                            "GlossSee": "markup"
+                        }
+                    }
+                }
+            }
+        }""").valid(true).validationMessage("Formatted JSON!!!").build();
 
     assertEquals(outputValidationEntity, validatorService.formatJsonService(inputValidationEntity));
   }
@@ -118,11 +135,14 @@ public class ValidatorServiceTest {
     String inputXmlData = new String(Files.readAllBytes(file.toPath()));
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputXmlData).build();
-    ValidationEntity outputValidationEntity = ValidationEntity.builder()
-        .inputMessage("<?xml version=\"1.0\" encoding=\"UTF-16\"?><book>\n" + "    <title>java book</title>\n"
-            + "    <author>nick bore</author>\n" + "    <pages>1020</pages>\n"
-            + "    <example>xml - valid xml file</example>\n" + "</book>\n")
-        .valid(true).validationMessage("Formatted XML!!!").build();
+    ValidationEntity outputValidationEntity = ValidationEntity.builder().inputMessage("""
+        <?xml version="1.0" encoding="UTF-16"?><book>
+            <title>java book</title>
+            <author>nick bore</author>
+            <pages>1020</pages>
+            <example>xml - valid xml file</example>
+        </book>
+        """).valid(true).validationMessage("Formatted XML!!!").build();
 
     assertEquals(outputValidationEntity, validatorService.formatXmlService(inputValidationEntity));
   }

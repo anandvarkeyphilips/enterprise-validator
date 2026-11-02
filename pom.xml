@@ -175,6 +175,12 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
+                                <configuration>
+                                    <formats>
+                                        <format>XML</format>
+                                        <format>HTML</format>
+                                    </formats>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>jacoco-check</id>
@@ -270,6 +276,9 @@
                 <sonar.organization>anandvarkeyphilips</sonar.organization>
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
                 <sonar.login>${env.SONAR_TOKEN}</sonar.login>
+                <!-- Third-party front-end libraries are vendored for offline use; exclude them
+                    from static analysis the same way dependencies are excluded. -->
+                <sonar.exclusions>src/main/resources/static/js/ace-noconflict/**</sonar.exclusions>
             </properties>
             <build>
                 <plugins>

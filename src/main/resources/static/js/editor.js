@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('shareCopy').addEventListener('click', function() {
     closeShareMenu();
     var data = editor.getValue();
-    if (navigator.clipboard && navigator.clipboard.writeText) {
+    if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(data).then(function() {
         updateResult('Validation data copied to the clipboard.', 'validation-message-success');
       }).catch(function() {

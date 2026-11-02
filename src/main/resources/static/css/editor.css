@@ -17,8 +17,8 @@
     margin-top: 0.125rem;
 }
 
-.failedGutter {
-    background-color: #d60e0e !important;
+#editor .ace_gutter-cell.failedGutter {
+    background-color: #d60e0e;
 }
 
 #validationResultBlock {
@@ -42,7 +42,7 @@
     border-radius: var(--bs-border-radius);
     background-color: var(--bs-danger);
     white-space: pre-wrap;
-    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .validation-message-error {
