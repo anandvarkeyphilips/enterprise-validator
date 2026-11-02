@@ -24,7 +24,7 @@ public class ValidationEntityTest {
     ValidationEntity z = x;
 
     // reflexive: for any non-null value x, the expression x.equals(x) should return true.
-    assertTrue(x.equals(x));
+    assertEquals(x, x);
     // symmetric: for any non-null values x and y, x.equals(y) should return true if and only if
     // y.equals(x) returns true.
     assertEquals(x, y);
@@ -37,7 +37,7 @@ public class ValidationEntityTest {
     // comparisons on the objects is modified.
     assertTrue(x.equals(y) && x.equals(y) && x.equals(y) && x.equals(y));
     // Null check: for any non-null value x, x.equals(null) should return false.
-    assertFalse(x.equals(null));
+    assertNotEquals(x, null);
 
     assertEquals(x, y);
     assertEquals(x.hashCode(), y.hashCode());
@@ -94,6 +94,9 @@ public class ValidationEntityTest {
         y);
   }
 
+  // The dissimilar-type comparison (ValidationEntity vs String) is precisely what this test
+  // verifies, so Sonar's S5845 guidance does not apply here.
+  @SuppressWarnings("java:S5845")
   @Test
   void newValidationEntityWithBuilder_whenOneIsInstanceAndOtherString_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)

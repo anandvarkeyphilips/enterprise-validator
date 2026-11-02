@@ -38,6 +38,9 @@ jobs:
 
       - name: Static analysis on SonarCloud
         if: env.SONAR_TOKEN != ''
+        # Non-blocking until Automatic Analysis is disabled in the SonarCloud UI
+        # (Administration > Analysis Method) - CI analysis and AutoScan are exclusive.
+        continue-on-error: true
         run: ./mvnw -B -ntp -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
       - name: Set up Node
