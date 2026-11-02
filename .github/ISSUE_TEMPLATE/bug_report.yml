@@ -1,0 +1,68 @@
+name: Bug report
+description: Something validated incorrectly, rendered wrongly, or errored out
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. The more of the fields below you fill in,
+        the faster we can reproduce and fix it. Sensitive data can be replaced with a
+        structurally identical sample.
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Where did it happen?
+      options:
+        - Live deployment (enterprise-validator.azurewebsites.net)
+        - Self-hosted / local jar
+        - Other / not sure
+    validations:
+      required: true
+  - type: dropdown
+    id: feature
+    attributes:
+      label: Which feature?
+      options:
+        - Validate YAML
+        - Validate JSON
+        - Format JSON
+        - Format XML
+        - Base64 Encode
+        - Base64 Decode
+        - Share Data
+        - Editor UI / error pages
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: input-data
+    attributes:
+      label: Input data
+      description: Paste the exact content you had in the editor (or a minimal sample that still fails).
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What should have happened?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: Include the validation message shown under the editor, if any.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser / OS
+      description: e.g. Chrome 141 on macOS, Safari on iOS 19
+  - type: textarea
+    id: logs
+    attributes:
+      label: Screenshots or logs (optional)
+      description: A screenshot of the editor with the result banner is often enough.

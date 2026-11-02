@@ -5,8 +5,8 @@
 We love participation. We are ready to listen and discuss about changing underlying technologies or anything you love to talk about..
 
 [How Can I Contribute?](#how-can-i-contribute)
-  * [Bug Report Template](ISSUE_TEMPLATE.md)
-  * [Feature Request Template](FEATURE_REQUEST.md)
+  * [Bug Report Form](ISSUE_TEMPLATE/bug_report.yml)
+  * [Feature Request Form](ISSUE_TEMPLATE/feature_request.yml)
   * [Pull Request Template](PULL_REQUEST_TEMPLATE.md)
 
 ## Code of Conduct

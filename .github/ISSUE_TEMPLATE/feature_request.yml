@@ -1,0 +1,34 @@
+name: Feature request
+description: Suggest an idea for this project
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: A clear description of the pain, e.g. "I'm always frustrated when [...]"
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: What would you like to happen?
+    validations:
+      required: true
+  - type: checkboxes
+    id: area
+    attributes:
+      label: Which areas would this touch?
+      options:
+        - label: YAML validation
+        - label: JSON validation / formatting
+        - label: XML formatting
+        - label: Base64 encode / decode
+        - label: Sharing
+        - label: Editor UI
+        - label: API / OpenAPI
+        - label: Build, CI/CD or infrastructure
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you have considered (optional)

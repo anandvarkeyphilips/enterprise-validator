@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & discussions
+    url: https://github.com/anandvarkeyphilips/enterprise-validator/discussions
+    about: Ask questions and discuss ideas before opening a feature request.
+  - name: Gitter chat
+    url: https://gitter.im/enterprise-validator/Lobby/
+    about: Chat with the community.
