@@ -35,7 +35,7 @@ public class EnterpriseValidator {
   public static void main(String[] args) {
     SpringApplicationBuilder app = new SpringApplicationBuilder(EnterpriseValidator.class);
     app.build().addListeners(new ApplicationPidFileWriter());
-    app.run();
+    app.run(args);
   }
 
   @EventListener(ApplicationReadyEvent.class)
