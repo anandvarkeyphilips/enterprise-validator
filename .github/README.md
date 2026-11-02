@@ -1,6 +1,7 @@
 # Enterprise Validator
 
 ![GitHub release](https://img.shields.io/github/release/anandvarkeyphilips/enterprise-validator.svg)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.anandvarkeyphilips/enterprise-validator)](https://central.sonatype.com/artifact/com.github.anandvarkeyphilips/enterprise-validator)
 [![CI](https://github.com/anandvarkeyphilips/enterprise-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/actions/workflows/ci.yml)
 [![GitHub issues](https://img.shields.io/github/issues/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/issues)
 [![GitHub forks](https://img.shields.io/github/forks/anandvarkeyphilips/enterprise-validator.svg)](https://github.com/anandvarkeyphilips/enterprise-validator/network)
@@ -77,6 +78,19 @@ the test suite detects real logic changes, not just that lines were executed.
   springdoc-openapi, jQuery/Bootstrap 3 retired in favour of a single self-hosted Bootstrap 5
   stylesheet.
 * All front-end assets are self-hosted — no CDN calls — honouring the offline-enterprise use case.
+
+### Publicly verifiable
+
+* Deployed app: [editor](https://enterprise-validator.azurewebsites.net/editor) ·
+  [Swagger UI](https://enterprise-validator.azurewebsites.net/swagger-ui.html) ·
+  [OpenAPI spec](https://enterprise-validator.azurewebsites.net/v3/api-docs) ·
+  [health endpoint](https://enterprise-validator.azurewebsites.net/actuator/health)
+* Published artifacts on Maven Central:
+  [`com.github.anandvarkeyphilips:enterprise-validator`](https://central.sonatype.com/artifact/com.github.anandvarkeyphilips/enterprise-validator)
+* Community health files: structured [issue forms](.github/ISSUE_TEMPLATE) (bugs arrive with
+  input data pre-formatted), [PR template](.github/PULL_REQUEST_TEMPLATE.md) wired to the quality
+  gates, [contributing guide](CONTRIBUTING.md), [code of conduct](CODE_OF_CONDUCT.md) and
+  [Discussions](https://github.com/anandvarkeyphilips/enterprise-validator/discussions) enabled.
 
 ## Stack & running locally
 
