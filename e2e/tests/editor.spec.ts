@@ -42,7 +42,7 @@ test.describe('editor page', () => {
 
   test('shows all nine action buttons', async ({ page }) => {
     for (const id of ['encodeData', 'decodeData', 'validateYamlData', 'validateJsonData',
-      'formatJsonData', 'formatXmlData', 'diffJsonData', 'diffYamlData', 'shareByEmail']) {
+      'formatJsonData', 'formatXmlData', 'diffJsonData', 'diffYamlData', 'copyData']) {
       await expect(page.locator(`#${id}`)).toBeVisible();
     }
   });
@@ -132,29 +132,13 @@ test.describe('XML formatting', () => {
   });
 });
 
-test.describe('sharing', () => {
-  test('share menu offers copy and email, copy confirms', async ({ page }) => {
+test.describe('copy', () => {
+  test('copy button copies the editor content and confirms', async ({ page }) => {
     await setEditorValue(page, 'Anand');
-    await page.click('#shareByEmail');
-    const menu = page.locator('#shareMenu');
-    await expect(menu).toHaveClass(/show/);
-    await expect(menu.locator('#shareCopy')).toBeVisible();
-    await expect(menu.locator('#shareEmail')).toBeVisible();
-    await page.click('#shareCopy');
+    await page.click('#copyData');
     const result = page.locator('#validationResultBlock');
     await expect(result).toHaveClass(/validation-message-success/);
     await expect(result).toContainText('copied to the clipboard');
-  });
-
-  test('share menu email option shows a compose link with fallback hint', async ({ page }) => {
-    await setEditorValue(page, 'Anand');
-    await page.click('#shareByEmail');
-    await page.click('#shareEmail');
-    const result = page.locator('#validationResultBlock');
-    await expect(result).toHaveClass(/validation-message-success/);
-    await expect(result).toContainText('mail client');
-    await expect(result.locator('a[href^="mailto:?subject="]')).toBeVisible();
-    await expect(result).toContainText('Copy to clipboard');
   });
 });
 
@@ -175,25 +159,35 @@ test.describe('Base64 encoding', () => {
 });
 
 test.describe('document diff', () => {
-  test('diff JSON reports key differences from the compare modal', async ({ page }) => {
+  test('diff JSON opens side-by-side pane and reports key differences', async ({ page }) => {
     await setEditorValue(page, '{"a":1,"b":{"c":2}}');
     await page.click('#diffJsonData');
-    const modal = page.locator('#diffModal');
-    await expect(modal).toHaveClass(/show/);
-    await page.fill('#compareInput', '{"a":2,"b":{"d":3}}');
+    const pane = page.locator('#comparePane');
+    await expect(pane).toBeVisible();
+    await page.evaluate((v) => {
+      (window as unknown as { compareEditor: { setValue: (s: string, c: number) => void; clearSelection: () => void } })
+        .compareEditor.setValue(v, 0);
+      (window as unknown as { compareEditor: { clearSelection: () => void } }).compareEditor.clearSelection();
+    }, '{"a":2,"b":{"d":3}}');
     await page.click('#diffRun');
     const result = page.locator('#validationResultBlock');
     await expect(result).toHaveClass(/validation-message-failure/);
     await expect(result).toContainText('3 key difference(s) found');
     await expect(result).toContainText('~ $.a: expected 1, found 2');
     await expect(result).toContainText('+ $.b.d: added 3');
-    await expect(modal).not.toHaveClass(/show/);
+    await expect(pane).toBeVisible();
+    await page.click('#diffClose');
+    await expect(pane).toBeHidden();
   });
 
   test('diff YAML reports key-identical documents', async ({ page }) => {
     await setEditorValue(page, 'a: 1\n');
     await page.click('#diffYamlData');
-    await page.fill('#compareInput', 'a: 1\n');
+    await page.evaluate((v) => {
+      (window as unknown as { compareEditor: { setValue: (s: string, c: number) => void; clearSelection: () => void } })
+        .compareEditor.setValue(v, 0);
+      (window as unknown as { compareEditor: { clearSelection: () => void } }).compareEditor.clearSelection();
+    }, 'a: 1\n');
     await page.click('#diffRun');
     const result = page.locator('#validationResultBlock');
     await expect(result).toHaveClass(/validation-message-success/);

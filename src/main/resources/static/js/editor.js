@@ -1,5 +1,5 @@
 var errorLineNumber = 0;
-var editor, yamlMode;
+var editor, compareEditor, yamlMode;
 var initialData = `server:
   port: 8090
   servlet.context-path: /enterprise-validator
@@ -25,27 +25,29 @@ function updateResult(message, className) {
   block.focus();
 }
 
-/**
- * Same as updateResult, but appends a clickable mailto link and a hint for
- * browsers (usually embedded webviews) that cannot open the mail client.
- */
-function updateResultWithMailLink(message, mailtoLink) {
+function renderDiffResult(data) {
   var block = document.getElementById('validationResultBlock');
   block.textContent = '';
   block.classList.remove('validation-message-success', 'validation-message-failure', 'validation-message-error');
-  block.classList.add('validation-message-success');
-  var text = document.createElement('span');
-  text.textContent = message + ' ';
-  var link = document.createElement('a');
-  link.href = mailtoLink;
-  link.textContent = 'Open the compose window';
-  var hint = document.createElement('div');
-  hint.style.fontSize = '0.9em';
-  hint.style.opacity = '0.85';
-  hint.textContent = 'Nothing opened? This browser cannot handle mail links (common in embedded browsers) - use Copy to clipboard instead.';
-  block.appendChild(text);
-  block.appendChild(link);
-  block.appendChild(hint);
+  if (!data.valid) {
+    block.classList.add('validation-message-failure');
+    block.textContent = data.validationMessage;
+  } else if (data.identical) {
+    block.classList.add('validation-message-success');
+    block.textContent = data.validationMessage;
+  } else {
+    block.classList.add('validation-message-failure');
+    var summary = document.createElement('span');
+    summary.className = 'diff-line';
+    summary.textContent = data.validationMessage;
+    block.appendChild(summary);
+    (data.differences || []).forEach(function(line) {
+      var item = document.createElement('span');
+      item.className = 'diff-line';
+      item.textContent = line;
+      block.appendChild(item);
+    });
+  }
   block.focus();
 }
 
@@ -75,88 +77,60 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('formatXmlData').addEventListener('click', function() {
     ajaxCall('formatXml');
   });
-  var shareButton = document.getElementById('shareByEmail');
-  var shareMenu = document.getElementById('shareMenu');
 
-  function closeShareMenu() {
-    shareMenu.classList.remove('show');
-    shareButton.setAttribute('aria-expanded', 'false');
-  }
-
-  shareButton.addEventListener('click', function(event) {
-    event.stopPropagation();
-    var opening = !shareMenu.classList.contains('show');
-    shareMenu.classList.toggle('show', opening);
-    shareButton.setAttribute('aria-expanded', opening ? 'true' : 'false');
-  });
-  document.addEventListener('click', function(event) {
-    if (!shareMenu.contains(event.target) && !shareButton.contains(event.target)) {
-      closeShareMenu();
-    }
-  });
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-      closeShareMenu();
-    }
-  });
-
-  document.getElementById('shareCopy').addEventListener('click', function() {
-    closeShareMenu();
+  document.getElementById('copyData').addEventListener('click', function() {
     var data = editor.getValue();
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(data).then(function() {
-        updateResult('Validation data copied to the clipboard.', 'validation-message-success');
+        updateResult('Editor content copied to the clipboard.', 'validation-message-success');
       }).catch(function() {
-        updateResult('Copying to the clipboard was blocked by the browser. Use the email option instead.',
-            'validation-message-error');
+        updateResult('Copying to the clipboard was blocked by the browser.', 'validation-message-error');
       });
     } else {
-      updateResult('The clipboard is not available in this browser. Use the email option instead.',
-          'validation-message-error');
+      updateResult('The clipboard is not available in this browser.', 'validation-message-error');
     }
-  });
-
-  document.getElementById('shareEmail').addEventListener('click', function() {
-    closeShareMenu();
-    var data = editor.getValue();
-    if (data.length > 2000) {
-      alert('The maximum Data Size for sharing by email is 2000 chars for the time being!')
-      return false;
-    }
-    var link = 'mailto:' +
-      '?subject=' + encodeURIComponent('Data used for validation') +
-      '&body=' + encodeURIComponent(data);
-    updateResultWithMailLink('Opening your mail client with the validation data - choose the recipients and press send.', link);
-    window.location.href = link;
   });
 
   var diffMode = null;
-  var diffModal = document.getElementById('diffModal');
-  var compareInput = document.getElementById('compareInput');
+  var comparePane = document.getElementById('comparePane');
 
-  function openDiffModal(mode) {
-    diffMode = mode;
-    document.getElementById('diffTitle').textContent =
-        mode === 'diffJson' ? 'Compare JSON documents' : 'Compare YAML documents';
-    diffModal.classList.add('show');
-    compareInput.focus();
+  function ensureCompareEditor() {
+    if (compareEditor) {
+      return;
+    }
+    compareEditor = ace.edit('compareEditor');
+    compareEditor.setTheme('ace/theme/idle_fingers');
+    compareEditor.session.setMode(new yamlMode());
+    compareEditor.setValue('', 0);
+    compareEditor.clearSelection();
   }
 
-  function closeDiffModal() {
-    diffModal.classList.remove('show');
+  function openComparePane(mode) {
+    diffMode = mode;
+    ensureCompareEditor();
+    document.getElementById('compareTitle').textContent =
+        mode === 'diffJson' ? 'Comparison document (JSON diff)' : 'Comparison document (YAML diff)';
+    comparePane.classList.remove('d-none');
+    comparePane.classList.add('d-flex');
+    compareEditor.focus();
+  }
+
+  function closeComparePane() {
     diffMode = null;
+    comparePane.classList.add('d-none');
+    comparePane.classList.remove('d-flex');
   }
 
   document.getElementById('diffJsonData').addEventListener('click', function() {
-    openDiffModal('diffJson');
+    openComparePane('diffJson');
   });
   document.getElementById('diffYamlData').addEventListener('click', function() {
-    openDiffModal('diffYaml');
+    openComparePane('diffYaml');
   });
-  document.getElementById('diffCancel').addEventListener('click', closeDiffModal);
-  diffModal.addEventListener('click', function(event) {
-    if (event.target === diffModal) {
-      closeDiffModal();
+  document.getElementById('diffClose').addEventListener('click', closeComparePane);
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && diffMode) {
+      closeComparePane();
     }
   });
 
@@ -169,44 +143,17 @@ document.addEventListener('DOMContentLoaded', function() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         inputMessage: editor.getValue(),
-        compareMessage: compareInput.value
+        compareMessage: compareEditor.getValue()
       })
     }).then(function(response) {
       if (!response.ok) {
         throw new Error('HTTP ' + response.status);
       }
       return response.json();
-    }).then(function(data) {
-      var block = document.getElementById('validationResultBlock');
-      block.textContent = '';
-      block.classList.remove('validation-message-success', 'validation-message-failure', 'validation-message-error');
-      if (!data.valid) {
-        block.classList.add('validation-message-failure');
-        block.textContent = data.validationMessage;
-      } else if (data.identical) {
-        block.classList.add('validation-message-success');
-        block.textContent = data.validationMessage;
-      } else {
-        block.classList.add('validation-message-failure');
-        var summary = document.createElement('span');
-        summary.className = 'diff-line';
-        summary.textContent = data.validationMessage;
-        block.appendChild(summary);
-        (data.differences || []).forEach(function(line) {
-          var item = document.createElement('span');
-          item.className = 'diff-line';
-          item.textContent = line;
-          block.appendChild(item);
-        });
-      }
-      block.focus();
-      closeDiffModal();
-    }).catch(function() {
+    }).then(renderDiffResult).catch(function() {
       updateResult('Technical failure possibly due to poor internet connectivity.', 'validation-message-error');
-      closeDiffModal();
     });
   });
-
 });
 
 function ajaxCall(url) {

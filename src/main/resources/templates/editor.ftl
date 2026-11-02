@@ -27,38 +27,30 @@
     </div>
 </header>
 <main class="container py-4 flex-grow-1 d-flex flex-column gap-3">
-    <div class="d-flex flex-wrap gap-2 flex-shrink-0" role="toolbar" aria-label="Editor actions">
+    <div class="d-flex flex-wrap gap-2 justify-content-center flex-shrink-0" role="toolbar" aria-label="Editor actions">
         <button type="button" id="encodeData" class="btn btn-primary">BASE64 Encode</button>
         <button type="button" id="decodeData" class="btn btn-warning">BASE64 Decode</button>
         <button type="button" id="validateYamlData" class="btn btn-success">Validate YAML</button>
         <button type="button" id="validateJsonData" class="btn btn-success">Validate JSON</button>
-        <button type="button" id="formatJsonData" class="btn btn-success">Format JSON</button>
-        <button type="button" id="formatXmlData" class="btn btn-success">Format XML</button>
+        <button type="button" id="formatJsonData" class="btn btn-info">Format JSON</button>
+        <button type="button" id="formatXmlData" class="btn btn-info">Format XML</button>
         <button type="button" id="diffJsonData" class="btn btn-secondary">Diff JSON</button>
         <button type="button" id="diffYamlData" class="btn btn-secondary">Diff YAML</button>
-        <div class="dropdown">
-            <button type="button" id="shareByEmail" class="btn btn-info" aria-expanded="false" aria-haspopup="true">Share Data</button>
-            <div class="dropdown-menu" id="shareMenu" role="menu" aria-label="Share options">
-                <button type="button" class="dropdown-item" id="shareCopy" role="menuitem">Copy to clipboard</button>
-                <button type="button" class="dropdown-item" id="shareEmail" role="menuitem">Email the data</button>
+        <button type="button" id="copyData" class="btn btn-outline-secondary">Copy</button>
+    </div>
+    <div id="editorRow" class="d-flex gap-3 flex-grow-1">
+        <pre id="editor" class="m-0"></pre>
+        <div id="comparePane" class="d-none flex-column gap-2 flex-grow-1">
+            <div class="d-flex gap-2 align-items-center flex-shrink-0">
+                <span id="compareTitle" class="small text-body-secondary flex-grow-1">Comparison document</span>
+                <button type="button" id="diffRun" class="btn btn-sm btn-primary">Run Diff</button>
+                <button type="button" id="diffClose" class="btn btn-sm btn-outline-secondary" aria-label="Close compare pane">&times;</button>
             </div>
+            <pre id="compareEditor" class="m-0"></pre>
         </div>
     </div>
-    <pre id="editor" class="m-0"></pre>
     <div id="validationResultBlock" tabindex="-1" class="flex-shrink-0"></div>
 </main>
-
-<div id="diffModal" role="dialog" aria-modal="true" aria-label="Compare documents">
-    <div id="diffDialog">
-        <p class="mb-2 fw-semibold" id="diffTitle">Compare documents</p>
-        <p class="mb-1 text-body-secondary small">The editor holds the base document. Paste the document to compare against:</p>
-        <textarea id="compareInput" rows="12" spellcheck="false"></textarea>
-        <div class="d-flex gap-2 justify-content-end mt-2">
-            <button type="button" id="diffCancel" class="btn btn-outline-secondary">Close</button>
-            <button type="button" id="diffRun" class="btn btn-primary">Run Diff</button>
-        </div>
-    </div>
-</div>
 <footer class="py-3 text-center border-top">
     <p class="mb-0 text-body-secondary">
         Made with <span class="text-danger">&#9829;</span> in India by

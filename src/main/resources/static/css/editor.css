@@ -5,10 +5,6 @@ body {
 
 #editor {
     position: relative;
-    /* Fill the viewport space between the header/toolbar and the footer so the
-        footer stays visible instead of being pushed below the fold. */
-    flex: 1 1 auto;
-    min-height: 280px;
     margin: 0;
     font-family: var(--bs-font-monospace);
     border: var(--bs-border-width) solid var(--bs-border-color);
@@ -60,42 +56,30 @@ body {
     background-color: var(--bs-warning);
 }
 
-#diffModal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 1050;
-    background-color: rgba(0, 0, 0, 0.5);
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-}
-
-#diffModal.show {
-    display: flex;
-}
-
-#diffDialog {
-    background-color: var(--bs-body-bg);
-    border: var(--bs-border-width) solid var(--bs-border-color);
-    border-radius: var(--bs-border-radius-lg);
-    box-shadow: var(--bs-box-shadow);
-    padding: 1.25rem;
-    width: 100%;
-    max-width: 48rem;
-}
-
-#compareInput {
-    width: 100%;
-    font-family: var(--bs-font-monospace);
-    font-size: 0.9rem;
-    border: var(--bs-border-width) solid var(--bs-border-color);
-    border-radius: var(--bs-border-radius);
-    padding: 0.5rem;
-}
 
 #validationResultBlock .diff-line {
     display: block;
     font-family: var(--bs-font-monospace);
     font-size: 0.9rem;
+}
+
+#editorRow {
+    flex: 1 1 auto;
+    min-height: 280px;
+}
+
+#editorRow > pre {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+#comparePane pre {
+    flex: 1 1 auto;
+    min-height: 0;
+    position: relative;
+    margin: 0;
+    font-family: var(--bs-font-monospace);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius-lg);
+    box-shadow: var(--bs-box-shadow-sm);
 }
