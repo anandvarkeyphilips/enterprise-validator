@@ -4,12 +4,36 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.exnihilo</groupId>
+    <groupId>com.github.anandvarkeyphilips</groupId>
     <artifactId>enterprise-validator</artifactId>
     <version>2.4.0</version>
     <packaging>jar</packaging>
     <name>Enterprise Validator</name>
     <description>Enterprise Validator for YAML, JSON and XML formats and also options for Base64 encoding and decoding</description>
+    <url>https://github.com/anandvarkeyphilips/enterprise-validator</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>anandvarkeyphilips</id>
+            <name>Anand Varkey Philips</name>
+            <email>anandvarkeyphilips@gmail.com</email>
+            <url>https://about.me/anandvarkeyphilips</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/anandvarkeyphilips/enterprise-validator</url>
+        <connection>scm:git:https://github.com/anandvarkeyphilips/enterprise-validator.git</connection>
+        <developerConnection>scm:git:git@github.com:anandvarkeyphilips/enterprise-validator.git</developerConnection>
+    </scm>
 
     <properties>
         <start-class>io.exnihilo.validator.EnterpriseValidator</start-class>
@@ -305,6 +329,15 @@
             </activation>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <!-- Attach the executable fat jar under a classifier so Maven Central
+                                receives the thin library jar as the main artifact. -->
+                            <classifier>boot</classifier>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
