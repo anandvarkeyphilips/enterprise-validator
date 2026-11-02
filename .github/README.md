@@ -13,6 +13,8 @@ validation and manipulation — everything runs locally, no external services ar
 CVE remediation across the dependency tree, OIDC-based CI/CD, Playwright end-to-end tests and the
 Bootstrap 5 UI redesign you see in the screenshot.*
 
+**Java 25 LTS** · **Spring Boot 3.5.16** · **≥ 90% coverage & mutation gates** · **17 Playwright e2e specs** · **OIDC CI/CD → Azure** · **releases on Maven Central**
+
 **Try it live:** https://enterprise-validator.azurewebsites.net/editor
 
 ![Enterprise Validator Suite](https://github.com/anandvarkeyphilips/enterprise-validator/blob/master/.github/README-IMAGES/enterprise-validator.png?raw=true)
@@ -27,17 +29,17 @@ Bootstrap 5 UI redesign you see in the screenshot.*
 * **Share** the editor content by copying it to the clipboard or opening a pre-filled email.
 * **OpenAPI / Swagger UI** documentation of every endpoint at `/swagger-ui.html`.
 
-## How to use
-
-* Click **Validate YAML** / **Validate JSON** to validate the editor content.
-* Click **Format JSON** / **Format XML** to pretty print the editor content.
-* Click **BASE64 Encode** / **BASE64 Decode** to convert the editor content.
-* Click **Share Data** to copy the data to the clipboard or open it in your mail client.
-
 ## Engineering practices
 
 This repo is deliberately run like a production service, not a demo. Everything below is wired
 into the build and CI — nothing is aspirational.
+
+**Reviewing the repo? Five-minute tour:** the quality gates live in
+[`pom.xml`](pom.xml) (JaCoCo and PIT thresholds, formatter), unit tests in
+[`src/test`](src/test/java/io/exnihilo/validator), browser e2e in
+[`e2e/tests/editor.spec.ts`](e2e/tests/editor.spec.ts), the whole pipeline — including the OIDC
+deploy and Maven Central publishing — in [`.github/workflows/ci.yml`](.github/workflows/ci.yml),
+and the modernization story in `git log` since November 2026.
 
 ### Automated quality gates (the build fails without them)
 
@@ -47,7 +49,7 @@ into the build and CI — nothing is aspirational.
 | Line coverage | JaCoCo, enforced in `mvn verify` | ≥ 90% |
 | Mutation testing | PIT (pitest-maven), enforced in `mvn verify` | ≥ 90% mutants killed |
 | Code formatting | google-java-format via formatter-maven-plugin | applied on every build |
-| Browser end-to-end | Playwright, 16 specs driving the real packaged jar | all green |
+| Browser end-to-end | Playwright, 17 specs driving the real packaged jar | all green |
 | API regression | Postman collection, runnable with Newman against any deployment | on release |
 
 A note on **mutation testing**, the strongest of these gates: PIT mutates the production bytecode
@@ -76,17 +78,11 @@ the test suite detects real logic changes, not just that lines were executed.
   stylesheet.
 * All front-end assets are self-hosted — no CDN calls — honouring the offline-enterprise use case.
 
-## Under the hood
+## Stack & running locally
 
-* Java 25 (LTS, Azul Zulu) — pinned via `.sdkmanrc` (`sdk env` selects it automatically)
-* Spring Boot 3.5.16, Maven 3.9.16 via the wrapper (`./mvnw clean verify`)
-* spring-boot-starter-web, spring-boot-starter-freemarker, spring-boot-starter-actuator
-* springdoc-openapi, org.json, snakeyaml, lombok, jackson-databind
-* CI/CD on GitHub Actions: build + coverage/mutation gates, Playwright end-to-end tests,
-  OIDC deploy to Azure App Service (Java 25 runtime), releases published to Maven Central
-* Docker base image: `azul/zulu-openjdk-alpine:25-jre`
-
-## Develop locally
+Spring Boot 3.5.16 (web, freemarker, actuator) with springdoc-openapi, snakeyaml, lombok and
+jackson; Java 25 LTS via SDKMAN; Maven through the wrapper; Docker base image
+`azul/zulu-openjdk-alpine:25-jre`.
 
 ```bash
 sdk env                       # select Zulu JDK 25 (or install: sdk install java 25.0.5.0+8-zulu)
