@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
+// CORS is intentionally open: this is a stateless public validation API with no authentication,
+// cookies or sensitive data, and enterprise deployments must be able to call it from any origin.
+@SuppressWarnings("java:S5122")
 @CrossOrigin(maxAge = 3600)
 @RestController
 @Tag(name = "Validator Service")
