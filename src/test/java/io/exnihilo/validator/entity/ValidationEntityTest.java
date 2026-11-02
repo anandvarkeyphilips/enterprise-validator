@@ -37,7 +37,7 @@ public class ValidationEntityTest {
     // comparisons on the objects is modified.
     assertTrue(x.equals(y) && x.equals(y) && x.equals(y) && x.equals(y));
     // Null check: for any non-null value x, x.equals(null) should return false.
-    assertNotEquals(x, null);
+    assertNotEquals(null, x);
 
     assertEquals(x, y);
     assertEquals(x.hashCode(), y.hashCode());
