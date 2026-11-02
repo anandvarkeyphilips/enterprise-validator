@@ -65,7 +65,10 @@ function resetVisualState() {
 }
 
 function ensureSample(kind) {
-  if (!editor.getValue().trim()) {
+  var current = editor.getValue();
+  if (!current.trim() || Object.keys(SAMPLES).some(function(key) {
+    return SAMPLES[key] === current;
+  })) {
     editor.setValue(SAMPLES[kind], 0);
     editor.clearSelection();
   }
@@ -171,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function actionButton(id, kind, url) {
     document.getElementById(id).addEventListener('click', function() {
       resetVisualState();
+      closeComparePane();
       ensureSample(kind);
       if (url) {
         ajaxCall(url);
@@ -187,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.getElementById('copyData').addEventListener('click', function() {
     resetVisualState();
+    closeComparePane();
     var data = editor.getValue();
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(data).then(function() {
@@ -232,7 +237,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function closeComparePane() {
-    resetVisualState();
     diffMode = null;
     compareEditorElement.classList.add('d-none');
     diffBar.classList.add('d-none');
@@ -244,9 +248,13 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('diffYamlData').addEventListener('click', function() {
     openComparePane('diffYaml');
   });
-  document.getElementById('diffClose').addEventListener('click', closeComparePane);
+  document.getElementById('diffClose').addEventListener('click', function() {
+    resetVisualState();
+    closeComparePane();
+  });
   document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape' && diffMode) {
+      resetVisualState();
       closeComparePane();
     }
   });

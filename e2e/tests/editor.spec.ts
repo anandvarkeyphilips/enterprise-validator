@@ -230,6 +230,31 @@ test.describe('document diff', () => {
     expect(value).toContain('<?xml');
   });
 
+  test('switching from the YAML sample to a JSON action loads the JSON sample', async ({ page }) => {
+    await page.goto('/editor');
+    const initial = await getEditorValue(page);
+    expect(initial).toContain('server:'); // preloaded YAML sample
+    await page.click('#validateJsonData');
+    await expect(page.locator('#validationResultBlock')).toHaveText('Valid JSON!!!');
+    const value = await getEditorValue(page);
+    expect(value.trim().startsWith('{')).toBe(true);
+  });
+
+  test('user content is never replaced by a sample', async ({ page }) => {
+    await setEditorValue(page, 'a: 1\n');
+    await page.click('#validateJsonData');
+    const value = await getEditorValue(page);
+    expect(value).toContain('a: 1');
+  });
+
+  test('moving from diff to validate closes the compare pane', async ({ page }) => {
+    await page.click('#diffYamlData');
+    await expect(page.locator('#compareEditor')).toBeVisible();
+    await page.click('#validateYamlData');
+    await expect(page.locator('#compareEditor')).toBeHidden();
+    await expect(page.locator('#diffBar')).toBeHidden();
+  });
+
   test('validating JSON on an empty editor loads a JSON sample', async ({ page }) => {
     await setEditorValue(page, '');
     await page.click('#validateJsonData');
