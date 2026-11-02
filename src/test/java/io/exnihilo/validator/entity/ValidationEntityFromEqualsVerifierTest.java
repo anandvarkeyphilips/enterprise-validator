@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public class ValidationEntityFromEqualsVerifierTest {
 
   @Test
-  public void newValidationEntity_whenEqual_ThenTrue() {
+  void newValidationEntity_whenEqual_ThenTrue() {
     class ValidationEntityExtended extends ValidationEntity {
       String additionalDetail;
 

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public final class UtilsTest {
 
   @Test
-  public void testConstructorIsPrivate()
+  void testConstructorIsPrivate()
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
     Constructor<Utils> constructor = Utils.class.getDeclaredConstructor();
     assertTrue(Modifier.isPrivate(constructor.getModifiers()));
@@ -21,7 +21,7 @@ public final class UtilsTest {
   }
 
   @Test
-  public void getNumberFromRegexMatcher_whenUserTriesInvalidPage_ThenFail() {
+  void getNumberFromRegexMatcher_whenUserTriesInvalidPage_ThenFail() {
     assertEquals(22, Utils.getNumberFromRegexPattern("line ", ",", "exception at line 22, column 21"));
   }
 }

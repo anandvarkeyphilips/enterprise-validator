@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ValidationEntityTest {
 
   @Test
-  public void newValidationEntityWithBuilder_whenEqual_ThenTrue() {
+  void newValidationEntityWithBuilder_whenEqual_ThenTrue() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
@@ -50,7 +50,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenNotEqual_ThenFalse() {
+  void newValidationEntityWithBuilder_whenNotEqual_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("Custom Input Message").lineNumber(1).columnNumber(2)
@@ -68,7 +68,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenBothAreEqualAndObjectInstances_ThenTrue() {
+  void newValidationEntityWithBuilder_whenBothAreEqualAndObjectInstances_ThenTrue() {
     Object x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22).valid(true)
         .validationMessage("Validation Successful").build();
     Object y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22).valid(true)
@@ -80,7 +80,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityStringWithBuilder_whenSameInstanceToStringsAreCompared_ThenTrue() {
+  void newValidationEntityStringWithBuilder_whenSameInstanceToStringsAreCompared_ThenTrue() {
     String x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22).valid(true)
         .validationMessage("Validation Successful").toString();
     String y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22).valid(true)
@@ -95,7 +95,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenOneIsInstanceAndOtherString_ThenFalse() {
+  void newValidationEntityWithBuilder_whenOneIsInstanceAndOtherString_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     String y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22).valid(true)
@@ -108,7 +108,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenOneIsInstanceAndOtherOneIsAChild_ThenFalse() {
+  void newValidationEntityWithBuilder_whenOneIsInstanceAndOtherOneIsAChild_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
 
@@ -168,7 +168,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenEachMethodIsEqual_ThenTrue() {
+  void newValidationEntityWithBuilder_whenEachMethodIsEqual_ThenTrue() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
@@ -185,7 +185,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenInputMessageNullForOne_ThenFalse() {
+  void newValidationEntityWithBuilder_whenInputMessageNullForOne_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage(null).lineNumber(11).columnNumber(22).valid(true)
@@ -198,7 +198,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenInputMessageNullForBoth_ThenTrue() {
+  void newValidationEntityWithBuilder_whenInputMessageNullForBoth_ThenTrue() {
     ValidationEntity x = ValidationEntity.builder().inputMessage(null).lineNumber(11).columnNumber(22).valid(true)
         .validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage(null).lineNumber(11).columnNumber(22).valid(true)
@@ -211,7 +211,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenInputMessageNotEqual_ThenFalse() {
+  void newValidationEntityWithBuilder_whenInputMessageNotEqual_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
@@ -223,7 +223,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenValidNotEqual_ThenFalse() {
+  void newValidationEntityWithBuilder_whenValidNotEqual_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
@@ -236,7 +236,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenLineNumberNotEqual_ThenFalse() {
+  void newValidationEntityWithBuilder_whenLineNumberNotEqual_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
@@ -249,7 +249,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenColumnNumberNotEqual_ThenFalse() {
+  void newValidationEntityWithBuilder_whenColumnNumberNotEqual_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
@@ -262,7 +262,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenValidationMessageNullForOne_ThenFalse() {
+  void newValidationEntityWithBuilder_whenValidationMessageNullForOne_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
@@ -275,7 +275,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenValidationMessageBothNull_ThenTrue() {
+  void newValidationEntityWithBuilder_whenValidationMessageBothNull_ThenTrue() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage(null).build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
@@ -288,7 +288,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithBuilder_whenValidationMessageNotEqual_ThenFalse() {
+  void newValidationEntityWithBuilder_whenValidationMessageNotEqual_ThenFalse() {
     ValidationEntity x = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
         .valid(true).validationMessage("Validation Successful").build();
     ValidationEntity y = ValidationEntity.builder().inputMessage("inputMessage").lineNumber(11).columnNumber(22)
@@ -300,7 +300,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithAllArgsConstructor_whenEqual_ThenTrue() {
+  void newValidationEntityWithAllArgsConstructor_whenEqual_ThenTrue() {
     ValidationEntity x = new ValidationEntity(true, 11, 22, "inputMessage", "Validation Successful");
     ValidationEntity y = new ValidationEntity(true, 11, 22, "inputMessage", "Validation Successful");
 
@@ -315,7 +315,7 @@ public class ValidationEntityTest {
   }
 
   @Test
-  public void newValidationEntityWithAllArgsConstructor_whenNotEqual_ThenFalse() {
+  void newValidationEntityWithAllArgsConstructor_whenNotEqual_ThenFalse() {
     ValidationEntity x = new ValidationEntity(true, 11, 22, "inputMessage", "Validation Successful");
     ValidationEntity y = new ValidationEntity(false, 1, 1, "Custom inputMessage", "Custom Validation Successful");
 

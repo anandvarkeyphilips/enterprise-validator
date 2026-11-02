@@ -46,13 +46,13 @@ public class EditorControllerUnitTest {
   }
 
   @Test
-  public void index_whenRootUrl_ThenRedirectToEditor() throws Exception {
+  void index_whenRootUrl_ThenRedirectToEditor() throws Exception {
     mockMvc.perform(get("/")).andDo(MockMvcResultHandlers.print()).andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("/editor"));
   }
 
   @Test
-  public void validateYamlController_whenValidYaml_returnTrue() throws Exception {
+  void validateYamlController_whenValidYaml_returnTrue() throws Exception {
     File file = ResourceUtils.getFile("classpath:valid-yaml.yml");
     String inputYamlData = new String(Files.readAllBytes(file.toPath()));
 
@@ -77,7 +77,7 @@ public class EditorControllerUnitTest {
   }
 
   @Test
-  public void validateYamlController_whenInvalidYaml_returnFalse() throws Exception {
+  void validateYamlController_whenInvalidYaml_returnFalse() throws Exception {
     String inputYamlData = "Wrong : Data :";
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
     ValidationEntity outputValidationEntity =
@@ -94,7 +94,7 @@ public class EditorControllerUnitTest {
   }
 
   @Test
-  public void validateJsonController_whenValidYaml_returnTrue() throws Exception {
+  void validateJsonController_whenValidYaml_returnTrue() throws Exception {
     File file = ResourceUtils.getFile("classpath:valid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
@@ -119,7 +119,7 @@ public class EditorControllerUnitTest {
   }
 
   @Test
-  public void formatJsonController_whenValidJson_returnTrue() throws Exception {
+  void formatJsonController_whenValidJson_returnTrue() throws Exception {
     File file = ResourceUtils.getFile("classpath:valid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
@@ -168,7 +168,7 @@ public class EditorControllerUnitTest {
   }
 
   @Test
-  public void formatXmlController_whenValidXml_returnTrue() throws Exception {
+  void formatXmlController_whenValidXml_returnTrue() throws Exception {
     File file = ResourceUtils.getFile("classpath:valid-xml.xml");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
@@ -199,7 +199,7 @@ public class EditorControllerUnitTest {
   }
 
   @Test
-  public void base64EncodeController_whenValidData_returnTrue() throws Exception {
+  void base64EncodeController_whenValidData_returnTrue() throws Exception {
     String inputJsonData = "Anand";
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();
@@ -223,7 +223,7 @@ public class EditorControllerUnitTest {
   }
 
   @Test
-  public void base64DecodeController_whenValidData_returnTrue() throws Exception {
+  void base64DecodeController_whenValidData_returnTrue() throws Exception {
     String inputJsonData = "QW5hbmQ=";
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputJsonData).build();

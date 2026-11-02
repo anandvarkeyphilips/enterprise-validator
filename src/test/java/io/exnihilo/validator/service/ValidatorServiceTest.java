@@ -24,12 +24,12 @@ public class ValidatorServiceTest {
   private IValidatorService validatorService;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     validatorService = new ValidatorService();
   }
 
   @Test
-  public void validateYamlService_whenValidYaml_returnTrue() throws Exception {
+  void validateYamlService_whenValidYaml_returnTrue() throws Exception {
     File file = ResourceUtils.getFile("classpath:valid-yaml.yml");
     String inputYamlData = new String(Files.readAllBytes(file.toPath()));
 
@@ -41,7 +41,7 @@ public class ValidatorServiceTest {
   }
 
   @Test
-  public void validateYamlService_whenInvalidYaml_returnFalse() throws Exception {
+  void validateYamlService_whenInvalidYaml_returnFalse() throws Exception {
     File file = ResourceUtils.getFile("classpath:invalid-yaml.yml");
     String inputYamlData = new String(Files.readAllBytes(file.toPath()));
 
@@ -58,7 +58,7 @@ public class ValidatorServiceTest {
   }
 
   @Test
-  public void validateJsonService_whenValidJson_returnTrue() throws Exception {
+  void validateJsonService_whenValidJson_returnTrue() throws Exception {
     File file = ResourceUtils.getFile("classpath:valid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
@@ -70,7 +70,7 @@ public class ValidatorServiceTest {
   }
 
   @Test
-  public void validateJsonService_whenInvalidJson_returnFalse() throws Exception {
+  void validateJsonService_whenInvalidJson_returnFalse() throws Exception {
     File file = ResourceUtils.getFile("classpath:invalid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
@@ -82,7 +82,7 @@ public class ValidatorServiceTest {
   }
 
   @Test
-  public void formatJsonService_whenValidJson_returnTrue() throws Exception {
+  void formatJsonService_whenValidJson_returnTrue() throws Exception {
     File file = ResourceUtils.getFile("classpath:minified-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
@@ -118,7 +118,7 @@ public class ValidatorServiceTest {
   }
 
   @Test
-  public void formatJsonService_whenInvalidJson_returnFalse() throws Exception {
+  void formatJsonService_whenInvalidJson_returnFalse() throws Exception {
     File file = ResourceUtils.getFile("classpath:invalid-json.json");
     String inputJsonData = new String(Files.readAllBytes(file.toPath()));
 
@@ -130,7 +130,7 @@ public class ValidatorServiceTest {
   }
 
   @Test
-  public void formatXmlService_whenValidXml_returnTrue() throws Exception {
+  void formatXmlService_whenValidXml_returnTrue() throws Exception {
     File file = ResourceUtils.getFile("classpath:valid-xml.xml");
     String inputXmlData = new String(Files.readAllBytes(file.toPath()));
 
@@ -148,7 +148,7 @@ public class ValidatorServiceTest {
   }
 
   @Test
-  public void formatXmlService_whenInvalidXml_returnFalse() throws Exception {
+  void formatXmlService_whenInvalidXml_returnFalse() throws Exception {
     File file = ResourceUtils.getFile("classpath:invalid-xml.xml");
     String inputXmlData = new String(Files.readAllBytes(file.toPath()));
 
@@ -163,7 +163,7 @@ public class ValidatorServiceTest {
   }
 
   @Test
-  public void encodeBase64_whenValidContent_returnTrue() throws Exception {
+  void encodeBase64_whenValidContent_returnTrue() throws Exception {
     String data = "Anand";
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(data).build();
@@ -174,7 +174,7 @@ public class ValidatorServiceTest {
   }
 
   @Test
-  public void decodeBase64_whenValidContent_returnTrue() throws Exception {
+  void decodeBase64_whenValidContent_returnTrue() throws Exception {
     String data = "QW5hbmQ=";
 
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(data).build();

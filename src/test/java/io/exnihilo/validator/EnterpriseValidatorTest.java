@@ -27,7 +27,7 @@ public class EnterpriseValidatorTest {
   private static final String LOGGER_NAME = "io.exnihilo.validator";
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     Logger logger = (Logger) LoggerFactory.getLogger(LOGGER_NAME);
     memoryAppender = new MemoryAppender();
     memoryAppender.setContext((LoggerContext) LoggerFactory.getILoggerFactory());
@@ -37,12 +37,12 @@ public class EnterpriseValidatorTest {
   }
 
   @Test
-  public void contextLoads() {
+  void contextLoads() {
     assertTrue(true);
   }
 
   @Test
-  public void testApplicationStartAndExitLogs() {
+  void testApplicationStartAndExitLogs() {
     EnterpriseValidator enterpriseValidator = new EnterpriseValidator();
     enterpriseValidator.logApplicationStart();
     enterpriseValidator.logApplicationExit();

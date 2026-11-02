@@ -38,12 +38,12 @@ public class EditorControllerIntegrationTest {
   private URL url;
 
   @BeforeEach
-  public void setUp() throws IOException {
+  void setUp() throws IOException {
     url = URI.create("http://localhost:" + port + "/" + servletContext.getContextPath()).toURL();
   }
 
   @Test
-  public void whenUserTrieHomePage_ThenSuccess() {
+  void whenUserTrieHomePage_ThenSuccess() {
     ResponseEntity<String> response = restTemplate.getForEntity(url.toString() + "/editor", String.class);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -51,7 +51,7 @@ public class EditorControllerIntegrationTest {
   }
 
   @Test
-  public void whenUserTriesInvalidPage_ThenFail() {
+  void whenUserTriesInvalidPage_ThenFail() {
     ResponseEntity<String> response = restTemplate.getForEntity(url.toString() + "/invalidPage", String.class);
 
     assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -59,13 +59,13 @@ public class EditorControllerIntegrationTest {
   }
 
   @Test
-  public void whenError_ThenRouteToErrorPage() {
+  void whenError_ThenRouteToErrorPage() {
     ResponseEntity<String> response = restTemplate.getForEntity(url.toString() + "/error", String.class);
     assertTrue(response.getBody().contains("This doesn't happen usually"));
   }
 
   @Test
-  public void whenUserPostValidXML_ThenSuccess() throws IllegalStateException, IOException {
+  void whenUserPostValidXML_ThenSuccess() throws IllegalStateException, IOException {
     File file = ResourceUtils.getFile("classpath:valid-yaml.yml");
     String inputYamlData = new String(Files.readAllBytes(file.toPath()));
     ValidationEntity inputValidationEntity = ValidationEntity.builder().inputMessage(inputYamlData).build();
